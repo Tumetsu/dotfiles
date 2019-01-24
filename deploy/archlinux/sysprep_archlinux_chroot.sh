@@ -485,20 +485,6 @@ function add_sudoers_configuration
 }
 
 
-function dbus_configuration
-{
-    ## notification-daemon package is required
-    ## this is necessary only if your installing i3
-    msg_ok "Configure D-BUS autostart for notification-daemon package"
-    cat <<-EOF > /usr/share/dbus-1/services/org.freedesktop.Notifications.service
-		[D-BUS Service]
-		Name=org.freedesktop.Notifications
-		Exec=/usr/lib/notification-daemon-1.0/notification-daemon
-	EOF
-
-}
-
-
 function add_sysctl_params
 {
     local old_IFS=$IFS
@@ -542,11 +528,9 @@ function install_powerline_fonts
 
 function install_aur_wrapper
 {
-    git clone https://aur.archlinux.org/yay.git /home/${USERNAME}/yay
-    cd /home/${USERNAME}/yay
-    # can't run makepkg as root
-    # makepkg -si --noconfirm
-    sudo -u ${USERNAME} makepk -s --noconfirm
+    sudo -u ${USERNAME} bash -c "git clone https://aur.archlinux.org/yay.git ${HOME}/yay"
+    sudo -u ${USERNAME} bash -c "cd ${HOME}/yay; makepk -s --noconfirm" \
+        && pacman -U --noconfirm /home/${USERNAME}/yay/yay-*-x86_64.pkg.tar.xz
 }
 
 
@@ -554,7 +538,6 @@ function install_aur_packages
 {
     if command -v yay &>/dev/null; then
         ## Install AUR packages
-        # yay --noconfirm -S urxvt-fullscreen
         yay --noconfirm -S systemd-boot-pacman-hook
         yay --noconfirm -S chromium-widevine ## chromium needs this to play protected content
         yay --noconfirm -S dropbox && systemctl --user disable dropbox.service
@@ -638,9 +621,6 @@ configure_lightdm
 
 ## add a pre-filled sudoers file
 # add_sudoers_configuration
-
-## add a notification daemon for DBUS
-#dbus_configuration
 
 ## sysctl configuration options
 add_sysctl_params

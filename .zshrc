@@ -95,6 +95,9 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 
 ##### Load all the goods
+for zsh_config_file in $(ls ~/.zsh/*.zsh); do
+    source ${zsh_config_file} &>/dev/null
+done
 for config_file in $(ls ~/.bash/*.bash); do
     emulate bash -c "source ${config_file} &>/dev/null"
 done
