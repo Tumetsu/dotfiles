@@ -9,6 +9,7 @@ INSTALLDIR=$HOME
 
 MANAGED_FILES=(\
     ~/bin \
+    ~/.zshrc \
     ~/.bash \
     ~/.bash_aliases \
     ~/.vim \
