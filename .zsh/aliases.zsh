@@ -4,6 +4,7 @@
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
+alias -g R='| rg'
 alias -g L="| less"
 alias -g M="| most"
 alias -g LL="2>&1 | less"
