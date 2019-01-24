@@ -1,0 +1,18 @@
+[/]
+foreground-color='#F8F8F8F8F2F2'
+cjk-utf8-ambiguous-width='narrow'
+visible-name='Monokai'
+login-shell=true
+palette=['#757571715E5E', '#F9F926267272', '#A6A6E2E22E2E', '#F4F4BFBF7575', '#6666D9D9EFEF', '#AEAE8181FFFF', '#2A2AA1A19898', '#F9F9F9F9F5F5', '#272728282222', '#F9F926267272', '#A6A6E2E22E2E', '#F4F4BFBF7575', '#6666D9D9EFEF', '#AEAE8181FFFF', '#2A2AA1A19898', '#F9F9F8F9F5F5']
+bold-is-bright=true
+use-system-font=false
+cursor-colors-set=false
+highlight-colors-set=false
+use-theme-colors=false
+font='Droid Sans Mono for Powerline 10'
+scrollback-unlimited=true
+bold-color-same-as-fg=false
+bold-color='#F8F8F8F8F2F2'
+background-color='#262626262626'
+scrollbar-policy='never'
+scrollback-lines=100000

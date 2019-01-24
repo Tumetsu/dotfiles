@@ -1,0 +1,18 @@
+
+#############################
+# Custom markdown snippeets #
+#############################
+
+snippet bpost "Generate a pelican blog post header" b
+---
+title: ${1:Title}
+date: ${2:`date +%Y-%m-%d`} `date +%H:%M:%S`
+Category: ${3:writeups/videos/security}
+tags: ${4:Tags}
+Author: ${5:boogy}
+slug: ${6}
+---
+
+## $1
+
+endsnippet
