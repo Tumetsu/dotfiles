@@ -65,7 +65,7 @@ alias tns='tmux new-session -s'
 alias t-conf='vim ~/.tmux.conf'
 
 ##### directory changing shortcuts
-alias ~="cd ~"
+alias ~='cd ~'
 alias cd-='cd -'
 alias cd..='cd ..'
 alias cd...='cd ../../'
@@ -102,24 +102,24 @@ alias dpkg-extract='dpkg-deb --extract' # dpkg-deb --extract package.deb dir-to-
 ###
 
 [[ "$(uname)" = "Linux" && $(command -v pacman) ]] && {
-alias p-install="sudo pacman -S"
-alias p-remove="sudo pacman -R"
-alias p-update="sudo pacman -Syu"
-alias p-search="pacman -Ss"
-alias p-query-installed="pacman -Qs"
-alias p-query-foreign="pacman -Qm"
-alias p-list-aur-packages="pacman -Qm"
-alias p-show="pacman -Si"
-alias p-clean-cache="sudo pacman -Sc"
+alias p-install='sudo pacman -S'
+alias p-remove='sudo pacman -R'
+alias p-update='sudo pacman -Syu'
+alias p-search='pacman -Ss'
+alias p-query-installed='pacman -Qs'
+alias p-query-foreign='pacman -Qm'
+alias p-list-aur-packages='pacman -Qm'
+alias p-show='pacman -Si'
+alias p-clean-cache='sudo pacman -Sc'
 alias p-clean-orphans='sudo pacman -Rns $(pacman -Qtdq)'
-alias p-list-orphans="pacman -Qtdq"
-alias p-mirror-ranking="(curl -s \"https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on\"|sed -e \"s/^#Server/Server/\" -e \"/^#/d\" | rankmirrors -n 5 -)>/tmp/pacman_mirrorlist"
+alias p-list-orphans='pacman -Qtdq'
+alias p-mirror-ranking='(curl -s \"https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on\"|sed -e \"s/^#Server/Server/\" -e \"/^#/d\" | rankmirrors -n 5 -)>/tmp/pacman_mirrorlist'
 ## AUR aurman
-alias pa-search="yay "
-alias pa-install="yay -S"
-alias pa-install-silent="yay -S --noconfirm"
-alias pa-update="yay -Syu --topdown --cleanafter"
-alias pa-remove="yay -R"
+alias pa-search='yay '
+alias pa-install='yay -S'
+alias pa-install-silent='yay -S --noconfirm'
+alias pa-update='yay -Syu --topdown --cleanafter'
+alias pa-remove='yay -R'
 }
 
 ###
@@ -140,53 +140,22 @@ alias rpmV='rpm -V'
 }
 
 ###
-### Mac OS X aliases
-###
-
-[[ "$(uname)" = "Darwin" && $(command -v brew) ]] && {
-alias b-install="brew install"
-alias b-remove="brew uninstall"
-alias b-search="brew search"
-alias b-cleanup="brew cleanup"
-alias b-outdated="brew outdated"
-alias b-link="brew link"
-alias b-unlink="brew unlink"
-alias b-home="brew home" # open homepage
-alias b-update='brew update && brew upgrade && brew cleanup && brew cask cleanup'
-alias b-upgrade='brew update && brew upgrade cask && brew cleanup && brew cask cleanup'
-alias b-edit="brew edit"
-alias b-doctor="brew doctor"
-alias b-info="brew info"
-alias b-list="brew list"
-alias b-deps="brew deps"
-alias b-latest-casks='cd "/usr/local/Library/Taps/caskroom/homebrew-cask/Casks" && git log --pretty=format: --name-only --since="30 days ago" | egrep "Casks" | uniq'
-alias dsclean='find . -type f -name .DS_Store -delete'
-alias flushdns='dscacheutil -flushcache' # flush dns cache
-alias mute="osascript -e 'set volume output muted true'"
-alias unmute="osascript -e 'set volume output muted false'"
-alias fh="open -a Finder"
-alias showHidenFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-alias mvim='mvim -p --remote-tab-silent'
-}
-
-###
 ### Network related aliases
 ###
 
 alias openports='netstat -nape --inet'
 alias ports='netstat -lapute'
 alias monittcp='sudo watch -n 1 "netstat -tpanl | grep ESTABLISHED"'
-alias listening="sudo lsof -P -i -n"
+alias listening='sudo lsof -P -i -n'
 
 
 ###
 ### Services
 ###
-alias show-enabled-services="sudo systemctl list-unit-files --state enabled"
-alias show-running-services="sudo systemctl list-units --type service --state running"
-alias show-active-services="systemctl -t service --state active"
-alias show-running-services="systemctl -t service --state running"
+alias show-enabled-services='sudo systemctl list-unit-files --state enabled'
+alias show-running-services='sudo systemctl list-units --type service --state running'
+alias show-active-services='systemctl -t service --state active'
+alias show-running-services='systemctl -t service --state running'
 
 
 ###

@@ -143,28 +143,5 @@ PS1+="\[\033[1;33m\] >> \[\033[0m\]"
     ## if using rvm load it
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-} # end linux
-
-
-###
-### Mac OS X specific
-###
-# [ $(uname) = "Darwin" ] && {
-#     export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin"
-#     export PATH="$PATH:$HOME/Library/Python/2.7/bin"
-#     export PATH="$PATH:$(brew --prefix)/Cellar/python/$(brew list python|head -1|cut -d/ -f6)/Frameworks/Python.framework/Versions/Current/bin"
-#     export PATH="$HOME/bin:$PATH"
-#     [ -d /usr/local/opt/coreutils/libexec/gnubin ] && {
-#     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-#     # export MANPATH="$(brew --prefix coreutils)/libexec/gnuman:$MANPATH"
-#     }
-#
-#     export CLICOLOR=1
-#     export LSCOLORS=ExFxCxDxBxegedabagacad
-#     export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-#     export EDITOR=$(which vim)
-#     export VIEW=$(which vim)
-#     export TERM=screen-256color
-#
-# } # end Mac OS X
+}
 
