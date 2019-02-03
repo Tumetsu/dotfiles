@@ -70,6 +70,7 @@ python-virtualenvwrapper
 python-cryptography
 python-jedi
 python-isort
+python-pipenv
 ipython
 pygmentize
 ##
@@ -84,6 +85,7 @@ python2-pylint
 python2-jedi
 python2-isort
 python2-paramiko
+python2-pipenv
 ##
 wpa_supplicant
 lightdm
@@ -163,6 +165,8 @@ termite
 zsh
 zsh-syntax-highlighting
 zsh-autosuggestions
+nfs-utils
+impacket
 ## fonts
 otf-font-awesome
 ttf-font-awesome

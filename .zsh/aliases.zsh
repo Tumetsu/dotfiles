@@ -7,8 +7,11 @@ alias -g G='| grep'
 alias -g R='| rg'
 alias -g L="| less"
 alias -g M="| most"
+alias -g C="| wc -l"
+alias -g PIPE='|'
 alias -g LL="2>&1 | less"
 alias -g CA="2>&1 | cat -A"
+alias -g DN="&> /dev/null"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 alias -g P="2>&1| pygmentize -l pytb"
@@ -20,6 +23,29 @@ alias dud='du -d 1 -h'
 alias duf='du -sh *'
 alias ff='find . -type f -name'
 alias ffd='find . -type d -name'
+alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+
+
+## use delete key to delete
+bindkey "^[[3~"  delete-char
+bindkey "^[3;5~" delete-char
+
+## set zsh word boundary chars
+## for backward delete word or backward-kill-word
+local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>/'
+# my-backward-delete-word() {
+#     # local WORDCHARS=${WORDCHARS/\/./}
+#     local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+#     zle backward-delete-word
+# }
+# zle -N my-backward-delete-word
+# bindkey '^W' my-backward-delete-word
+
+## home and end keys
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+## shift+tab backward menu key
+bindkey '^[[Z' reverse-menu-complete
 
 
 if [[ -n "$BROWSER" ]]; then
@@ -40,4 +66,5 @@ for ft in $_media_fts; do alias -s $ft=mplayer; done
 
 # Make zsh know about hosts already accessed by SSH
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
 

@@ -20,7 +20,7 @@ set   $monitor2      DP2-1
 set   $def_broser            chromium
 set   $pwn_browser           firefox
 set   $def_terminal          termite
-set   $def_terminal_second   gnome-terminal
+set   $def_terminal_second   urxvt
 # set $HDMI1 HDMI1
 # set $HDMI2 HDMI2
 

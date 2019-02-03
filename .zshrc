@@ -1,4 +1,4 @@
-export ZSH="/home/boogy/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
