@@ -20,7 +20,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -36,10 +36,10 @@ ZSH_CUSTOM=$HOME/.zsh/
 plugins=(
     # custom plugins
     aliases
-    archlinux
     directories
     prompt
     expandalias
+    python
 
     # oh-my-zsh plugins
     vi-mode
@@ -56,7 +56,6 @@ plugins=(
     autojump
     fzf
 )
-
 source $ZSH/oh-my-zsh.sh
 
 ##
@@ -83,17 +82,22 @@ test -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
 ## bash files
 ##
 function source_bash {
-  emulate -L bash
-  builtin source "$@"
+    emulate -L bash
+    builtin source "$@"
 }
+bash_config_files=(
+    functions
+    aliases
+    docker
+    ctf
+    git
+)
 
-##
-## Load all the goods
-##
-#
-for config_file in $(ls ${HOME}/.bash/*.bash); do
-    source_bash ${config_file} &>/dev/null
+for config_file in $bash_config_files; do
+    FULL_FILE_PATH="${HOME}/.bash/${config_file}.bash"
+    [ -f $FULL_FILE_PATH ] && source_bash "${FULL_FILE_PATH}" &>/dev/null
 done
+
 test -f ~/.bash_local \
     && source_bash ${HOME}/.bash_local &>/dev/null
 

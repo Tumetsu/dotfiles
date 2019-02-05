@@ -25,10 +25,15 @@ alias ff='find . -type f -name'
 alias ffd='find . -type d -name'
 alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 
-
 ## use delete key to delete
 bindkey "^[[3~"  delete-char
 bindkey "^[3;5~" delete-char
+## shift+tab backward menu key
+bindkey '^[[Z' reverse-menu-complete
+
+## home and end keys
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
 
 ## set zsh word boundary chars
 ## for backward delete word or backward-kill-word
@@ -40,12 +45,6 @@ local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>/'
 # }
 # zle -N my-backward-delete-word
 # bindkey '^W' my-backward-delete-word
-
-## home and end keys
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
-## shift+tab backward menu key
-bindkey '^[[Z' reverse-menu-complete
 
 
 if [[ -n "$BROWSER" ]]; then

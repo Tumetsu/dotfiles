@@ -15,6 +15,7 @@ if command -v exa &>/dev/null; then
     alias llg='ll -G'
 else
     alias ls='ls --color=always'
+    alias ll='ls -l'
     alias sl='ls'
     alias la='ls -Al'          # show hidden files
     alias lx='ls -lXB'         # sort by extension
