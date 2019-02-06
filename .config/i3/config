@@ -732,7 +732,7 @@ $exec_always ~/.config/i3/scripts/launch_polybar.sh
 $exec xhost +local:
 $exec pulseaudio --start
 $exec start-pulseaudio-x11
-$exec thunderbird
+# $exec thunderbird
 $exec blueman-applet
 $exec sleep 6 && /opt/dropbox/dropboxd
 

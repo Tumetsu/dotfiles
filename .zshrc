@@ -40,12 +40,12 @@ plugins=(
     prompt
     expandalias
     python
+    virtualbox
 
     # oh-my-zsh plugins
     vi-mode
     virtualenvwrapper
     vagrant
-    virtualbox
     systemd
     sudo
     tmux

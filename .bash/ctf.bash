@@ -19,7 +19,8 @@ function init-ctf-template
 function get-func-offset
 {
     if test -z $1; then
-        echo "Usage: $0 binfile function_name"
+        echo "Usage: $0 <binary file> <function name>"
+        return 0
     fi
     readelf -s $1|grep $2
 }
@@ -27,7 +28,8 @@ function get-func-offset
 function get-str-offset
 {
     if test -z $1; then
-        echo "Usage: $0 binfile string"
+        echo "Usage: $0 <binary file> <string>"
+        return 0
     fi
     strings -a -tx $1|grep $2
 }
