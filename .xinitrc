@@ -10,7 +10,7 @@
 #loadkeys fr_CH-latin1
 
 export DISPLAY=":0.0"
-xhost +
+xhost +local:
 
 exec pulseaudio --start &
 exec start-pulseaudio-x11

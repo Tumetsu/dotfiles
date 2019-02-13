@@ -4,6 +4,12 @@
 #
 # set -e
 
+if [ "$BASH_VERSION" = '' ] && [ ! $(grep -aq bash /proc/$$/cmdline) ]; then
+    echo "This script must be run in bash !!!"
+    echo "If running with another shell it may cause unespected behaviour ..."
+    return 1
+fi
+
 ## we will need a bigger size for the live environment
 mount -o remount,size=1G /run/archiso/cowspace
 ## and update the mirrors

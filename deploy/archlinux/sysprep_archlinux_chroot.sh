@@ -12,6 +12,12 @@
 ## stop the planet from spinning when an error occurs
 # set -e
 
+if [ "$BASH_VERSION" = '' ] && [ ! $(grep -aq bash /proc/$$/cmdline) ]; then
+    echo "This script must be run in bash !!!"
+    echo "If running with another shell it may cause unespected behaviour ..."
+    return 1
+fi
+
 echo "$(tput setaf 2)[+] Information required for the chroot environment$(tput sgr0)";
 read -p "$(tput setaf 2) [?] Enter hostname:$(tput sgr0)                                              " tmp_HOSTNAME
 read -p "$(tput setaf 2) [?] Enter username:$(tput sgr0)                                              " tmp_USERNAME

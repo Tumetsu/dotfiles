@@ -17,6 +17,7 @@ alias -g NUL="> /dev/null 2>&1"
 alias -g P="2>&1| pygmentize -l pytb"
 
 alias zshrc='${=EDITOR} ~/.zshrc'
+alias zshrc_alias='${=EDITOR} ~/.zsh/aliases.zsh'
 alias src='source ~/.zshrc'
 
 alias dud='du -d 1 -h'

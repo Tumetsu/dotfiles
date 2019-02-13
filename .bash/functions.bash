@@ -5,7 +5,7 @@
 # Set tmux session name with the hostname
 function settitle
 {
-    printf "\033k$1\033\\"
+    printf "\033k${1}\033\\"
 }
 
 
@@ -66,9 +66,9 @@ function show-alias
     fnc=$(show-function $@)
     als=$(show-alias-command $@)
 
-    if [[ $fnc != "" ]]; then
+    if [[ "$fnc" != "" ]]; then
         echo -e "$fnc"
-    elif [[ $als != "" ]]; then
+    elif [[ "$als" != "" ]]; then
         echo -e "$als" | pygmentize -l shell
     else
         echo -e "\e[01;31mNo function or alias found with the name $1\e[0m" >&2
@@ -179,10 +179,6 @@ function repeat
 
 function gen-passwd
 {
-    # Generate a random password with lenght at 10 by default
-    # SIZE=${1:-12}
-    # strings /dev/urandom | grep -o '[[:alnum:]]' | head -n ${SIZE} | tr -d '\n'; echo
-    # pip2 install --upgrade --user passlib
     pip2 show passlib &>/dev/null && \
         python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.using(rounds=5000).hash(getpass.getpass())"
 }
@@ -206,10 +202,6 @@ function killps
 
 function my-ip
 {
-    # MY_NIC="`netstat -in|grep -v Kernel|grep -v Iface|grep -v lo|awk '{print $1}'`"
-    # MY_IP=$(for NIC in $(echo $MY_NIC); do /sbin/ifconfig $NIC | awk '/inet/ { print $2 }' | sed -e s/addr:// ; done)
-    # echo $MY_IP
-    # echo $(ip route get 1 | awk '{print $NF;exit}')
     echo $(ip route get 1 | awk '{print $7;exit}')
 }
 
@@ -219,27 +211,6 @@ function list-ips
     ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {print $2" "$4}'|column -t
 }
 
-
-# function ii
-# {
-#     RED='\e[1;31m'
-#     NC='\e[0m'
-#     if [ -f /etc/redhat-release ]; then
-#         echo -e "\n${RED}System version:$NC"
-#         cat /etc/redhat-release
-#     fi
-#     echo -e "\n${RED}Additionnal information:$NC " ; uname -a
-#     echo -e "\n${RED}System installation date:$NC " ; tune2fs -l $(df -P / | tail -n1 | cut -d' ' -f1 ) | grep 'Filesystem created:'
-#     echo -e "\n${RED}Users logged on:$NC " ; w -h
-#     echo -e "\n${RED}Current date :$NC " ; date
-#     echo -e "\n${RED}Machine stats :$NC " ; uptime
-#     echo -e "\n${RED}Memory stats [ Mb ]:$NC " ; free -m
-#     my_ip 2>&- ;
-#     echo -e "\n${RED}Local IP Address :$NC" ; echo ${MY_IP:-"Not connected"}
-#     echo -e "\n${RED}CPU Model :$NC "; grep "model\|MHz" /proc/cpuinfo |tail -n 2;
-#     echo -e "\n${RED}CPU Number :$NC "; cat /proc/cpuinfo | grep processor | wc -l;
-#     echo
-# }
 
 function extract
 {
@@ -318,9 +289,10 @@ function smartcompress
     fi
 }
 
-function is-reboot-required
+function is-reboot_required
 {
-    if [[ "$(lsb_release -d|awk '{print $2}')" =~ ubuntu|debian ]]
+    if echo "$(cat /etc/os-release|awk -F'=' '/^NAME=.*$/{print $2}'|tr -d '"')" \
+        | grep -Eo "ubuntu|debian"
     then
         if [ -f /var/run/reboot-required ]; then
             echo -e '\e[0;31m[YES]\e[0m reboot required\n'
@@ -330,23 +302,25 @@ function is-reboot-required
     fi
 }
 
-
 function clean-trash
 {
-    TRASH_DIR=""
-    if test -d ~/.Trash ; then
+    local TRASH_DIR=""
+    if test -d "~/.Trash" ; then
         TRASH_DIR=~/.Trash
     else
         TRASH_DIR=~/.local/share/Trash
     fi
 
-    if [[ $# -ge 1 ]] && [[ "$1" =~ ^-f|force|--force|f|F$ ]]; then
+    if [[ $# -ge 1 ]] && [[ $(echo "$1"|grep -Eo "^(-f|force|--force|f|F)$") ]]
+    then
         rm -rf $TRASH_DIR
     else
         tree $TRASH_DIR
         echo -e "${BYellow}Are you sure you want to remove all the files [Y/n]${Color_Off}"
         read ANSWER
-        if [[ "${ANSWER:-y}" =~ ^y|Y$ ]]; then
+
+        if [[ $(echo ${ANSWER:-y} |grep -Eo "^[y|Y]$") ]]
+        then
             rm -rf $TRASH_DIR/* && echo -e "${BGreen}Files removed ...${Color_Off}"
         else
             echo -e "${BGreen}No action to do ...${Color_Off}"
@@ -369,11 +343,4 @@ function open-with-firefox
     done
 }
 
-
-function file-2-base64
-{
-    cat "${1}" | base64 | tr -d '\n'
-    echo
-}
-alias file-to-base64=file-2-base64
 

@@ -114,7 +114,7 @@ alias p-show='pacman -Si'
 alias p-clean-cache='sudo pacman -Sc'
 alias p-clean-orphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias p-list-orphans='pacman -Qtdq'
-alias p-mirror-ranking='(curl -s \"https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on\"|sed -e \"s/^#Server/Server/\" -e \"/^#/d\" | rankmirrors -n 5 -)>/tmp/pacman_mirrorlist'
+alias p-mirror-ranking="(curl -s \"https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on\"|sed -e \"s/^#Server/Server/\" -e \"/^#/d\" | rankmirrors -n 5 -) | sudo tee /etc/pacman.d/mirrorlist"
 ## AUR aurman
 alias pa-search='yay '
 alias pa-install='yay -S'
