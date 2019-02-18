@@ -31,18 +31,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 HIST_STAMPS="mm/dd/yyyy"
-ZSH_CUSTOM=$HOME/.zsh/
+# ZSH_CUSTOM=$HOME/.zsh/
 
 plugins=(
-    # custom plugins
-    aliases
-    directories
-    prompt
-    expandalias
-    python
-    virtualbox
-
-    # oh-my-zsh plugins
     vi-mode
     virtualenvwrapper
     vagrant
@@ -61,23 +52,43 @@ source $ZSH/oh-my-zsh.sh
 ##
 ## User config
 ##
+fpath=($HOME/.zsh/completions $fpath)
+# enable autocomplete function
+autoload -U compinit && compinit
+
 ## disable the XON/XOFF tty flow feature [ctrl-S|ctrl-Q]
 stty -ixon
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH=${PATH}:${HOME}/bin
 export PATH=${PATH}:/home/boogy/.cargo/bin
 export PATH=${PATH}:${HOME}/.local/bin
+export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 export LANG=en_US.UTF-8
 export EDITOR='vim'
 export VIEW='vim'
 export FZF_CTRL_R_OPTS='--reverse'
+export TERM=xterm-256color
+
+zsh_custom_files=(
+    aliases
+    directories
+    prompt
+    expandalias
+    python
+    virtualbox
+    docker
+    ssh
+)
+for zsh_config_file in $zsh_custom_files; do
+    ZSH_FULL_FILE_PATH="${HOME}/.zsh/${zsh_config_file}.zsh"
+    [ -f $FULL_FILE_PATH ] && source "${ZSH_FULL_FILE_PATH}" &>/dev/null
+done
 
 test -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
     && source $_
 test -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
     && source $_
-
 
 ## bash files
 ##
@@ -85,14 +96,13 @@ function source_bash {
     emulate -L bash
     builtin source "$@"
 }
+
 bash_config_files=(
     functions
     aliases
-    docker
     ctf
     git
 )
-
 for config_file in $bash_config_files; do
     FULL_FILE_PATH="${HOME}/.bash/${config_file}.bash"
     [ -f $FULL_FILE_PATH ] && source_bash "${FULL_FILE_PATH}" &>/dev/null

@@ -80,7 +80,6 @@ alias .5='cd ../../../../../'
 ###
 ### debian/ubuntu aliases
 ###
-
 [[ "$(uname)" = "Linux" && $(command -v apt-get) ]] && {
 alias a-search='apt search'
 alias a-install='sudo apt install'
@@ -101,7 +100,6 @@ alias dpkg-extract='dpkg-deb --extract' # dpkg-deb --extract package.deb dir-to-
 ###
 ### Arch Linux
 ###
-
 [[ "$(uname)" = "Linux" && $(command -v pacman) ]] && {
 alias p-install='sudo pacman -S'
 alias p-remove='sudo pacman -R'
@@ -124,26 +122,8 @@ alias pa-remove='yay -R'
 }
 
 ###
-### RedHat/CentOS aliases
-###
-
-[[ -f /etc/redhat-release && $(command -v yum) ]] && {
-alias y-search='yum search'
-alias y-install='sudo yum install -y'
-alias y-purge='sudo yum purge'
-alias y-upgrade='sudo yum update'
-alias y-info='yum info'
-alias y-provides='yum provides'
-alias y-deplist='yum deplist'
-alias y-repos='yum repolist'
-alias rpmqf='rpm -qf'
-alias rpmV='rpm -V'
-}
-
-###
 ### Network related aliases
 ###
-
 alias openports='netstat -nape --inet'
 alias ports='netstat -lapute'
 alias monittcp='sudo watch -n 1 "netstat -tpanl | grep ESTABLISHED"'
@@ -171,7 +151,6 @@ alias nvidia-check32="optirun glxspheres32"
 ###
 ### MISC
 ###
-
 alias dfh='df -h'
 alias grep='grep --color=always'
 alias lesss="$(which less) -R"
@@ -182,10 +161,7 @@ alias cmount="mount | column -t"
 alias 'ps?'='ps -ef | grep -Ei --color=always '
 alias 'ps!'='ps -ef | grep -vEi --color=always '
 alias xclip="xclip -selection c"
-alias show_cpu_model='grep "model\|MHz" /proc/cpuinfo |tail -n 2'
 alias busy='my_file=$(find /usr/include -type f | sort -R | head -n 1); my_len=$(wc -l $my_file | awk "{print $1}"); let "r = $RANDOM % $my_len" 2>/dev/null; vim +$r $my_file'
-alias tree='tree -Csu'     # nice alternative to 'recursive ls'
-alias show_options='shopt'
 alias fix_stty='stty sane'
 alias timestamp="date +%Y%m%d%H%M%S"
 

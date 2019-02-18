@@ -3,6 +3,16 @@
 alias vbox-list-vms="vboxmanage list vms"
 alias vbox-list-running="vboxmanage list runningvms"
 
+function _list_vbox_vms_name
+{
+    vboxmanage list vms|awk -F'"' '{print $2}'
+}
+
+function _list_vbox_vms_uuid
+{
+    vboxmanage list vms|awk '{print $2}'
+}
+
 function start-vagrant-ubuntu
 {
     cd ~/VirtualBoxVMs/ubuntu
@@ -21,6 +31,12 @@ function start-vagrant-kali
     vagrant up && vagrant ssh
 }
 
+function start-vagrant-centos
+{
+    cd ~/VirtualBoxVMs/centos
+    vagrant up && vagrant ssh
+}
+
 function vbox-snapshot-vm
 {
     local UUID=$1
@@ -33,6 +49,8 @@ function vbox-snapshot-vm
     fi
     vboxmanage snapshot $UUID take $SNAME
 }
+compdef '_arguments "1: :($(_list_vbox_vms_name))"' vbox-snapshot-vm
+
 
 function vbox-list-snapshots
 {
@@ -45,6 +63,7 @@ function vbox-list-snapshots
     fi
     vboxmanage snapshot $UUID list --details
 }
+compdef '_arguments "1: :($(_list_vbox_vms_name))"' vbox-list-snapshots
 
 function vbox-restore-snapshot
 {
@@ -69,3 +88,5 @@ function vbox-show-vm-info
     fi
     vboxmanage showvminfo $UUID
 }
+compdef '_arguments "1: :($(_list_vbox_vms_name))"' vbox-show-vm-info
+

@@ -50,7 +50,8 @@ function add_ssh() {
 
 function sshlist() {
     # list hosts defined in ssh config
-    awk '$1 ~ /Host$/ { print $2 }' ~/.ssh/config
+    # awk '$1 ~ /Host$/ { print $2 }' ~/.ssh/config
+    awk '/^Host [^\*]/{print $2}' ~/.ssh/config
 }
 
 export COMP_WORDBREAKS=${COMP_WORDBREAKS/\:/}
