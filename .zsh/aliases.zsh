@@ -33,8 +33,10 @@ bindkey "^[3;5~" delete-char
 bindkey '^[[Z' reverse-menu-complete
 
 ## home and end keys
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
+# bindkey "${terminfo[khome]}" beginning-of-line
+# bindkey "${terminfo[kend]}" end-of-line
+bindkey "\033[1~" beginning-of-line
+bindkey "\033[4~" end-of-line
 
 ## set zsh word boundary chars
 ## for backward delete word or backward-kill-word

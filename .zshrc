@@ -35,14 +35,8 @@ HIST_STAMPS="mm/dd/yyyy"
 
 plugins=(
     vi-mode
-    virtualenvwrapper
-    vagrant
     systemd
     sudo
-    tmux
-    cargo
-    encode64
-    command-not-found
     ssh-agent
     autojump
     fzf
@@ -52,9 +46,28 @@ source $ZSH/oh-my-zsh.sh
 ##
 ## User config
 ##
-fpath=($HOME/.zsh/completions $fpath)
+
+# fpath=($HOME/.zsh/completions $fpath)
 # enable autocomplete function
-autoload -U compinit && compinit
+# autoload -U compinit && compinit
+
+HISTFILE="$HOME/.zhistory"
+HISTSIZE=10000
+SAVEHIST=10000
+
+# setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+# setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+# setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+# setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+# setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+# setopt SHARE_HISTORY             # Share history between all sessions.
+# setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+# setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+# setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+# setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+# setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 
 ## disable the XON/XOFF tty flow feature [ctrl-S|ctrl-Q]
 stty -ixon
@@ -80,15 +93,13 @@ zsh_custom_files=(
     docker
     ssh
 )
+ZSH_FULL_FILE_PATH="${HOME}/.zsh/"
 for zsh_config_file in $zsh_custom_files; do
-    ZSH_FULL_FILE_PATH="${HOME}/.zsh/${zsh_config_file}.zsh"
-    [ -f $FULL_FILE_PATH ] && source "${ZSH_FULL_FILE_PATH}" &>/dev/null
+    source "${ZSH_FULL_FILE_PATH}/${zsh_config_file}.zsh" &>/dev/null
 done
 
-test -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
-    && source $_
-test -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
-    && source $_
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## bash files
 ##
@@ -103,11 +114,9 @@ bash_config_files=(
     ctf
     git
 )
+BASH_FULL_FILE_PATH="${HOME}/.bash/"
 for config_file in $bash_config_files; do
-    FULL_FILE_PATH="${HOME}/.bash/${config_file}.bash"
-    [ -f $FULL_FILE_PATH ] && source_bash "${FULL_FILE_PATH}" &>/dev/null
+    source_bash "${BASH_FULL_FILE_PATH}/${config_file}.bash" &>/dev/null
 done
-
-test -f ~/.bash_local \
-    && source_bash ${HOME}/.bash_local &>/dev/null
+source_bash ${HOME}/.bash_local &>/dev/null
 

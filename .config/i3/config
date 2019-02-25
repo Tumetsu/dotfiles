@@ -303,7 +303,7 @@ bindsym $sup+w $exec ~/.local/bin/quickswitch.py
 
 ## Enable or disable borders on active window
 bindsym $mod+semicolon $exec i3-msg border normal 0
-bindsym --release $mod+Shift+semicolon exec i3-msg border none
+bindsym --release $mod+Shift+semicolon exec i3-msg border pixel 2
 
 
 ## Scratchpad shortcuts
@@ -517,7 +517,7 @@ set $indicator           #00ff00
 
 # window colors
 #                       border             background         text                  indicator
-client.focused          $bg-color          $bg-color3         $text-color           $indicator
+client.focused          $bg-color          $bg-color6         $text-color           $indicator
 client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color  $indicator
 client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color  $indicator
 client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color           $indicator
@@ -534,8 +534,8 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 ##########################################################################
 
 # bar {
-#     font pango:Ubuntu Mono derivative Powerline, FontAwesome 9
-#     status_command /home/boogy/.config/i3/scripts/i3status-rs /home/boogy/.config/i3/i3status-rust.toml
+#     font pango:Ubuntu Mono derivative Powerline, FontAwesome 12
+#     status_command i3blocks -c ~/.config/i3/i3blocks.conf
 #     tray_output primary
 #     output primary
 #     position top
@@ -694,9 +694,6 @@ $exec /usr/bin/gnome-keyring-daemon --start --daemonize --components=secrets,ssh
 $exec xrdb -merge ~/.Xresources
 
 ## enable screen autolock after 10 minutes
-# $exec xautolock -time 10 -detectsleep -locker "~/.config/i3/scripts/lock" \
-#     -notify 30 \
-#     -notifier "notify-send -i ~/.config/i3/images/lock2.png -t 5000 Screenlock 'The screen will be locked in 30 seconds'"
 $exec xautolock -time 10 -detectsleep -locker "~/.config/i3/scripts/lock"
 
 ## start network manager
