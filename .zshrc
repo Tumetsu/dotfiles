@@ -35,7 +35,6 @@ HIST_STAMPS="mm/dd/yyyy"
 
 plugins=(
     vi-mode
-    systemd
     sudo
     ssh-agent
     autojump
@@ -84,12 +83,13 @@ export FZF_CTRL_R_OPTS='--reverse'
 export TERM=xterm-256color
 
 zsh_custom_files=(
-    aliases
     directories
-    prompt
     expandalias
-    python
     virtualbox
+    systemd
+    aliases
+    prompt
+    python
     docker
     ssh
 )
@@ -111,7 +111,6 @@ function source_bash {
 bash_config_files=(
     functions
     aliases
-    ctf
     git
 )
 BASH_FULL_FILE_PATH="${HOME}/.bash/"
