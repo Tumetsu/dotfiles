@@ -12,9 +12,9 @@
     "percent": 1,
     "swallows": [
         {
-            "class": "^WORK$",
-            "instance": "^termite$",
-            "title": "^WORK$"
+            "class": "^WORK.*$",
+            "instance": "^termite.*$",
+            "title": "^WORK.*$"
         }
     ],
     "type": "con"

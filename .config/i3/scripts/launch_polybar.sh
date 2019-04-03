@@ -1,10 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # MONITOR1="$(xrandr --listmonitors | grep "0:" | cut -d ' ' -f6)"
 # MONITOR2="$(xrandr --listmonitors | grep "1:" | cut -d ' ' -f6)"
 
 # Terminate already running bar instances
-sleep 4
+sleep 3
 killall -q polybar
 
 # Wait until the processes have been shut down

@@ -13,23 +13,22 @@
             "type": "con",
             "nodes": [
                 {
-                    "border": "pixel",
-                    "current_border_width": 1,
+                    "border": "none",
+                    "current_border_width": 2,
                     "floating": "auto_off",
                     "geometry": {
-                       "height": 1060,
-                       "width": 1920,
+                       "height": 1038,
+                       "width": 1019,
                        "x": 0,
-                       "y": 20
+                       "y": 0
                     },
-                    "name": "Home",
+                    "name": "^.*$",
                     "percent": 1,
                     "swallows": [
                        {
-                        "class": "^(?i)Nautilus$",
-                        "instance": "^(?i)nautilus$",
-                        "title": "^.*$",
-                        "transient_for": "^$"
+                        "class": "^Org\\.gnome\\.Nautilus$",
+                        "instance": "^org\\.gnome\\.Nautilus$",
+                        "title": "^.*$"
                        }
                     ],
                     "type": "con"
@@ -37,30 +36,29 @@
             ]
         },
         {
-            "border": "1one",
+            "border": "pixel",
             "floating": "auto_off",
             "layout": "tabbed",
             "percent": 0.4671875,
             "type": "con",
             "nodes": [
                 {
-                    "border": "pixel",
-                    "current_border_width": 1,
+                    "border": "none",
+                    "current_border_width": 2,
                     "floating": "auto_off",
                     "geometry": {
-                       "height": 1060,
-                       "width": 1920,
+                       "height": 1038,
+                       "width": 1019,
                        "x": 0,
                        "y": 0
                     },
-                    "name": "Home",
+                    "name": "^.*$",
                     "percent": 1,
                     "swallows": [
                        {
-                        "class": "^(?i)Nautilus$",
-                        "instance": "^(?i)nautilus$",
-                        "title": "^.*$",
-                        "transient_for": "^$"
+                        "class": "^Org\\.gnome\\.Nautilus$",
+                        "instance": "^org\\.gnome\\.Nautilus$",
+                        "title": "^.*$"
                        }
                     ],
                     "type": "con"

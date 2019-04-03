@@ -8,7 +8,10 @@ displayCount=$(xrandr -q|grep " connected"|wc -l)
 intDisplay=$(xrandr -q | grep " connected" | grep "eDP1" | awk '{print $1}')
 extDisplays=($(xrandr -q | grep " connected" |  grep -P "DP(.*)-[0-9]" | awk '{print $1}'))
 
-export POLYBAR_PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
+if [ -z "$POLYBAR_PRIMARY_MONITOR" ]; then
+    export POLYBAR_PRIMARY_MONITOR=$(xrandr | grep primary | cut -d ' ' -f 1)
+fi
+
 echo "Monitor count: ${displayCount} -> Int: ${intDisplay} | Ext: ${extDisplays[*]}"
 echo "Primary moinitor: ${POLYBAR_PRIMARY_MONITOR}"
 sleep 2

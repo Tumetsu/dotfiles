@@ -206,7 +206,8 @@ bindsym $mod+Shift+a focus parent
 
 ## restart i3 inplace
 bindsym $mod+Shift+r restart
-bindsym $sup+Shift+r $exec polybar-msg cmd restart
+# bindsym $sup+Shift+r $exec polybar-msg cmd restart
+bindsym $sup+Shift+r $exec ~/.config/i3/scripts/launch_polybar.sh
 ## reload the configuration file
 bindsym $mod+Shift+c reload
 
@@ -303,7 +304,7 @@ bindsym $sup+s $exec rofi -show ssh -show-icons -opacity "90" -bw 1 -bc "$bg-col
 bindsym $sup+w $exec ~/.local/bin/quickswitch.py
 
 ## Enable or disable borders on active window
-bindsym $mod+semicolon $exec i3-msg border normal 0
+bindsym $mod+semicolon $exec i3-msg border normal 2
 bindsym --release $mod+Shift+semicolon exec i3-msg border pixel 2
 
 
@@ -412,17 +413,19 @@ bindsym Control+$mod+Delete mode "$mode_system"
 ##########################################################################
 
 ## Press $mod+o followed by either f, c, Esc or Return to launch firefox,
-set $mode_launcher Launch: [C]hrome [F]irefox [K]eepass2 [V]VMWare [A]arandr [L]xappearance [P]avucontrol
+set $mode_launcher Launch: \
+ [C]hromium [F]irefox [K]eepass2 [V]VMWare [B]VirtualBox [A]arandr [L]xappearance [P]avucontrol
 mode "$mode_launcher" {
     bindsym f $exec firefox       , mode "default"
-    bindsym c $exec google-chrome , mode "default"
+    bindsym c $exec chromium      , mode "default"
     bindsym k $exec keepass2      , mode "default"
-    bindsym k $exec vmware        , mode "default"
+    bindsym v $exec vmware        , mode "default"
+    bindsym b $exec VirtualBox    , mode "default"
     bindsym a $exec arandr        , mode "default"
     bindsym l $exec lxappearance  , mode "default"
     bindsym p $exec pavucontrol   , mode "default"
 
-    bindsym Esc mode "default"
+    bindsym Escape mode "default"
     bindsym Return mode "default"
 }
 bindsym $mod+o mode "$mode_launcher"
@@ -456,10 +459,6 @@ bindsym $mod+r mode "resize"
 ## choose xrandr displaymode
 set $mode_display Display mode: [d] Dock mode, [l] Laptop only
 mode "$mode_display" {
-    # bindsym d $exec bash ~/.config/i3/scripts/display dual4k, \
-    #     workspace $ws1, move workspace to output $laptop, \
-    #     workspace $ws2, move workspace to output $monitor, \
-    #     mode "default"
     bindsym d $exec bash ~/.config/i3/scripts/dock.sh, \
         workspace $ws1, move workspace to output $laptop, \
         workspace $ws2, move workspace to output $monitor, \
@@ -696,14 +695,15 @@ $exec /usr/bin/gnome-keyring-daemon --start --daemonize --components=secrets,ssh
 $exec xrdb -merge ~/.Xresources
 
 ## enable screen autolock after 10 minutes
-$exec xautolock -time 10 -detectsleep -locker "~/.config/i3/scripts/lock"
+#$exec xautolock -time 10 -detectsleep -locker "~/.config/i3/scripts/lock"
 
 ## start network manager
 # $exec volumeicon
 $exec nm-applet
 
 ## get tranparent rofi background
-$exec compton -bcCGf --no-fading-openclose --sw-opti
+# $exec compton -bcCGf --no-fading-openclose --sw-opti
+$exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
 
 ## Enable touchpad horizontal Scrolling
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Two-Finger Scrolling" 1 1
@@ -741,6 +741,7 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
 $exec i3-msg "workspace $ws2; append_layout ~/.config/i3/screenlayout/workspace_2.json"
 $exec i3-msg "workspace $ws4; append_layout ~/.config/i3/screenlayout/workspace_4.json"
+#$exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_7.json"
 
 ## open default apps and move them to the desired workspace
 # $exec i3-msg "workspace $ws1; exec --no-startup-id alacritty --class=WORK --title=WORK -e tmux new -s WORK"

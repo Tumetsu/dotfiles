@@ -16,8 +16,8 @@ background = #2f343f
 background-alt = #006599
 foreground = #dfdfdf
 foreground-alt = #555
-; primary = #ffb52a
-primary = #2f343f
+primary = #ffb52a
+primary2 = #2f343f
 secondary = #e60053
 alert = #bd2c40
 
@@ -157,7 +157,8 @@ type = internal/bspwm
 
 label-focused = %index%
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
+## color for mode menus
+label-focused-underline= ${colors.primary2}
 label-focused-padding = 2
 
 label-occupied = %index%

@@ -39,6 +39,7 @@ plugins=(
     ssh-agent
     autojump
     fzf
+    virtualenvwrapper
 )
 source $ZSH/oh-my-zsh.sh
 

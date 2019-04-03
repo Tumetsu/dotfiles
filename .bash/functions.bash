@@ -95,6 +95,12 @@ function random-number
     echo $[RANDOM%${1}+1]
 }
 
+function gen-uuid
+{
+    # echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+    echo $(python3 -c 'import uuid;print(uuid.uuid1())')
+}
+
 function lsg
 {
     keyword=$(echo "$@" |  sed 's/ /.*/g')
