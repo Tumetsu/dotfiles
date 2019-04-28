@@ -1,15 +1,17 @@
 [options]
+font = Cousine for Powerline 10
+
 allow_bold = true
 audible_bell = false
 bold_is_bright = true
-clickable_url = true
+clickable_url = false
 dynamic_title = true
-font = Cousine for Powerline 10
 fullscreen = true
 icon_name = terminal
-mouse_autohide = false
+mouse_autohide = true
 scroll_on_output = false
 scroll_on_keystroke = true
+
 # Length of the scrollback buffer, 0 disabled the scrollback buffer
 # and setting it to a negative value means "infinite scrollback"
 scrollback_lines = 100000
@@ -58,6 +60,9 @@ foreground_bold     = #f5f4f1
 cursor              = #f5f4f1
 cursor_foreground   = #272822
 background          = #262626
+
+# terminal transparency
+# background = rgba(30, 30, 30, 0.8)
 
 # 16 color space
 

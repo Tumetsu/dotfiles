@@ -1,5 +1,8 @@
 #!/use/bin/env zsh
 
+alias ipa='ip -c=always a s'
+alias ipaj="ip -j a s|jq -c '.[]|select(.ifname|match(\"(eth[0-9]{1})\")).addr_info[0].local'|tr -d '\"'"
+
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
@@ -25,6 +28,7 @@ alias duf='du -sh *'
 alias ff='find . -type f -name'
 alias ffd='find . -type d -name'
 alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+alias go-root="sudo -u root -s"
 
 ## use delete key to delete
 bindkey "^[[3~"  delete-char

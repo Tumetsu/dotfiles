@@ -84,7 +84,7 @@ font-6 = "Ubuntu Mono derivative Powerline:size=8;1"
 modules-left = i3
 ; modules-center = bitcoin litecoin ethereum
 ; modules-right = powermenu filesystem xbacklight volume bluetooth memory cpu wlan eth battery date
-modules-right = powermenu filesystem xbacklight volume bluetooth memory cpu wlan eth battery date
+modules-right = powermenu xbacklight volume bluetooth memory cpu wlan eth battery date
 
 ; Position of the system tray window
 ; If empty or undefined, tray support will be disabled

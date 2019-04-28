@@ -4,6 +4,9 @@ OUTPUT1="eDP1"
 OUTPUT2="DP2-1"
 OUTPUT3="DP1-2"
 
+OUTPUT2_POS=0x560 #OR 0x1080
+OUTPUT3_POS=1920x0
+
 if [ "$1" = "dual4k" ]; then
     xrandr --output VIRTUAL1 --off \
         --output eDP1 --primary --mode 1920x1080 --pos 0x1080 --rotate normal \
@@ -37,8 +40,8 @@ if [ "$1" = "2" ]; then
         --output DP2-3 --off \
         --output HDMI1 --off \
         --output DP1-3 --off \
-        --output $OUTPUT2 --primary --mode 1920x1080 --pos 0x1080 --rotate normal \
-        --output $OUTPUT3 --mode 3840x2160 --pos 1920x0 --rotate normal \
+        --output $OUTPUT2 --primary --mode 1920x1080 --pos $OUTPUT2_POS --rotate normal \
+        --output $OUTPUT3 --mode 3840x2160 --pos $OUTPUT3_POS --rotate normal \
         --output DP-1-1 --off \
         --output DP2 --off
 fi
@@ -57,4 +60,3 @@ if [ "$1" = "3" ]; then
         --output DP1-1 --off \
         --output DP2 --off
 fi
-#xrandr --output $LAPTOP --auto --right-of $MONITOR --output $MONITOR --mode 3840x2160

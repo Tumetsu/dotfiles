@@ -13,7 +13,7 @@
     "editor.quickSuggestionsDelay": 10,
     "editor.autoClosingBrackets": "always",
     "editor.cursorStyle": "line-thin",
-    "editor.tabCompletion": "on",
+    "editor.tabCompletion": "onlySnippets",
     "editor.fontWeight": "normal",
     "editor.minimap.maxColumn": 300,
     "editor.wordWrapColumn": 80,
@@ -36,21 +36,51 @@
         "<C-j>": false,
         // enable zenmode CTRL+k+z
         "<C-k>": false,
-        "<C-o>": false
+        "<C-o>": false,
     },
     // Remapped keys in insert mode. Allows mapping to vim commands or vscode actions. See README for more.
     "vim.insertModeKeyBindings": [
         // bind jj to <ESC> in insert mode
         {
-            "before": ["j", "j"],
-            "after": ["<Esc>"]
+            "before": [ "j", "j" ],
+            "after": [ "<Esc>" ]
         },
         {
-            "before": ["k", "k"],
-            "after": ["<Esc>"]
+            "before": [ "k", "k" ],
+            "after": [ "<Esc>" ]
         },
         {
-            "before": ["C-d"],
+            "before": [ "C-v" ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "editor.action.clipboardPasteAction",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [ "C-x" ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "editor.action.clipboardCutAction",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [ "C-c" ],
+            "after": [],
+            "commands": [
+                {
+                    "command": "editor.action.clipboardCopyAction",
+                    "args": []
+                }
+            ]
+        },
+        {
+            "before": [ "C-d" ],
             "after": [],
             "commands": [
                 {
@@ -60,7 +90,7 @@
             ]
         },
         {
-            "before": ["C-k", "C-d"],
+            "before": [ "C-k", "C-d" ],
             "after": [],
             "commands": [
                 {
@@ -69,6 +99,51 @@
                 }
             ]
         }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [ "<leader>", "d" ],
+            "after": [ "d", "d" ]
+        },
+        {
+            // "before": [ "<C-n>" ],
+            "before": [ "<leader>", "<Enter>" ],
+            "commands": [ ":nohl" ]
+        },
+        {
+            "before": [";"],
+            "commands": [
+                "workbench.action.showCommands",
+            ]
+        },
+        {
+            "before": ["Z", "Z"],
+            "commands": [ ":wq" ]
+        },
+        {
+            "before": ["<leader>", "w"],
+            "commands": [ "workbench.action.files.save", ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [ "<Delete>",],
+            "commands": [ "editor.action.deleteLines"],
+        },
+        // Bind p in visual mode to paste without overriding the current register
+        {
+            "before": [ "p", ],
+            "after": [ "p", "g", "v", "y" ]
+        },
+        // Bind > and < in visual mode to indent/outdent lines (repeatable)
+        {
+            "before": [ ">" ],
+            "commands": [ "editor.action.indentLines" ]
+        },
+        {
+            "before": [ "<" ],
+            "commands": [ "editor.action.outdentLines" ]
+        },
     ],
     // Allow VSCodeVim to change status bar color based on mode
     "vim.statusBarColorControl": true,
@@ -180,8 +255,8 @@
     "terminal.integrated.fontFamily": "Ubuntu Mono derivative Powerline",
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.lineHeight": 1.2,
-    "terminal.external.linuxExec": "gnome-terminal",
-    "terminal.integrated.shell.linux": "bash",
+    "terminal.external.linuxExec": "termite",
+    "terminal.integrated.shell.linux": "/usr/sbin/zsh",
     "terminal.integrated.scrollback": 100000,
     //
     // TELEMETRY
@@ -212,29 +287,6 @@
     },
     "workbench.startupEditor": "newUntitledFile",
     //
-    // Markdown-pdf
-    //
-    // Output format: pdf, html, png, jpeg
-    "markdown-pdf.type": "pdf",
-    "markdown-pdf.orientation": "portrait",
-    "markdown-pdf.highlight": true,
-    "markdown-pdf.breaks": true,
-    "markdown-pdf.styles": [
-        ".vscode/github.css",
-        ".vscode/github-gist.css",
-        ".vscode/googlecode.css",
-        ".vscode/gruvbox-dark.css",
-        ".vscode/hybrid.css",
-        ".vscode/solarized-dark.css",
-        ".vscode/solarized-light.css",
-        ".vscode/monokai.css",
-        ".vscode/monokai-sublime.css"
-    ],
-    "markdown-pdf.highlightStyle": "github.css",
-    // "markdown-pdf.highlightStyle": "github-gist.css",
-    // "markdown-pdf.highlightStyle": "monokai-sublime.css",
-    // "markdown-pdf.highlightStyle": "googlecode.css",
-    //
     //EXPLORER CONFIG
     //
     "explorer.autoReveal": false,
@@ -247,7 +299,23 @@
     "rust.racerPath": "/home/boogy/.cargo/bin/racer",
     "rust.rustfmtPath": "/home/boogy/.cargo/bin/rustfmt",
     "rust.rustsymPath": "/home/boogy/.cargo/bin/rustsym",
+    "rust.mode": "rls",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "markdown-pdf.executablePath": "/usr/sbin/chromium",
+    "markdown-pdf.highlightStyle": "monokai.css",
+    "[markdown]": {},
+    "[json]": {},
+    "[jsonc]": {},
+    //
+    // Python config
+    //
     "python.sortImports.path": "/usr/sbin/isort",
-    "python.pythonPath": "/usr/sbin/python2",
+    "python.pythonPath": "/usr/bin/python2",
     "python.jediPath": "/usr/lib/python3.7/site-packages/jedi",
+    "python.jediEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "markdown-pdf.breaks": true,
+    "terminal.integrated.shell.osx": "/usr/sbin/zsh",
+    "terminal.integrated.copyOnSelection": true
 }
