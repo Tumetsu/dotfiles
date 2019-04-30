@@ -27,6 +27,13 @@ else
     alias lr='ls -lR'          # recursive ls
     alias lsdirs="ls -l | grep --color=always '^d'"
 fi
+##### colors
+red=$(tput setaf 1)      # Issues/Errors
+green=$(tput setaf 2)    # Success
+yellow=$(tput setaf 3)   # Warnings/Information
+blue=$(tput setaf 4)     # Heading
+bold=$(tput bold  setaf 7)     # Highlight
+reset=$(tput setaf 7)       # Norma
 
 ##### safety features
 alias cp='cp -i'
@@ -179,6 +186,7 @@ alias kill-autolock="kill -9 $(pgrep xautolock)"
 alias disable-hugepages="echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled"
 alias cups-start="sudo systemctl start org.cups.cupsd.service"
 alias cups-stop="sudo systemctl stop org.cups.cupsd.service"
+alias socks-create="ssh -f -N -D 1080"
 
 ## keyboard aliases
 ##

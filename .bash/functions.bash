@@ -349,4 +349,7 @@ function open-with-firefox
     done
 }
 
-
+function file-to-hex()
+{
+    od -A n -t x1 $1|sed 's/ *//g'|tr -d '\n';echo
+}
