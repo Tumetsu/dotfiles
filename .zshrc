@@ -83,6 +83,9 @@ export VIEW='vim'
 export FZF_CTRL_R_OPTS='--reverse'
 export TERM=xterm-256color
 
+export PYTHONSTARTUP=~/.pythonrc.py
+# export PYTHONSTARTUP="$(python -m jedi repl)"
+
 zsh_custom_files=(
     directories
     expandalias

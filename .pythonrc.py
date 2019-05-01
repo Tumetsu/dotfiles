@@ -1,18 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import print_function
 import os
 import sys
-try:
-    import readline
-except ImportError:
-    print("Unable to load readline module.")
-else:
-    import rlcompleter
-    if 'libedit' in readline.__doc__:
-        readline.parse_and_bind("bind ^I rl_complete")
-    else:
-        readline.parse_and_bind("tab: complete")
 
-sys.path.append(os.path.expanduser("~/bin"))
-from mylib import *
+try:
+    sys.path.append(os.path.expanduser("~/bin"))
+    import mylib
+except:
+    pass
+
+try:
+    from jedi.utils import setup_readline
+    setup_readline()
+except ImportError:
+    # Fallback to the stdlib readline completer if it is installed.
+    # Taken from http://docs.python.org/2/library/rlcompleter.html
+    print("Jedi is not installed, falling back to readline")
+    try:
+        import readline
+        import rlcompleter
+        # readline.parse_and_bind("tab: complete")
+        if 'libedit' in readline.__doc__:
+            readline.parse_and_bind("bind ^I rl_complete")
+        else:
+            readline.parse_and_bind("tab: complete")
+    except ImportError:
+        print("Readline is not installed either. No tab completion is enabled.")
