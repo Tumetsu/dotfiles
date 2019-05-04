@@ -82,8 +82,6 @@ for config_file in $(ls "${ROOT_DIR}"/.bash/*.bash); do
     # time source $config_file
     source $config_file
 done
-# Load a local config file
-test -f ~/.bash_local && source $_
 
 ###
 ### Bash general configurations
@@ -143,5 +141,7 @@ PS1+="\[\033[1;33m\] >> \[\033[0m\]"
     ## if using rvm load it
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
+    ## overwriting option with the local file
+    test -f ~/.bash_local && source $_
 }
 
