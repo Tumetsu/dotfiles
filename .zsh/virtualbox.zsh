@@ -16,19 +16,21 @@ function _list_vbox_vms_uuid
 
 function start-vagrant
 {
+    USERINPUT=$1
     VBOXES=($(ls -d ${vagrant_box_path}/*))
-    for vbox in "${VBOXES[@]}"; do
-        if echo $1|grep -qEo "${vbox##*/}"; then
-            echo "$(tput setaf 2)[+] INFO: starting vm ${1}$(tput sgr0)"
-            cd "${vagrant_box_path}/${vbox##*/}"
+    for vbox in "${VBOXES[@]##*/}"
+    do
+        if echo ${USERINPUT}|grep -qEo "^${vbox}$"
+        then
+            echo "$(tput setaf 2)[+] INFO: starting vm [ ${USERINPUT} ]$(tput sgr0)"
+            cd "${vagrant_box_path}/${vbox}"
             vagrant up
             vagrant ssh
-            break
-        else
-            echo "$(tput setaf 1)[!] ERROR: No VM with that name found$(tput sgr0)"
-            break
+            return 0
         fi
     done
+    echo "$(tput setaf 1)[!] ERROR: [$USERINPUT] No VM with that name found$(tput sgr0)"
+    return 1
 }
 compdef '_arguments "1: :($(ls ${vagrant_box_path}))"' start-vagrant
 
@@ -45,7 +47,6 @@ function vbox-snapshot-vm
     vboxmanage snapshot $UUID take $SNAME
 }
 compdef '_arguments "1: :($(_list_vbox_vms_name))"' vbox-snapshot-vm
-
 
 function vbox-list-snapshots
 {
