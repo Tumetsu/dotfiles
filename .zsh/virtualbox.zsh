@@ -1,4 +1,5 @@
 ## virtualbox shortcuts
+vagrant_box_path="$HOME/dotfiles/deploy/vagrant/"
 
 alias vbox-list-vms="vboxmanage list vms"
 alias vbox-list-running="vboxmanage list runningvms"
@@ -13,29 +14,23 @@ function _list_vbox_vms_uuid
     vboxmanage list vms|awk '{print $2}'
 }
 
-function start-vagrant-ubuntu
+function start-vagrant
 {
-    cd ~/VirtualBoxVMs/ubuntu
-    vagrant up && vagrant ssh
+    VBOXES=($(ls -d ${vagrant_box_path}/*))
+    for vbox in "${VBOXES[@]}"; do
+        if echo $1|grep -qEo "${vbox##*/}"; then
+            echo "$(tput setaf 2)[+] INFO: starting vm ${1}$(tput sgr0)"
+            cd "${vagrant_box_path}/${vbox##*/}"
+            vagrant up
+            vagrant ssh
+            break
+        else
+            echo "$(tput setaf 1)[!] ERROR: No VM with that name found$(tput sgr0)"
+            break
+        fi
+    done
 }
-
-function start-vagrant-arch
-{
-    cd ~/VirtualBoxVMs/archlinux
-    vagrant up && vagrant ssh
-}
-
-function start-vagrant-kali
-{
-    cd ~/VirtualBoxVMs/kali
-    vagrant up && vagrant ssh
-}
-
-function start-vagrant-centos
-{
-    cd ~/VirtualBoxVMs/centos
-    vagrant up && vagrant ssh
-}
+compdef '_arguments "1: :($(ls ${vagrant_box_path}))"' start-vagrant
 
 function vbox-snapshot-vm
 {
