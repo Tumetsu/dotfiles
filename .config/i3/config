@@ -729,7 +729,7 @@ $exec vim +qall!
 $exec_always ~/.config/i3/scripts/launch_polybar.sh
 
 $exec xhost +local:
-$exec pulseaudio --start
+$exec sleep 1 && pulseaudio --start
 $exec start-pulseaudio-x11
 # $exec thunderbird
 $exec blueman-applet
@@ -741,7 +741,6 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
 $exec i3-msg "workspace $ws2; append_layout ~/.config/i3/screenlayout/workspace_2.json"
 $exec i3-msg "workspace $ws4; append_layout ~/.config/i3/screenlayout/workspace_4.json"
-#$exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_7.json"
 
 ## open default apps and move them to the desired workspace
 # $exec i3-msg "workspace $ws1; exec --no-startup-id alacritty --class=WORK --title=WORK -e tmux new -s WORK"

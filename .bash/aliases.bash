@@ -135,6 +135,7 @@ alias openports='netstat -nape --inet'
 alias ports='netstat -lapute'
 alias monittcp='sudo watch -n 1 "netstat -tpanl | grep ESTABLISHED"'
 alias listening='sudo lsof -P -i -n'
+alias ss-connected="ss -4p|column -t"
 
 
 ###

@@ -61,6 +61,7 @@ Vagrant.configure("2") do |config|
         v.name = "ubuntu1804"
         v.memory = 2048
         v.cpus = 2
+        v.gui = false
     end
     config.vm.provision "shell", inline: $script
     config.vm.synced_folder "/home/boogy", "/home/vagrant/share/"
