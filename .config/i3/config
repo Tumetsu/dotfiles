@@ -207,7 +207,7 @@ bindsym $mod+Shift+a focus parent
 ## restart i3 inplace
 bindsym $mod+Shift+r restart
 # bindsym $sup+Shift+r $exec polybar-msg cmd restart
-bindsym $sup+Shift+r $exec ~/.config/i3/scripts/launch_polybar.sh
+bindsym $sup+Shift+r $exec ~/.config/i3/scripts/launch_polybar.sh && /home/boogy/.fehbg
 ## reload the configuration file
 bindsym $mod+Shift+c reload
 

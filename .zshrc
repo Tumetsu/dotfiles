@@ -114,6 +114,7 @@ function source_bash {
 
 bash_config_files=(
     functions
+    python
     aliases
     git
 )
