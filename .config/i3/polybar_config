@@ -199,7 +199,17 @@ ws-icon-7 = 7; 
 ws-icon-8 = 8; 
 ws-icon-9 = 9; 
 ws-icon-10 = 10; 
-ws-icon-11 = 11; 
+ws-icon-11 = 11; 
+ws-icon-12 = 12; 
+ws-icon-13 = 13; 
+ws-icon-14 = 14; 
+ws-icon-15 = 15; 
+ws-icon-16 = 16; 
+ws-icon-17 = 17; 
+ws-icon-18 = 18; 
+ws-icon-19 = 19; 
+ws-icon-20 = 20; 
+ws-icon-21 = 21; 
 ws-icon-default = 
 
 ; Sort the workspaces by index instead of the default
