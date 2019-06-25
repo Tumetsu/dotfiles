@@ -382,7 +382,7 @@ def threaded(f, daemon=True):
 
 
 def xor(data, key):
-    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(data, itertools.cycle(key)))
+    return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in zip(data, itertools.cycle(key)))
 
 
 def contains_not(x, bad):

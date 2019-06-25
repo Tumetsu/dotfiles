@@ -386,6 +386,8 @@ for_window [window_role="gvim_float"] floating enable, move position center, bor
 bindsym $sup+Shift+b $exec code --new-window
 # for_window [title="Untitled-1.*Visual Studio Code"] floating enable, move position center, border normal
 
+## open a new i3 workspace not in use (smaller number possible)
+bindsym $sup+n $exec ~/.config/i3/scripts/i3-new-workspace.sh
 
 ##########################################################################
 #                        Shutdown/Reboot/Sleep menu
@@ -591,7 +593,7 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 ##########################################################################
 #                      list of windows in floating mode
 ##########################################################################
-for_window [class=".*"] title_format "%title"
+for_window [class=".*"] title_format " %title "
 # for_window [class=".*"] move position center
 
 ##
@@ -703,7 +705,7 @@ $exec nm-applet
 
 ## get tranparent rofi background
 # $exec compton -bcCGf --no-fading-openclose --sw-opti
-$exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
+#$exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
 
 ## Enable touchpad horizontal Scrolling
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Two-Finger Scrolling" 1 1

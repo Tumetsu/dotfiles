@@ -5,7 +5,7 @@ import sys
 
 try:
     sys.path.append(os.path.expanduser("~/bin"))
-    import mylib
+    from mylib import *
 except:
     pass
 
