@@ -52,7 +52,20 @@ autocmd BufReadPost *
 " open each file in a tab
 " autocmd BufReadPost * tab ball
 
+" ANSIBLE
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */defaults/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */taks/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */handlers/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */roles/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */vars/*.yml set filetype=yaml.ansible
+
+augroup ansible_vim_fthosts
+  autocmd!
+  autocmd BufNewFile,BufRead hosts setfiletype yaml.ansible
+augroup END
