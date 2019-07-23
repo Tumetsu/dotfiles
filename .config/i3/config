@@ -795,7 +795,7 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 ## parse layout with
 ## tail -n +2 workspaceN.json | fgrep -v '// splitv' | sed 's|//||g' > workspace_N.json
 $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
-$exec i3-msg "workspace $ws2; append_layout ~/.config/i3/screenlayout/workspace_2.json"
+#$exec i3-msg "workspace $ws2; append_layout ~/.config/i3/screenlayout/workspace_2.json"
 $exec i3-msg "workspace $ws4; append_layout ~/.config/i3/screenlayout/workspace_4.json"
 
 ## open default apps and move them to the desired workspace
