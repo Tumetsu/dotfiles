@@ -59,9 +59,9 @@ HOME_DIR="/home/${USERNAME}"
 
 ## show some nice messages to the user
 ## we all like colors don't we
-function msg_ok()      { echo "$(tput setaf 2)[+] $1$(tput sgr0)";                     }
-function msg_error()   { echo "$(tput setaf 1)[ERROR] $1$(tput sgr0)";                 }
-function msg_warning() { echo "$(tput setaf 3)[WARNING] $1$(tput sgr0)";               }
+function msg_ok()      { echo -en "$(tput setaf 2)[+] $1\n$(tput sgr0)";                     }
+function msg_error()   { echo -en "$(tput setaf 1)[ERROR] $1\n$(tput sgr0)";                 }
+function msg_warning() { echo -en "$(tput setaf 3)[WARNING] $1\n$(tput sgr0)";               }
 function PRESS_ENTER() { read -p "$(tput setaf 3)Press ENTER to continue$(tput sgr0) ";}
 
 ## Need to set root password
@@ -268,11 +268,16 @@ function create_user_account
 
 function manage_services
 {
+    local SERVICES_TO_ENABLE=(
+        lightdm.service
+        bluetooth.service
+        docker.service
+        NetworkManager.service
+    )
     msg_ok "Enabeling some services"
-    systemctl enable lightdm.service           &>/dev/null
-    systemctl enable bluetooth.service         &>/dev/null
-    systemctl enable docker.service            &>/dev/null
-    systemctl enable NetworkManager.service    &>/dev/null
+    for S in ${SERVICES_TO_ENABLE[@]}; do
+        msg_ok ".... [enabled] $S"
+    done
 
     ## this needs to be disabled to have sound
     ## pulseaudio will be started in i3 config
@@ -351,12 +356,22 @@ function add_libinput_xorg_config
     msg_ok "Writing libinput X11 configuration"
     cat <<-EOF > /etc/X11/xorg.conf.d/30-touchpad.conf
 		Section "InputClass"
-		        Identifier "MyTouchpad"
-		        MatchIsTouchpad "on"
-		        Driver "libinput"
-		        Option "Tapping" "on"
-		        Option "Natural Scrolling" "on"
+		    Identifier "MyTouchpad"
+		    MatchIsTouchpad "on"
+		    Driver "libinput"
+		    Option "Tapping" "on"
+		    Option "Natural Scrolling" "off"
+		    Option "AccelSpeed" "0.5"
+		    Option "ClickMethod" "buttonareas"
+		    Option "DisableWhileTyping" "on"
 		EndSection
+		#Section "InputClass"
+		#        Identifier "MyTouchpad"
+		#        MatchIsTouchpad "on"
+		#        Driver "libinput"
+		#        Option "Tapping" "on"
+		#        Option "Natural Scrolling" "on"
+		#EndSection
 	EOF
 }
 
