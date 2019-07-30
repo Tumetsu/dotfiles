@@ -34,6 +34,23 @@ function start-vagrant
 }
 compdef '_arguments "1: :($(ls ${vagrant_box_path}))"' start-vagrant
 
+
+function cd-vagrant
+{
+    USERINPUT=$1
+    VBOXES=($(ls -d ${vagrant_box_path}/*))
+    for vbox in "${VBOXES[@]##*/}"
+    do
+        if echo ${USERINPUT}|grep -qEo "^${vbox}$"
+        then
+            cd "${vagrant_box_path}/${vbox}"
+            return 0
+        fi
+    done
+    return 1
+}
+compdef '_arguments "1: :($(ls ${vagrant_box_path}))"' cd-vagrant
+
 function vbox-snapshot-vm
 {
     local UUID=$1
