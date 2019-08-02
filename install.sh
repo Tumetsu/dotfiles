@@ -7,21 +7,20 @@
 THIS_DIR=$(cd $(dirname "$0"); pwd)
 INSTALLDIR=$HOME
 
-MANAGED_FILES=(\
-    ~/bin \
-    ~/.zshrc \
-    ~/.zsh \
-    ~/.bash \
-    ~/.bash_aliases \
-    ~/.vim \
-    ~/.vimrc \
-    ~/.tmux.conf \
-    ~/.muttrc \
-    ~/.pythonrc.py \
-    ~/.sceenrc \
-    ~/.gdbinit \
-    ~/.radarerc \
-    ~/.Xresources \
+MANAGED_FILES=(
+    ~/bin
+    ~/.zshrc
+    ~/.zsh
+    ~/.bash
+    ~/.bash_aliases
+    ~/.vim
+    ~/.vimrc
+    ~/.tmux.conf
+    ~/.pythonrc.py
+    ~/.screenrc
+    ~/.gdbinit
+    ~/.radarerc
+    ~/.Xresources
 )
 
 ## Install necessary packages
@@ -34,11 +33,12 @@ cd ${INSTALLDIR}
 test -d dotfiles || git clone https://github.com/boogy/dotfiles.git && \
 cd ${INSTALLDIR}/dotfiles
 
-if test -z $1; then
-    read -p "Do you want to delete existing files/directorys ? [y/n]: " CLEAN_EXISTING_FILES
-else
-    CLEAN_EXISTING_FILES=$1
-fi
+# if test -z $1; then
+#     read -p "Do you want to delete existing files/directorys ? [y/n]: " CLEAN_EXISTING_FILES
+# else
+#     CLEAN_EXISTING_FILES=$1
+# fi
+CLEAN_EXISTING_FILES=${1:-yes}
 
 if [[ $CLEAN_EXISTING_FILES =~ [Y|y] ]]; then
     for FILE in ${MANAGED_FILES[@]}; do
@@ -75,8 +75,7 @@ done
 ##
 ## Install Plug for plugin management
 ##
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
 
 ##
