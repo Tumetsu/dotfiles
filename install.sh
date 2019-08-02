@@ -38,7 +38,7 @@ cd ${INSTALLDIR}/dotfiles
 # else
 #     CLEAN_EXISTING_FILES=$1
 # fi
-CLEAN_EXISTING_FILES=${1:-yes}
+CLEAN_EXISTING_FILES=${1:-Y}
 
 if [[ $CLEAN_EXISTING_FILES =~ [Y|y] ]]; then
     for FILE in ${MANAGED_FILES[@]}; do
@@ -77,6 +77,7 @@ done
 ##
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
+cd ~/.vim/custom-snippets/custom-snippets
 
 ##
 ## Install powerline fonts
