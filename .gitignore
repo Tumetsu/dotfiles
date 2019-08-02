@@ -6,6 +6,7 @@
 .rop*
 .mc-lists.el
 .gdb*
+!.gdbinit
 *.swap
 __pycache__
 .vim/plugged/*
