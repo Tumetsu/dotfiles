@@ -113,10 +113,14 @@ set $ws21 "21"
 
 
 ## Workspaces on specific screen
-workspace $ws1 output $laptop $monitor2
-workspace $ws2 output $laptop $monitor2 $monitor_4k
-workspace $ws3 output $laptop $monitor2
-workspace $ws7 output $laptop $monitor2
+workspace $ws0  output $laptop
+workspace $ws1  output $laptop $monitor2
+workspace $ws2  output $monitor_4k $monitor2 $laptop
+workspace $ws3  output $laptop $monitor2
+workspace $ws4  output $laptop
+workspace $ws5  output $laptop
+workspace $ws7  output $laptop $monitor2
+workspace $ws10 output $laptop $monitor2
 
 ##########################################################################
 #                   Keys / shortcuts for i3WM

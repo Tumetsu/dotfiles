@@ -249,6 +249,10 @@
         "editor.insertSpaces": true,
         "editor.tabSize": 2
     },
+    "[ansible]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    },
     //
     // TERMINAL CONFIG
     //
@@ -276,7 +280,7 @@
     // WORKBENCH CONFIG
     //
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.activityBar.visible": true,
+    "workbench.activityBar.visible": false,
     "workbench.editor.enablePreview": true,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.colorTheme": "Flatland Monokai",
@@ -304,9 +308,15 @@
     "explorer.confirmDelete": false,
     "markdown-pdf.executablePath": "/usr/sbin/chromium",
     "markdown-pdf.highlightStyle": "monokai.css",
-    "[markdown]": {},
-    "[json]": {},
-    "[jsonc]": {},
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     //
     // Python config
     //
@@ -317,5 +327,11 @@
     "python.linting.pylintEnabled": true,
     "markdown-pdf.breaks": true,
     "terminal.integrated.shell.osx": "/usr/sbin/zsh",
-    "terminal.integrated.copyOnSelection": true
+    "terminal.integrated.copyOnSelection": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
