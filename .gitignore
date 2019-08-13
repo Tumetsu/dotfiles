@@ -27,3 +27,4 @@ bin/sqlmap.py
 bin/vol.py
 bin/xssless.py
 .vagrant/
+.vscode/

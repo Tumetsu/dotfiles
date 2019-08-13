@@ -1,15 +1,42 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
 import itertools
 import os
 import re
-import socket
 import string
-import struct
 import subprocess
-import telnetlib
+import tempfile
 import time
+from base64 import b64decode, b64encode
+
+
+def encode_utf(data, enc='utf-8', errors='backslashreplace'):
+    """Encode a unicode string
+    @data: data string to encode
+    @enc: encoding to use
+          default: utf-8
+    @errors: error type
+             possible values: [ignore|replace|strict|backslashreplace|namereplace|xmlcharrefreplace]
+             default: backslashreplace
+    """
+    return data.encode(enc, errors)
+
+
+def decode_utf(data, enc='utf-8', errors='backslashreplace'):
+    """Decode a unicode string
+    @data: data string to decode
+    @enc: encoding to use
+          default: utf-8
+    @errors: error type
+             possible values: [ignore|replace|strict|backslashreplace|namereplace|xmlcharrefreplace]
+             default: backslashreplace
+    """
+    return data.decode(enc, errors)
+
+
+def utf_strlen(data):
+    """Return length of a UTF encoded string"""
+    return len(data.encode('utf-8'))
 
 
 def bash(cmd, cmd_input=None, timeout=None, return_stderr=False):
@@ -35,58 +62,52 @@ def bash(cmd, cmd_input=None, timeout=None, return_stderr=False):
             p.kill()
         o, e = p.communicate()
     if return_stderr:
-        return o, e
-    return o
+        return decode_utf(o), decode_utf(e)
+    return decode_utf(o)
 
 
-def p(v, fmt="<I"):
-    return struct.pack(fmt, v)
+def b64_decode(data):
+    b64decode(data.encode('utf-8', errors='backslashreplace'))
 
 
-def pack(v, fmt="<I"):
-    return p(v, fmt)
+def b64_encode(data):
+    b64encode(data.encode('utf-8', errors='backslashreplace'))
 
 
-def u(v, fmt="<I"):
-    return struct.unpack(fmt, v)
+def is_printable(text, printables=""):
+    """Check if a string is printable"""
+    return (set(str(text)) - set(string.printable + printables) == set())
 
 
-def u1(v, fmt="<I"):
-    return struct.unpack(fmt, v)[0]
+def to_hexstr(data):
+    """Convert a string to hex escape represent"""
+    return "".join(["\\x%02x" % ord(i) for i in data])
 
 
-def u32_all(*args):
-    return struct.pack("<I"*len(args), *args)
+def to_hex(num):
+    """Convert a number to hex format"""
+    if num < 0:
+        return "-0x%x" % (-num)
+    else:
+        return "0x%x" % num
 
 
-def u64_all(*args):
-    return struct.pack("<Q"*len(args), *args)
-
-
-def readuntil(f, delim=': '):
-    data = ''
-    while not data.endswith(delim):
-        c = f.read(1)
-        assert len(c) > 0
-        data += c
-    return data
-
-
-def shell(s):
-    """Make a socket interactive"""
-    t = telnetlib.Telnet()
-    t.sock = s
-    t.interact()
-    return
-
-
-def remote(HOST, PORT):
-    """Create a socket and convert it to a file buffer
-    Return: socket fd
+def hex2str(h):
+    """Convert hexadecimal to printable ascii
+    Usage:
+        print hex2str(0x6e69622f)
     """
-    s = socket.create_connection((HOST, PORT))
-    f = s.makefile('rw', bufsize=0)
-    return f
+    chars_in_reverse = []
+    while h != 0x0:
+        chars_in_reverse.append(chr(h & 0xFF))
+        h = h >> 8
+    chars_in_reverse.reverse()
+    return ''.join(chars_in_reverse)
+
+
+def tmpfile(pref=""):
+    """Create and return a temporary file with custom prefix"""
+    return tempfile.NamedTemporaryFile(prefix=pref)
 
 
 def rol(val, places):
@@ -105,30 +126,6 @@ def ror(val, places):
     return val
 
 
-def tmpfile(pref="lalib-"):
-    """Create and return a temporary file with custom prefix"""
-    import tempfile
-    return tempfile.NamedTemporaryFile(prefix=pref)
-
-
-def is_printable(text, printables=""):
-    """Check if a string is printable"""
-    return (set(str(text)) - set(string.printable + printables) == set())
-
-
-def to_hexstr(str):
-    """Convert a string to hex escape represent"""
-    return "".join(["\\x%02x" % ord(i) for i in str])
-
-
-def to_hex(num):
-    """Convert a number to hex format"""
-    if num < 0:
-        return "-0x%x" % (-num)
-    else:
-        return "0x%x" % num
-
-
 def int_tohex(val, nbits=64):
     """Convert signed integers to hex
     @val: integer value to convert
@@ -142,70 +139,6 @@ def int_tohex(val, nbits=64):
         '0xf418c5c1'
     """
     return hex((val + (1 << nbits)) % (1 << nbits))
-
-
-def to_address(num):
-    """Convert a number to address format in hex"""
-    if num < 0:
-        return to_hex(num)
-    if num > 0xffffffff:  # 64 bit
-        return "0x%016x" % num
-    else:
-        return "0x%08x" % num
-
-
-def to_int(val):
-    """Convert a string to int number"""
-    try:
-        return int(str(val), 0)
-    except:
-        return None
-
-
-def str2hex(str):
-    """Convert a string to hex encoded format"""
-    result = str.encode('hex')
-    return result
-
-
-def hex2str(hexnum):
-    """Convert a number in hex format to string"""
-    if not isinstance(hexnum, str):
-        hexnum = to_hex(hexnum)
-    s = hexnum[2:]
-    if len(s) % 2 != 0:
-        s = "0" + s
-    result = s.decode('hex')[::-1]
-    return result
-
-
-def str2intlist(data, intsize=4):
-    """Convert a string to list of int"""
-    result = []
-    data = data.decode('string_escape')[::-1]
-    l = len(data)
-    data = ("\x00" * (intsize - l % intsize) +
-            data) if l % intsize != 0 else data
-    for i in range(0, l, intsize):
-        if intsize == 8:
-            val = struct.unpack(">Q", data[i:i + intsize])[0]
-        else:
-            val = struct.unpack(">L", data[i:i + intsize])[0]
-        result = [val] + result
-    return result
-
-
-def hex2ascii(h):
-    """Convert hexadecimal to printable ascii
-    Usage:
-        print convert_hex_to_ascii(0x6e69622f)
-    """
-    chars_in_reverse = []
-    while h != 0x0:
-        chars_in_reverse.append(chr(h & 0xFF))
-        h = h >> 8
-    chars_in_reverse.reverse()
-    return ''.join(chars_in_reverse)
 
 
 def bitstr(n, width=None):
@@ -233,7 +166,6 @@ def hexdump(src, length=16, sep='.'):
     @note Full support for python2 and python3 !
     """
     result = []
-    # Python3 support
     try:
         xrange(0, 1)
     except NameError:
@@ -242,7 +174,6 @@ def hexdump(src, length=16, sep='.'):
         subSrc = src[i:i+length]
         hexa = ''
         isMiddle = False
-
         for h in xrange(0,len(subSrc)):
             if h == length/2:
                 hexa += ' '
@@ -274,22 +205,22 @@ def get_interfaces(family=4):
         - 4 => shortcut for -family link
     """
     d = subprocess.check_output('ip -%s -o addr' % str(family), shell=True)
-    ifs = re.findall(r'^\S+:\s+(\S+)\s+inet[6]?\s+([^\s/]+)', d, re.MULTILINE)
+    ifs = re.findall(r'^\S+:\s+(\S+)\s+inet[6]?\s+([^\s/]+)', decode_utf(d), re.MULTILINE)
     return [i for i in ifs if i[0] != 'lo']
 
 
 def read(path):
-    """Open file, return content."""
+    """Open file, return content"""
     path = os.path.expanduser(os.path.expandvars(path))
     if os.path.isfile(path) and os.access(path, os.R_OK):
         with open(path) as fd:
             return fd.read()
     else:
-        print("ERROR: %s is not a file or it is not readable" % path)
+        print("ERROR: {error} is not a file or it is not readable".format(path))
 
 
 def write(path, data, create_dir=False):
-    """Create new file or truncate existing to zero length and write data."""
+    """Create new file or truncate existing to zero length and write data"""
     path = os.path.expanduser(os.path.expandvars(path))
     if create_dir:
         path = os.path.realpath(path)
@@ -306,79 +237,6 @@ def write(path, data, create_dir=False):
                 os.mkdir(p)
     with open(path, 'w') as f:
         f.write(data)
-
-
-def which(name, all=False):
-    """which(name, flags = os.X_OK, all = False) -> str or str set
-    Works as the system command ``which``; searches $PATH for ``name`` and
-    returns a full path if found.
-
-    If `all` is :const:`True` the set of all found locations is returned, else
-    the first occurence or :const:`None` is returned.
-
-    Args:
-      `name` (str): The file to search for.
-      `all` (bool):  Whether to return all locations where `name` was found.
-
-    Returns:
-      If `all` is :const:`True` the set of all locations where `name` was found,
-      else the first location or :const:`None` if not found.
-
-    Example:
-      >>> which('sh')
-      '/bin/sh'
-    """
-    import stat
-    isroot = os.getuid() == 0
-    out = set()
-    try:
-        path = os.environ['PATH']
-    except KeyError:
-        log.error('Environment variable $PATH is not set')
-
-    for p in path.split(os.pathsep):
-        p = os.path.join(p, name)
-        if os.access(p, os.X_OK):
-            st = os.stat(p)
-            if not stat.S_ISREG(st.st_mode):
-                continue
-            # work around this issue: http://bugs.python.org/issue9311
-            if isroot and not st.st_mode & (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH):
-                continue
-            if all:
-                out.add(p)
-            else:
-                return p
-    if all:
-        return out
-    else:
-        return None
-
-
-def threaded(f, daemon=True):
-    """Function decorator to use threading"""
-    import threading
-    import Queue
-
-    def wrapped_f(q, *args, **kwargs):
-        """this function calls the decorated function and puts the
-        result in a queue"""
-        ret = f(*args, **kwargs)
-        q.put(ret)
-
-    def wrap(*args, **kwargs):
-        """this is the function returned from the decorator. It fires off
-        wrapped_f in a new thread and returns the thread object with
-        the result queue attached"""
-        q = Queue.Queue()
-        t = threading.Thread(target=wrapped_f, args=(q,)+args, kwargs=kwargs)
-        t.setDaemon(daemon)
-        t.setName(args[2])
-        print("[+] Starting thread name {} daemon {}".format(t.name, t.isDaemon()))
-        t.start()
-        t.result_queue = q
-        return t
-    return wrap
 
 
 def xor(data, key):
@@ -414,69 +272,3 @@ def flatten(nested_list):
     :returns: a list object
     """
     return list(itertools.chain(*nested_list))
-
-
-def fmtstr_two_by_two(addr, value, offset, main=False):
-    hob = value >> 16
-    lob = value & 0xffff
-    if hob < lob:
-        first    = hob - 8
-        second   = lob - hob
-        offset_1 = offset
-        offset_2 = offset + 1
-    else:
-        first    = lob - 8
-        second   = hob - lob
-        offset_1 = offset + 1
-        offset_2 = offset
-    addr_1 = pack(addr)
-    addr_2 = pack(addr + 2)
-    if main is True:
-        fs = "{0}{1}%{2}x%{3}$hn%{4}x%{5}$hn".format(
-            "".join('\\x{:02x}'.format(ord(c)) for c in addr_2),
-            "".join('\\x{:02x}'.format(ord(c)) for c in addr_1),
-            first, offset_1, second, offset_2)
-    else:
-        fs = "{0}{1}%{2}x%{3}$hn%{4}x%{5}$hn".format(
-            bytes(addr_2), bytes(addr_1),
-            first, offset_1, second, offset_2)
-    return fs
-
-
-def fmtstr_one_by_one(addr, value, offset, main=False):
-    b = [value >> 24, (value >> 16) & 0xff, (value & 0xffff) >> 8, value & 0xff]
-    first = b[3] - 16
-    if b[2] < b[3]:
-        second = 0x100 - (b[3] - b[2])
-    else:
-        second = b[2] - b[3]
-    if b[1] < b[2]:
-        third = 0x100 - (b[2] - b[1])
-    else:
-        third = b[1] - b[2]
-    if b[0] < b[1]:
-        fourth = 0x100 - (b[1] - b[0])
-    else:
-        fourth = b[0] - b[1]
-    fs = ""
-    for i, delta in enumerate([first, second, third, fourth]):
-        if delta > 0:
-            fs += "%{0}x%{1}$n".format(delta, offset+i)
-        else:
-            fs += "%{0}$n".format(offset+i)
-    if main is True:
-        fs = "{0}{1}{2}{3}".format(
-            "".join('\\x{:02x}'.format(ord(c)) for c in pack(addr)),
-            "".join('\\x{:02x}'.format(ord(c)) for c in pack(addr+1)),
-            "".join('\\x{:02x}'.format(ord(c)) for c in pack(addr+2)),
-            "".join('\\x{:02x}'.format(ord(c)) for c in pack(addr+3))
-        ) + fs
-    else:
-        fs = "{0}{1}{2}{3}".format(
-            bytes(pack(addr)),
-            bytes(pack(addr+1)),
-            bytes(pack(addr+2)),
-            bytes(pack(addr+3))
-        ) + fs
-    return fs
-
