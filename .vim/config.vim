@@ -188,21 +188,6 @@ set background=dark
 " hi Visual guifg=White guibg=LightBlue gui=none
 hi Visual guifg=Black guibg=LightGreen gui=none
 
-" Fix ConEmu colors in vim
-" set terminal mode to utf-8 (chcp 65001)
-" http://stackoverflow.com/questions/14315519/conemu-vim-syntax-highlight
-" if !empty($CONEMUBUILD)
-"     set term=pcansi
-"     set t_Co=256
-"     let &t_AB="\e[48;5;%dm"
-"     let &t_AF="\e[38;5;%dm"
-"     set bs=indent,eol,start
-"     " colorscheme monokai
-"     " set background=light
-"     colorscheme material-monokai
-"     set background=dark
-" endif
-
 " set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -362,17 +347,17 @@ let g:syntastic_python_pylint_post_args="--max-line-length=180"
 " ##################
 " # CtrlP settings
 " ##################
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_max_height = 30
-let g:ctrlp_mru_files = 1
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_use_caching = 1
-let g:ctrlp_open_new_file = 't'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+" let g:ctrlp_show_hidden = 1
+" let g:ctrlp_max_height = 30
+" let g:ctrlp_mru_files = 1
+" let g:ctrlp_clear_cache_on_exit = 0
+" let g:ctrlp_use_caching = 1
+" let g:ctrlp_open_new_file = 't'
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"   \ 'file': '\v\.(exe|so|dll)$',
+"   \ 'link': 'some_bad_symbolic_links',
+"   \ }
 " Excluding version control directories
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
 set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')

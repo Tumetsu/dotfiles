@@ -11,7 +11,7 @@ alias update_radare2="sudo ~/tools/radare2/sys/install.sh"
 alias valgrind_memcheck="valgrind --tool=memcheck --leak-check=yes"
 
 # CTF python templates
-function init-ctf-template
+function init-pwn-template
 {
     cp ~/bin/pwn-template.py $1
 }

@@ -11,7 +11,6 @@ snippet format "short .format access" b
 endsnippet
 
 snippet argparse "create command line interface" b
-
 parser = argparse.ArgumentParser(description='${1:description}')
 parser.add_argument(
 	'${2:${VISUAL:--verbose}}',
@@ -26,12 +25,14 @@ parser.add_argument(
 parser.add_argument(
 	'${6:${VISUAL:infile}}',
 	help="${7:${VISUAL:Input file}}",
+	dest="infile"
 	type=argparse.FileType('r')
 )
 parser.add_argument(
 	'${8:${VISUAL:-o}}',
 	'${9:${VISUAL:--outfile}}',
 	help="${10:${VISUAL:Output file}}",
+	dest="outfile"
 	default=sys.stdout,
 	type=argparse.FileType('w')
 )
@@ -43,10 +44,10 @@ endsnippet
 
 snippet p-exec "execute command with subprocess" b
 out = subprocess.Popen("${1:command}".split(),
-		stderr=subprocess.PIPE,
-		stdour=subprocess.PIPE,
-		stdin=subprocess.PIPE,
-		shell=${2:True})
+						stderr=subprocess.PIPE,
+						stdour=subprocess.PIPE,
+						stdin=subprocess.PIPE,
+						shell=${2:True})
 endsnippet
 
 snippet read-file "read data from a file and return content" b
@@ -62,8 +63,7 @@ def read(path):
 
 endsnippet
 
-snippet write-file "write data to a file"
-
+snippet write-file "write data to a file" b
 def write(path, data, create_dir=False):
     """Create new file or truncate existing to zero length and write data."""
     path = os.path.expanduser(os.path.expandvars(path))
@@ -86,7 +86,6 @@ def write(path, data, create_dir=False):
 endsnippet
 
 snippet is-printable "function to identify ascii caracters" b
-
 def is_printable(text, printables=""):
     """Check if a string is printable"""
     return (set(str(text)) - set(string.printable + printables) == set())
@@ -94,7 +93,6 @@ def is_printable(text, printables=""):
 endsnippet
 
 snippet tmp-file "create temp file" b
-
 def tmpfile(pref="lalib-"):
     """Create and return a temporary file with custom prefix"""
     import tempfile
@@ -103,7 +101,6 @@ def tmpfile(pref="lalib-"):
 endsnippet
 
 snippet bash "create bash function to run system commands" b
-
 def bash(cmd, cmd_input=None, timeout=None, return_stderr=False):
     """Execute cmd and return stdout and stderr in a tuple
     @cmd: the command to execute
@@ -133,7 +130,6 @@ def bash(cmd, cmd_input=None, timeout=None, return_stderr=False):
 endsnippet
 
 snippet rol "rotate left function" b
-
 def rol(val, places):
     """Rotate val left by n places"""
     shift = places % 32
@@ -144,7 +140,6 @@ def rol(val, places):
 endsnippet
 
 snippet ror "rotate left function" b
-
 def ror(val, places):
     """Rotate val right by n places"""
     shift = places % 32
@@ -155,7 +150,6 @@ def ror(val, places):
 endsnippet
 
 snippet to-address "convert integer to address format" b
-
 def to_address(num):
     """Convert a number to address format in hex"""
     if num < 0:
@@ -168,21 +162,19 @@ def to_address(num):
 endsnippet
 
 snippet xor "xor function" b
-
 def xor(data, key):
     return ''.join(chr(ord(x) ^ ord(y)) for (x,y) in itertools.izip(data, itertools.cycle(key)))
 
 endsnippet
 
 snippet validate "assert that no bad char is in data" b
-
 def validate(data, badchars):
     """Assert that no badchar occurs in data."""
     assert(all(b not in data for b in badchars))
 
 endsnippet
 
-snippet pyscript "custom python script template"
+snippet pyscript "custom python script template" b
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
