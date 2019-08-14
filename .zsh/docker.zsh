@@ -107,15 +107,17 @@ compdef '_arguments "1: :($(_list_images_names))"' drun
 ##
 function rocket-chat-start
 {
-    local PORT=$1
-    if test -z $PORT; then
-        echo "Usage: rocket-chat-start <PORT>"
-        return 0
-    fi
-    ## docker pull rocket.chat
-    docker run --name db -d mongo:3.0 --smallfiles
-    # docker run --name rocketchat --link db -d rocket.chat
-    docker run --name rocketchat -p $PORT:3000 --env ROOT_URL=http://localhost --link db -d rocket.chat
+    # local PORT=$1
+    # if test -z $PORT; then
+    #     echo "Usage: rocket-chat-start <PORT>"
+    #     return 0
+    # fi
+    docker run --name mongo -d mongo:4.0 mongod --smallfiles --oplogSize 128 --replSet rs0 --storageEngine=mmapv1
+    docker run --name mongo_replica -d --link mongo mongo:4.0 "bash -c \"for i in $(seq 1 30); do mongo mongo/rocketchat --eval \" rs.initiate({ _id: 'rs0', members: [ { _id: 0, host: 'localhost:27017' } ]})\" && s=$$? && break || s=$$?; echo \"Tried $$i times. Waiting 5 secs...\"; sleep 5; done; (exit $$s)\""
+
+    docker run --name rocketchat -p 3000:3000 --env ROOT_URL=https://localhost:3000 \
+    -e "MONGO_URL=mongodb://mongo:27017/rocketchat MONGO_OPLOG_URL=mongodb://mongo:27017/local" \
+    --link mongo:mongo -d rocketchat/rocket.chat "bash -c \"for i in $(seq 1 30); do node main.js && s=$$? && break || s=$$?; echo \"Tried $$i times. Waiting 5 secs...\"; sleep 5; done; (exit $$s)\""
 }
 
 
