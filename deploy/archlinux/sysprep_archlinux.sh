@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-#
-# Script to run on the live cd/usb
-#
+##
+## Script to run on the live cd/usb
+##
+
+## stop the planet from spinning when an error occurs
 # set -e
 
 if [ "$BASH_VERSION" = '' ] && [ ! $(grep -aq bash /proc/$$/cmdline) ]; then
@@ -14,6 +16,11 @@ fi
 mount -o remount,size=1G /run/archiso/cowspace
 ## and update the mirrors
 pacman -Syy &>/dev/null
+
+## avoid sudo asking for password for current user and the new user
+## this will be deleted in the cleanup function at the end
+echo "${USER} ALL=(ALL:ALL) ALL, NOPASSWD: ALL"     >> /etc/sudoers.d/install.sudo
+echo "${USERNAME} ALL=(ALL:ALL) ALL, NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
 
 ## show some nice messages to the user
 ## we all like colors don't we
@@ -35,7 +42,7 @@ fi
 if ls /dev/nvme0n1 &>/dev/null; then
     DISKNAME=${tmp_DISKNAME:-"/dev/nvme0n1"}
     PARTITION1="${DISKNAME:-"/dev/nvme0n1"}p1"  # UEFI partition (/dev/nvme0n1)
-    PARTITION2="${DISKNAME:-"/dev/nvme0n1"}p2"  # disk partition LUKS encrypted (/dev/nvme0n2)
+    PARTITION2="${DISKNAME:-"/dev/nvme0n1"}p2"  # disk partition LUKS encrypted (/dev/nvme0n1p2)
 else
     DISKNAME=${tmp_DISKNAME:-"/dev/sda"}
     PARTITION1="${DISKNAME:-"/dev/sda"}1"  # UEFI partition (/dev/sda1)
@@ -86,7 +93,7 @@ if [[ $SHOULD_ENCRYPT_DISK =~ [Yy] ]]; then
 
     msg_ok "Checking if ${PARTITION_LUKS} is present"
     if ! test -b ${PARTITION_LUKS}; then
-        echo "$(tput setaf 1)[!!!] Luks partition not found (${PARTITION_LUKS}) [!!!!]$(tput sgr0)"
+        echo "$(tput setaf 1)[!!!] Luks partition not found (${PARTITION_LUKS}) [!!!]$(tput sgr0)"
         exit 1;
     fi
 fi
@@ -169,4 +176,3 @@ read -p "$(tput setaf 2)[?] REBOOT SYSTEM [Y/n]:$(tput sgr0) " REBOOT_WHEN_FINIS
 if ! [[ $REBOOT_WHEN_FINISH =~ [Nn] ]]; then
     reboot
 fi
-

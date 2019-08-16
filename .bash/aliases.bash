@@ -6,7 +6,7 @@
 ##### The 'ls' family (this assumes you use a recent GNU ls)
 ##### or rust equivalent 'exa'
 if command -v exa &>/dev/null; then
-    alias ls='exa --color=auto --time-style=long-iso'
+    alias ls='exa -g --color=auto --time-style=long-iso'
     alias ll='ls -l --color=auto'
     alias la='ls -la --color=always'
     alias llm='ls -l -s modified'

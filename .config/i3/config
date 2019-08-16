@@ -119,9 +119,12 @@ workspace $ws2  output $monitor_4k $monitor2 $laptop
 workspace $ws3  output $monitor2   $laptop
 workspace $ws4  output $monitor2   $laptop
 workspace $ws5  output $monitor2   $laptop
+workspace $ws6  output $monitor2   $laptop
 workspace $ws7  output $monitor2   $laptop
+workspace $ws8  output $monitor2   $laptop
 workspace $ws9  output $monitor2   $laptop
 workspace $ws10 output $monitor_4k $monitor2 $laptop
+workspace $ws11 output $monitor2   $laptop   $monitor_4k
 
 ##########################################################################
 #                   Keys / shortcuts for i3WM
@@ -231,8 +234,9 @@ bindsym $sup+shift+l focus output right
 # bindsym --release $mod+l exec i3-msg border pixel 0
 
 ## lock screen
-bindsym $mod+Shift+x $exec i3lock --show-failed-attempts --color 2E2E2E
-bindsym $sup+l $exec ~/.config/i3/scripts/lock
+bindsym $mod+Shift+x $exec i3lock --show-failed-attempts --color=#2f343f --ignore-empty-password --lock-console
+bindsym $sup+l $exec ~/.config/i3/scripts/betterlockscreen.sh --lock
+# bindsym $sup+l $exec ~/.config/i3/scripts/lock
 
 ## move focused window
 bindsym $mod+Shift+h move left
@@ -347,10 +351,10 @@ bindsym $mod+d $exec j4-dmenu-desktop --display-binary --dmenu="dmenu -i" --term
 
 ## move window to left monitor
 # bindsym $mod+m move workspace to output left
-bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Control+Left  move workspace to output left
 bindsym $mod+Control+Right move workspace to output right
-bindsym $mod+Control+Up move workspace to output up
-bindsym $mod+Control+Down move workspace to output down
+bindsym $mod+Control+Up    move workspace to output up
+bindsym $mod+Control+Down  move workspace to output down
 
 # nautilus shortcut
 bindsym $sup+e $exec nautilus --new-window
@@ -541,9 +545,9 @@ bindsym $mod+i mode "$mode_display"
 ##########################################################################
 
 ## Manual management of external displays
-bindsym Shift+F8 $exec arandr
+bindsym Shift+F8      $exec arandr
 bindsym $mod+Shift+F8 $exec xrandr auto
-bindsym $mod+F8 $exec ~/.config/i3/scripts/dock.sh
+bindsym $mod+F8       $exec ~/.config/i3/scripts/dock.sh
 
 
 ##########################################################################
@@ -594,7 +598,6 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 ##########################################################################
 #                        status bar configuration
 ##########################################################################
-
 # bar {
 #     font pango:Ubuntu Mono derivative Powerline, FontAwesome 12
 #     status_command i3blocks -c ~/.config/i3/i3blocks.conf
@@ -624,32 +627,6 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 # }
 
 ##########################################################################
-#                        Second monitor status bar
-##########################################################################
-
-# Second monitor bar
-# bar {
-#     id bar-2
-#     font pango:Ubuntu Mono derivative Powerline, FontAwesome 12
-#     status_command i3blocks -c ~/.config/i3/i3blocks.conf
-#     # output $monitor
-#     # tray_output none
-#     position top
-#     colors {
-#         background $bg-color
-#             separator #757575
-#         #                  border             background         text
-#         focused_workspace  $bg-color          $bg-color          $text-color
-#         inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-#         urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-#     }
-#     # mode hide
-#     # modifier $mod
-#     # strip_workspace_numbers yes
-#     workspace_buttons yes
-# }
-
-##########################################################################
 #                      list of windows in floating mode
 ##########################################################################
 for_window [class=".*"] title_format " %title "
@@ -658,6 +635,8 @@ for_window [class=".*"] title_format " %title "
 ##
 ## Floating windows
 ##
+for_window [window_role="pop-up"]                      floating enable
+for_window [window_role="task_dialog"]                 floating enable
 for_window [class=".*" window_type="dialog"]           floating enable , border normal
 for_window [class=".*" window_type="popup_menu"]       floating enable , border normal
 for_window [class="(?i)Shutter"]                       floating enable , border normal
@@ -673,8 +652,6 @@ for_window [class="(?i)Arandr"]                        floating enable , border 
 for_window [title="(?i)Cookies Manager+.*"]            floating enable , border normal
 for_window [class="(?i)Gnome-calculator"]              floating enable , border normal
 for_window [class="(?i)system-config-printer"]         floating enable , border normal
-for_window [window_role="pop-up"]                      floating enable
-for_window [window_role="task_dialog"]                 floating enable
 for_window [class="(?i)blueman-manager"]               floating enable , border normal
 for_window [class="(?i)nm-connection-editor"]          floating enable , border normal
 for_window [class="(?i)gnome-power-statistics"]        floating enable , border normal
@@ -711,7 +688,7 @@ assign [class="(?i)Thunderbird"]             $ws7
 ##########################################################################
 #                          Windows decoration
 ##########################################################################
-for_window [class="(?i)VirtualBox Machine"]     border normal
+for_window [class="(?i)VirtualBox Machine"] border normal
 for_window [class="(?i)Gnome-terminal" title="(?i)WeeChat.*"] move container to workspace $ws10, border none
 
 ## by default terminals are in tabbed mode
@@ -792,7 +769,6 @@ $exec_always ~/.config/i3/scripts/launch_polybar.sh
 $exec xhost +local:
 $exec sleep 1 && pulseaudio --start
 $exec start-pulseaudio-x11
-# $exec thunderbird
 $exec blueman-applet
 $exec sleep 6 && /opt/dropbox/dropboxd
 
@@ -812,4 +788,3 @@ $exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
 $exec i3-msg "workspace $ws2; exec --no-startup-id chromium"
 $exec i3-msg "workspace $ws4; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
-

@@ -26,8 +26,8 @@ read -p "$(tput setaf 2) [?] Swap file size (default: 2G):$(tput sgr0)          
 read -p "$(tput setaf 2) [?] Locales to use for the system (default: fr_CH-latin1):$(tput sgr0)       " tmp_LOCALES
 
 ## if using nvme change the names
-if ls /dev/nvme0n2 &>/dev/null; then
-    PARTITION2=${1:-"/dev/nvme0n2"}
+if ls /dev/nvme0n1p2 &>/dev/null; then
+    PARTITION2=${1:-"/dev/nvme0n1p2"}
 else
     PARTITION2=${1:-"/dev/sda2"}
 fi
@@ -35,17 +35,12 @@ fi
 ## if there is no encryption we should use
 ## the second partition /dev/[sda2|nvme0n2]
 SHOULD_ENCRYPT_DISK=${2:-"Y"}
+
 if [[ $SHOULD_ENCRYPT_DISK =~ [Yy] ]]; then
     PARTITION_LUKS=${3:-"/dev/mapper/root"}
 else
     PARTITION_LUKS=${PARTITION2}
 fi
-
-HOSTNAME=${tmp_HOSTNAME:-"archhostname"}
-USERNAME=${tmp_USERNAME:-"boogy"}
-BOOT_TYPE=${tmp_BOOT_TYPE:-"systemd-boot"}
-SWAP_SIZE=${tmp_SWAP_SIZE:-"2G"}
-LOCALES=${tmp_LOCALES:-"fr_CH-latin1"}
 
 ## if using encryption we need to change the UUID
 ## for the root partition and the systemd-boot entry
@@ -54,22 +49,32 @@ if [[ $SHOULD_ENCRYPT_DISK =~ [Yy] ]]; then
 else
     ROOT_PARTITION_UUID=$(blkid -sPARTUUID -ovalue ${PARTITION2})
 fi
-HOME_DIR="/home/${USERNAME}"
 
+HOSTNAME=${tmp_HOSTNAME:-"archhostname"}
+USERNAME=${tmp_USERNAME:-"boogy"}
+BOOT_TYPE=${tmp_BOOT_TYPE:-"systemd-boot"}
+SWAP_SIZE=${tmp_SWAP_SIZE:-"2G"}
+LOCALES=${tmp_LOCALES:-"fr_CH-latin1"}
+HOME_DIR="/home/${USERNAME}"
 
 ## show some nice messages to the user
 ## we all like colors don't we
-function msg_ok()      { echo -en "$(tput setaf 2)[+] $1\n$(tput sgr0)";                     }
-function msg_error()   { echo -en "$(tput setaf 1)[ERROR] $1\n$(tput sgr0)";                 }
-function msg_warning() { echo -en "$(tput setaf 3)[WARNING] $1\n$(tput sgr0)";               }
+function msg_ok()      { echo -en "$(tput setaf 2)[+] $1\n$(tput sgr0)";               }
+function msg_error()   { echo -en "$(tput setaf 1)[ERROR] $1\n$(tput sgr0)";           }
+function msg_warning() { echo -en "$(tput setaf 3)[WARNING] $1\n$(tput sgr0)";         }
 function PRESS_ENTER() { read -p "$(tput setaf 3)Press ENTER to continue$(tput sgr0) ";}
 
-## Need to set root password
+## Need to set the root password
 ## It should be changed after the installation
 msg_warning "Setting password for use root to root"
 msg_warning "Please change the root password after the installation"
 echo -e "root\nroot" | passwd root
 PRESS_ENTER
+
+## avoid sudo asking for a password for the current user and the new user
+## this will be deleted in the cleanup function at the end
+echo "${USER} ALL=(ALL:ALL) ALL, NOPASSWD: ALL"     >> /etc/sudoers.d/install.sudo
+echo "${USERNAME} ALL=(ALL:ALL) ALL, NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
 
 
 function is_virtual_machine
@@ -86,8 +91,7 @@ function is_virtual_machine
 
 function create_swapfile
 {
-    ## equivalent to:
-    ## dd if=/dev/zero of=/swapfile bs=1M count=1024
+    ## equivalent to: dd if=/dev/zero of=/swapfile bs=1M count=1024
     if [[ ! -f /swapfile ]]; then
         msg_ok "Creating a ${SWAP_SIZE} swap file /swapfile"
         fallocate -l ${SWAP_SIZE} /swapfile
@@ -112,7 +116,7 @@ function configure_locales
 function write_persistent_locales
 {
     msg_ok "Setting locales in /etc/locale.gen"
-    cp /etc/locale.gen /etc/locale.gen.orig
+    cp /etc/locale.gen{,.backup}
     echo "en_US.UTF-8 UTF-8"    > /etc/locale.gen
     echo "en_US ISO-8859-1"     >> /etc/locale.gen
     echo "fr_CH.UTF-8 UTF-8"    >> /etc/locale.gen
@@ -190,9 +194,12 @@ function install_bootloader
         msg_ok "Installing GRUB ..."
         pacman -S --noconfirm grub efibootmgr
         grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
+        cp /etc/default/grub{,.backup}
+
         msg_ok "Changing /etc/default/grub configuration file"
         sed -i -e 's/GRUB_CMDLINE_LINUX="\(.\+\)"/GRUB_CMDLINE_LINUX="\1 cryptdevice='"${PARTITION2}"':root"/g' -e 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="cryptdevice='"${PARTITION2}"':root"/g' /etc/default/grub
         echo "GRUB_ENABLE_CRYPTODISK=y" >> /etc/default/grub
+
         msg_ok "Generating GRUB configuration file /boot/grub/grub.cfg"
         grub-mkconfig -o /boot/grub/grub.cfg
     fi
@@ -202,7 +209,7 @@ function install_bootloader
 function enable_pacman_multilib
 {
     msg_ok "Enable multilib support in /etc/pacman.conf"
-    cp /etc/pacman.conf /etc/pacman.conf.backup
+    cp /etc/pacman.conf{,.backup}
     ## to replace new lines in new sed verions the [:a;N;] can be replaced with [sed -z]
     sed -i ':a;N;s|#\[multilib\]\n#Include|\[multilib\]\nInclude|' /etc/pacman.conf
     sed -i 's/#Color/Color/' /etc/pacman.conf
@@ -212,7 +219,7 @@ function enable_pacman_multilib
 function rank_mirrors
 {
     msg_ok "Ranking pacman mirrorlist"
-    cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    cp /etc/pacman.d/mirrorlist{,.backup}
     (curl -s "https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on" | \
         sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -) > /etc/pacman.d/mirrorlist
 }
@@ -227,10 +234,14 @@ function refresh_pacman_database
 
 function install_packages
 {
-    if curl -q https://raw.githubusercontent.com/boogy/dotfiles/master/deploy/packages/archlinux --output packages.txt; then
-        PACKAGES_FILE=./packages.txt
+    local DEFAULT_PACKAGES_LIST=../packages/archlinux
+    if [[ -f ${DEFAULT_PACKAGES_LIST} ]]; then
+        PACKAGES_FILE=${DEFAULT_PACKAGES_LIST}
     else
-        PACKAGES_FILE=../packages/archlinux
+        msg_warning "${DEFAULT_PACKAGES_LIST} not found"
+        msg_warning "Downloading the packages list from github.com/${USERNAME}/dotfiles"
+        curl -q https://raw.githubusercontent.com/boogy/dotfiles/master/deploy/packages/archlinux --output ./packages.txt
+        PACKAGES_FILE=./packages.txt
     fi
 
     if [[ -f ${PACKAGES_FILE} ]]; then
@@ -240,11 +251,12 @@ function install_packages
             fi
         done < ${PACKAGES_FILE}
         msg_ok "Intalling packages"
-        echo "pacman -S --noconfirm ${packages}" > install_packages.sh
-        bash install_packages.sh
+        echo "pacman -S --noconfirm ${packages}" > install-packages.sh
+        bash install-packages.sh
     else
         msg_error "No packages were provided for installation"
-        read -p "$(tput setaf 3)[?] Continue without packages: [Y/n]:$(tput sgr0) " PKG_CONTINUE
+        read -p "$(tput setaf 3)[?] Continue without packages: [Y/n]:$(tput sgr0) " PKG_CONTINUE_tmp
+        PKG_CONTINUE=${PKG_CONTINUE_tmp:-Y}
         if [[ $PKG_CONTINUE =~ [nN] ]]; then
             exit 1
         else
@@ -258,6 +270,7 @@ function install_packages
 function create_user_account
 {
     msg_ok "Creating username: ${USERNAME}"
+    msg_ok "Adding supplementary groups: wheel,games,power,optical,storage,scanner,lp,audio,video,docker"
     useradd -m -g users -G wheel,games,power,optical,storage,scanner,lp,audio,video,docker -s /bin/bash ${USERNAME}
     msg_warning "Setting password for ${USERNAME} to ${USERNAME}"
     msg_warning "Please change the password after the installation"
@@ -298,7 +311,7 @@ function configure_mkinitcpio_hooks
     msg_warning "..."
 
     msg_ok "Making a backup of /etc/mkinitcpio.conf"
-    cp /etc/mkinitcpio.conf /etc/mkinitcpio.conf.orig
+    cp /etc/mkinitcpio.conf{,.backup}
 
     msg_ok "Adding hooks to /etc/mkinitcpio.conf"
     sed -i "s/^\(HOOKS=\)/#\1/" /etc/mkinitcpio.conf
@@ -365,13 +378,6 @@ function add_libinput_xorg_config
 		    Option "ClickMethod" "buttonareas"
 		    Option "DisableWhileTyping" "on"
 		EndSection
-		#Section "InputClass"
-		#        Identifier "MyTouchpad"
-		#        MatchIsTouchpad "on"
-		#        Driver "libinput"
-		#        Option "Tapping" "on"
-		#        Option "Natural Scrolling" "on"
-		#EndSection
 	EOF
 }
 
@@ -425,7 +431,7 @@ function configure_lightdm
 {
     ## https://wiki.archlinux.org/index.php/LightDM
     msg_ok "Configure lightdm"
-    cp /etc/lightdm/lightdm.conf /etc/lightdm/lightdm.conf.orig
+    cp /etc/lightdm/lightdm.conf{,.backup}
     cat <<-EOF > /etc/lightdm/lightdm.conf
 		[LightDM]
 		run-directory=/run/lightdm
@@ -441,9 +447,10 @@ function configure_lightdm
 
     ## https://wiki.archlinux.org/index.php/LightDM#GTK.2B_greeter
     msg_ok "Configure lightdm-gtk-greeter"
-    msg_ok "Setting default lightdm icon to: /var/lib/AccountsService/icons/icon.png"
+    msg_ok "Setting default lightdm icon to: /var/lib/AccountsService/icons/icon.[png|.jpg]"
     msg_ok "Setting default lightdm background to: /usr/share/pixmaps/lightdm_background.jpg"
-    cp /etc/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf.orig
+    msg_ok "Change lightdm configuration with: sudo lightdm-gtk-greeter-settings"
+    cp /etc/lightdm/lightdm-gtk-greeter.conf{,.backup}
     cat <<-EOF > /etc/lightdm/lightdm-gtk-greeter.conf
 		[greeter]
 		theme-name = Arc
@@ -462,15 +469,14 @@ function configure_lightdm
 		[monitor: DP1-2]
 		background = /usr/share/pixmaps/lightdm_background.jpg
 	EOF
-
 }
 
 
 function add_sudoers_configuration
 {
     msg_ok "Add user ${USERNAME} to sudoers"
-    cp /etc/sudoers /etc/sudoers.backup
-    cat <<-EOF > /etc/sudoers
+    cp /etc/sudoers{,.backup}
+    cat <<-EOF > /tmp/sudoers
 		##
 		## Defaults
 		##
@@ -483,22 +489,28 @@ function add_sudoers_configuration
 		## User privilege specification
 		##
 		root    ALL=(ALL) ALL
-		${USERNAME}     ALL=(ALL:ALL) ALL, NOPASSWD: /usr/sbin/pacman -Syu, \
-		                                     /usr/sbin/pacman -Syy, \
-		                                     /usr/sbin/systemctl start *, \
-		                                     /usr/sbin/systemctl status *, \
-		                                     /usr/sbin/systemctl restart *, \
-		                                     /usr/sbin/systemctl stop *, \
-		                                     /usr/sbin/systemctl list-unit-files *, \
-		                                     /usr/sbin/systemctl list-units *, \
-		                                     /usr/sbin/systemctl is-enabled *, \
-		                                     /usr/sbin/systemctl shutdown, \
-		                                     /usr/sbin/systemctl suspend, \
-		                                     /usr/sbin/systemctl hibernate, \
-		                                     /usr/sbin/reboot, \
-		                                     /usr/sbin/poweroff, \
-		                                     /usr/sbin/lsof, \
-		                                     /usr/sbin/dmidecode
+		${USERNAME}   ALL=(ALL:ALL) ALL, NOPASSWD: /usr/sbin/pacman -Syu, \\
+		                                       /usr/sbin/pacman -Syy, \\
+		                                       /usr/sbin/yay -Syy, \\
+		                                       /usr/sbin/yay -Syu, \\
+		                                       /usr/sbin/yay -Syu --topdown --cleanafter, \\
+		                                       /usr/sbin/systemctl start [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl status [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl restart [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl stop [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl list-unit-files [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl list-units [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl is-enabled [a-z0-9_-]*, \\
+		                                       /usr/sbin/systemctl shutdown, \\
+		                                       /usr/sbin/systemctl suspend, \\
+		                                       /usr/sbin/systemctl hibernate, \\
+		                                       /usr/sbin/systemctl reboot, \\
+		                                       /usr/sbin/systemctl poweroff, \\
+		                                       /usr/sbin/reboot, \\
+		                                       /usr/sbin/poweroff, \\
+		                                       /usr/sbin/lsof, \\
+		                                       /usr/sbin/dmidecode, \\
+		                                       /usr/sbin/openfortivpn
 		## Read drop-in files from /etc/sudoers.d
 		## (the '#' here does not indicate a comment)
 		#includedir /etc/sudoers.d
@@ -510,9 +522,11 @@ function add_sysctl_params
 {
     local old_IFS=$IFS
     local IFS=$'\n'
-    SYSCTL_PARAMS=(
-        'vm.swappiness = 10'
-        'vm.vfs_cache_pressure = 50'
+    local SYSCTL_PARAMS=(
+       'vm.swappiness = 10'
+       'vm.vfs_cache_pressure = 50'
+       'net.ipv6.conf.vmnet1.disable_ipv6=1'
+       'net.ipv6.conf.vmnet8.disable_ipv6=1'
     )
     msg_ok "Add sysctl performance options"
     for OPT in ${SYSCTL_PARAMS[@]}; do
@@ -531,14 +545,14 @@ function clone_dot_config
 {
     local DOT_CONFIGS=${1:-"https://github.com/${USERNAME}/dotfiles"}
     msg_ok "Setting up the ${USERNAME}'s dotfiles environment"
-    sudo -u ${USERNAME} git clone ${DOT_CONFIGS} /home/${USERNAME}/${DOT_CONFIGS##*/}
+    sudo -u ${USERNAME} bash -c "git clone ${DOT_CONFIGS} ${HOME_DIR}/${DOT_CONFIGS##*/}"
 }
 
 
 function install_powerline_fonts
 {
     msg_ok "Installing powerline fonts"
-    cd /home/${USERNAME}
+    cd ${HOME_DIR}
     git clone https://github.com/powerline/fonts.git --depth=1
     cd fonts \
         && ./install.sh \
@@ -549,9 +563,10 @@ function install_powerline_fonts
 
 function install_aur_wrapper
 {
-    sudo -u ${USERNAME} bash -c "git clone https://aur.archlinux.org/yay.git ${HOME}/yay"
-    sudo -u ${USERNAME} bash -c "cd ${HOME}/yay; makepk -s --noconfirm" \
-        && pacman -U --noconfirm /home/${USERNAME}/yay/yay-*-x86_64.pkg.tar.xz
+    sudo -u ${USERNAME} bash -c "git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay"
+    sudo -u ${USERNAME} bash -c "cd ${HOME_DIR}/yay; makepkg -s --noconfirm --clean" \
+        && pacman -U --noconfirm ${HOME_DIR}/yay/yay-*-x86_64.pkg.tar.xz
+    rm -rf ${HOME_DIR}/yay
 }
 
 
@@ -559,28 +574,45 @@ function install_aur_packages
 {
     if command -v yay &>/dev/null; then
         ## Install AUR packages
-        yay --noconfirm -S systemd-boot-pacman-hook
-        yay --noconfirm -S chromium-widevine ## chromium needs this to play protected content
-        yay --noconfirm -S dropbox && systemctl --user disable dropbox.service
-        yay --noconfirm -S polybar
-        yay --noconfirm -S libinput-gestures
-        yay --noconfirm -S vmware-workstation
-        yay --noconfirm -S visual-studio-code-bin
-        yay --noconfirm -S jre8-openjdk jdk8-openjdk
-        yay --noconfirm -S jre10-openjdk jdk10-openjdk
-        yay --noconfirm -S gksu
-        yay --noconfirm -S openfortivpn
-        yay --noconfirm -S nessus
-        yay --noconfirm -S otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts
-        yay --noconfirm -S xcursor-oxygen
-        yay --noconfirm -S xcursor-breeze-serie-obsidian
-        yay --noconfirm -S j4-dmenu-desktop
+        yay -S --noconfirm systemd-boot-pacman-hook
+        yay -S --noconfirm chromium-widevine ## chromium needs this to play protected content
+        yay -S --noconfirm dropbox && systemctl --user disable dropbox.service
+        yay -S --noconfirm polybar
+        yay -S --noconfirm libinput-gestures
+        yay -S --noconfirm vmware-workstation
+        yay -S --noconfirm visual-studio-code-bin
+        yay -S --noconfirm jre8-openjdk jdk8-openjdk
+        yay -S --noconfirm jre10-openjdk jdk10-openjdk
+        yay -S --noconfirm gksu
+        yay -S --noconfirm otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts
+        yay -S --noconfirm xcursor-oxygen
+        yay -S --noconfirm xcursor-breeze-serie-obsidian
+        yay -S --noconfirm j4-dmenu-desktop
+        yay -S --noconfirm i3lock-color-git
+        #yay -S --noconfirm openfortivpn
+        #yay -S --noconfirm nessus
     else
-        msg_warning "Can't install AUR packages: there is no AUR tool installed"
+        msg_warning "Can't install AUR packages: there is no AUR helper installed"
         msg_warning "Check out this documentation: https://wiki.archlinux.org/index.php/AUR_helpers"
+        msg_warning "Install yay manualy: https://aur.archlinux.org/yay.git"
     fi
 }
 
+function cleanup()
+{
+    msg_ok "Make sure the file is owned by the user ${USERNAME}"
+    chown -R ${USERNAME}:$(id -g ${USERNAME}) ${HOME_DIR}/
+
+    msg_ok "Exiting installation in chroot environment ..."
+    msg_ok "Removing install script $(basename $0)"
+
+    test -f /sysprep_archlinux_chroot.sh && rm -f /sysprep_archlinux_chroot.sh
+    test -f /etc/sudoers.d/install.sudo  && rm -f /etc/sudoers.d/install.sudo
+
+}
+## make sure you clean before you exit
+## if you dont want CTRL+c to kill the process use SIGINT
+trap cleanup EXIT SIGTERM
 
 ## swap files are better to use then partitions
 create_swapfile
@@ -641,7 +673,7 @@ add_libinput_gestures_config
 configure_lightdm
 
 ## add a pre-filled sudoers file
-# add_sudoers_configuration
+add_sudoers_configuration
 
 ## sysctl configuration options
 add_sysctl_params
@@ -655,17 +687,8 @@ install_powerline_fonts
 ## install AUR wrappers
 install_aur_wrapper
 
-## some AUR packages everyone should install :)
+## some AUR packages
 install_aur_packages
-
-msg_ok "Make sure the file is owned by the user ${USERNAME}"
-chown -R ${USERNAME}: ${HOME_DIR}
-
-msg_ok "Exiting installation in chroot environment ..."
-msg_ok "Removing install script $(basename $0)"
-
-test -f /sysprep_archlinux_chroot.sh \
-    && rm -f /sysprep_archlinux_chroot.sh
 
 
 ##
@@ -681,45 +704,3 @@ test -f /sysprep_archlinux_chroot.sh \
 # sched.mem.pshare.enable = "FALSE"
 # prefvmx.useRecommendedLockedMemSize = "TRUE"
 # mainmem.backing = "swap"
-
-## Vmware modules to load
-# msg_ok "Setting vmware kernel modules to load automaticaly"
-# cat <<EOF > /etc/modules-load.d/vmware.conf
-# vmnet
-# vmmon
-# vmw_vmci
-# EOF
-
-# cat /etc/systemd/system/multi-user.target.wants/vmware-networks.service
-# [Unit]
-# Description=VMware Networks
-# Wants=vmware-networks-configuration.service
-# After=vmware-networks-configuration.service
-#
-# [Service]
-# Type=forking
-# Restart=always
-# ExecStartPre=-/sbin/modprobe vmnet
-# ExecStart=/usr/bin/vmware-networks --start
-# ExecStop=/usr/bin/vmware-networks --stop
-#
-# [Install]
-# WantedBy=multi-user.target
-
-## cat /etc/systemd/system/multi-user.target.wants/vmware-usbarbitrator.service
-# [Unit]
-# Description=VMware USB Arbitrator
-#
-# [Service]
-# ExecStart=/usr/lib/vmware/bin/vmware-usbarbitrator -f
-# ExecStop=/usr/lib/vmware/bin/vmware-usbarbitrator -k
-#
-# [Install]
-# WantedBy=multi-user.target
-
-
-# msg_ok "Loading bbswitch kernel module"
-# cat <<EOF > /etc/modules-load.d/bbswitch.conf
-# bbswitch
-# EOF
-

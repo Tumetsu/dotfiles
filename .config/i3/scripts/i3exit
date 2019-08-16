@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 lock() {
-    i3lock -f --color=#2f343f
+    # i3lock --show-failed-attempts --color=#2f343f
+    i3lock --show-failed-attempts --color=#2f343f --ignore-empty-password --lock-console
 }
 
 case "$1" in
