@@ -777,7 +777,7 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 ## tail -n +2 workspaceN.json | fgrep -v '// splitv' | sed 's|//||g' > workspace_N.json
 $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
 #$exec i3-msg "workspace $ws2; append_layout ~/.config/i3/screenlayout/workspace_2.json"
-$exec i3-msg "workspace $ws4; append_layout ~/.config/i3/screenlayout/workspace_4.json"
+$exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_7.json"
 
 ## open default apps and move them to the desired workspace
 # $exec i3-msg "workspace $ws1; exec --no-startup-id alacritty --class=WORK --title=WORK -e tmux new -s WORK"
@@ -787,4 +787,4 @@ $exec i3-msg "workspace $ws4; append_layout ~/.config/i3/screenlayout/workspace_
 $exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
 $exec i3-msg "workspace $ws2; exec --no-startup-id chromium"
-$exec i3-msg "workspace $ws4; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
+$exec i3-msg "workspace $ws7; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
