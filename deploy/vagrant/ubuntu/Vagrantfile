@@ -39,11 +39,16 @@ Vagrant.configure("2") do |config|
     config.vm.hostname = "ubuntu1804"
     config.vm.network "private_network", type: "dhcp"
 
-    config.vm.provider "virtualbox" do |v|
-        v.name = "ubuntu1804"
-        v.memory = 2048
-        v.cpus = 2
-        v.gui = false
+    config.vm.provider "virtualbox" do |vm|
+        vm.name = "ubuntu1804"
+        vm.gui = false
+        vm.customize ["modifyvm"     , :id      , "--memory"             , 2048            ]
+        vm.customize ["modifyvm"     , :id      , "--cpus"               , 2               ]
+        vm.customize ["modifyvm"     , :id      , "--vram"               , "32"            ]
+        vm.customize ["modifyvm"     , :id      , "--nicpromisc2"        , "allow-all"     ]
+        vm.customize ["modifyvm"     , :id      , "--clipboard"          , "bidirectional" ]
+        vm.customize ["modifyvm"     , :id      , "--draganddrop"        , "bidirectional" ]
+        vm.customize ["setextradata" , "global" , "GUI/SuppressMessages" , "all"           ]
     end
     config.vm.provision "shell", inline: $script_root   , privileged: true
     config.vm.provision "shell", inline: $script_vagrant, privileged: false

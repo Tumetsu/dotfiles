@@ -110,6 +110,7 @@ set $ws18 "18"
 set $ws19 "19"
 set $ws20 "20"
 set $ws21 "21"
+set $ws22 "22"
 
 
 ## Workspaces on specific screen
@@ -144,16 +145,17 @@ bindsym $mod+Shift+9          move container to workspace $ws9  ; workspace $ws9
 bindsym $mod+Shift+0          move container to workspace $ws10 ; workspace $ws10
 bindsym $mod+Shift+apostrophe move container to workspace $ws11 ; workspace $ws11
 ## extra workspaces
-bindsym $sup+Shift+1 move container to workspace $ws12 ; workspace $ws12
-bindsym $sup+Shift+2 move container to workspace $ws13 ; workspace $ws13
-bindsym $sup+Shift+3 move container to workspace $ws14 ; workspace $ws14
-bindsym $sup+Shift+4 move container to workspace $ws15 ; workspace $ws15
-bindsym $sup+Shift+5 move container to workspace $ws16 ; workspace $ws16
-bindsym $sup+Shift+6 move container to workspace $ws17 ; workspace $ws17
-bindsym $sup+Shift+7 move container to workspace $ws18 ; workspace $ws18
-bindsym $sup+Shift+8 move container to workspace $ws19 ; workspace $ws19
-bindsym $sup+Shift+9 move container to workspace $ws20 ; workspace $ws20
-bindsym $sup+Shift+0 move container to workspace $ws21 ; workspace $ws21
+bindsym $sup+Shift+1          move container to workspace $ws12 ; workspace $ws12
+bindsym $sup+Shift+2          move container to workspace $ws13 ; workspace $ws13
+bindsym $sup+Shift+3          move container to workspace $ws14 ; workspace $ws14
+bindsym $sup+Shift+4          move container to workspace $ws15 ; workspace $ws15
+bindsym $sup+Shift+5          move container to workspace $ws16 ; workspace $ws16
+bindsym $sup+Shift+6          move container to workspace $ws17 ; workspace $ws17
+bindsym $sup+Shift+7          move container to workspace $ws18 ; workspace $ws18
+bindsym $sup+Shift+8          move container to workspace $ws19 ; workspace $ws19
+bindsym $sup+Shift+9          move container to workspace $ws20 ; workspace $ws20
+bindsym $sup+Shift+0          move container to workspace $ws21 ; workspace $ws21
+bindsym $sup+Shift+apostrophe move container to workspace $ws22 ; workspace $ws22
 
 ## move focused container to workspace
 # bindsym $sup+Shift+degree     move container to workspace $ws0
@@ -181,29 +183,30 @@ bindsym $sup+Shift+0 move container to workspace $ws21 ; workspace $ws21
 # bindsym $sup+Shift+0          move container to workspace $ws21
 
 ## switch to workspace
-bindsym $mod+degree workspace $ws0
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+degree     workspace $ws0
+bindsym $mod+1          workspace $ws1
+bindsym $mod+2          workspace $ws2
+bindsym $mod+3          workspace $ws3
+bindsym $mod+4          workspace $ws4
+bindsym $mod+5          workspace $ws5
+bindsym $mod+6          workspace $ws6
+bindsym $mod+7          workspace $ws7
+bindsym $mod+8          workspace $ws8
+bindsym $mod+9          workspace $ws9
+bindsym $mod+0          workspace $ws10
 bindsym $mod+apostrophe workspace $ws11
 ## extra workspaces
-bindsym $sup+1 workspace $ws12
-bindsym $sup+2 workspace $ws13
-bindsym $sup+3 workspace $ws14
-bindsym $sup+4 workspace $ws15
-bindsym $sup+5 workspace $ws16
-bindsym $sup+6 workspace $ws17
-bindsym $sup+7 workspace $ws18
-bindsym $sup+8 workspace $ws19
-bindsym $sup+9 workspace $ws20
-bindsym $sup+0 workspace $ws21
+bindsym $sup+1          workspace $ws12
+bindsym $sup+2          workspace $ws13
+bindsym $sup+3          workspace $ws14
+bindsym $sup+4          workspace $ws15
+bindsym $sup+5          workspace $ws16
+bindsym $sup+6          workspace $ws17
+bindsym $sup+7          workspace $ws18
+bindsym $sup+8          workspace $ws19
+bindsym $sup+9          workspace $ws20
+bindsym $sup+0          workspace $ws21
+bindsym $sup+apostrophe workspace $ws22
 
 #bindsym $sup+Shift+plus $exec ~/.config/i3/scripts/i3_empty_workspace.sh
 

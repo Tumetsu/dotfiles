@@ -210,7 +210,8 @@ ws-icon-18 = 18; 
 ws-icon-19 = 19; 
 ws-icon-20 = 20; 
 ws-icon-21 = 21; 
-ws-icon-default = 
+ws-icon-22 = 22; 
+ws-icon-default = 
 
 ; Sort the workspaces by index instead of the default
 ; sorting that groups the workspaces by output

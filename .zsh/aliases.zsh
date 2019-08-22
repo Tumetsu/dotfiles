@@ -2,12 +2,13 @@
 
 alias ipa='ip -c=always a s'
 alias ipaj="ip -j a s|jq -c '.[]|select(.ifname|match(\"(eth[0-9]{1})\")).addr_info[0].local'|tr -d '\"'"
+alias ipaa="ip -j a s|jq '.[].addr_info[]|select(.family|match(\"inet$\"))|select(.label|match(\"[^(lo)]\"))|.label,.local'|sed -e ':a;N;\$!ba;s/\"//g;s/\([0-9]\{,3\}\.[0-9]\{,3\}.[0-9]\{,3\}\.[0-9]\{,3\}\)/\1\n/g'"
 
 # Command line head / tail shortcuts
 alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep'
-alias -g R='| rg'
+alias -g R='| rg -i -e'
 alias -g L="| less"
 alias -g M="| most"
 alias -g C="| wc -l"
