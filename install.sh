@@ -23,10 +23,6 @@ MANAGED_FILES=(
     ~/.Xresources
 )
 
-## Install necessary packages
-test $(command -v curl) || sudo apt install curl
-test $(command -v wget) || sudo apt install wget
-
 test -d ${INSTALLDIR} || mkdir -p ${INSTALLDIR}
 
 cd ${INSTALLDIR}
@@ -46,11 +42,6 @@ if [[ $CLEAN_EXISTING_FILES =~ [Y|y] ]]; then
     done
 fi
 
-## copy i3-vm config
-# $(which cp) -rf i3 ~/.config/
-# rm -rf ~/.config/i3
-# ln -sf ${THIS_DIR}/.config/i3 ~/.config/
-
 ##
 ## copy/symlink files to installdir
 ##
@@ -59,15 +50,12 @@ for FILE in ${MANAGED_FILES[@]}; do
     echo "Copying ${THIS_DIR}/${STRIPED_FILE_NAME} to ${INSTALLDIR}"
     ln -sf ${THIS_DIR}/${STRIPED_FILE_NAME} ${INSTALLDIR}
 done
+
 ## link .config files
-for DOT_FILE in $(ls .config/); do
-    rm -rf ~/.config/$DOT_FILE
-    ln -sf $THIS_DIR/$DOT_FILE ~/.config
-done
-
-
 for DOT_FILE in $(ls .config); do
-    if [[ $CLEAN_EXISTING_FILES =~ [Y|y] ]]; then rm -rf $DOT_FILE; fi
+    if [[ $CLEAN_EXISTING_FILES =~ [Y|y] ]]; then
+        rm -rf ~/.config/$DOT_FILE
+    fi
     ln -sf $THIS_DIR/.config/$DOT_FILE ~/.config/
 done
 

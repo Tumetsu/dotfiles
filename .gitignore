@@ -18,13 +18,9 @@ __pycache__
 copyright.pandoc
 pandoc
 pandoc-citeproc
-bin/wpscan*
-bin/nikto*
-bin/Responder*
-bin/HashTag.py
-bin/searchsploit*
-bin/sqlmap.py
-bin/vol.py
-bin/xssless.py
 .vagrant/
 .vscode/
+!.config/vifm/colors
+!.config/vifm/scripts
+!.config/vifm/vifmrc
+.config/vifm/*

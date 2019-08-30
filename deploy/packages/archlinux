@@ -54,6 +54,8 @@ htop
 lsof
 nmap
 tmux
+sipcalc
+ipcalc
 ##
 ## python 3
 python
@@ -73,6 +75,7 @@ python-isort
 python-pipenv
 ipython
 pygmentize
+python-netaddr
 ##
 ## python 2
 ipython2
@@ -86,6 +89,7 @@ python2-jedi
 python2-isort
 python2-paramiko
 python2-pipenv
+python2-netaddr
 ##
 wpa_supplicant
 lightdm

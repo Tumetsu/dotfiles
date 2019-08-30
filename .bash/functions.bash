@@ -353,3 +353,9 @@ function file-to-hex()
 {
     od -A n -t x1 $1|sed 's/ *//g'|tr -d '\n';echo
 }
+
+function expand-ip()
+{
+  nmap -sL -n "$1" | awk '/Nmap scan report/{print $NF}'
+}
+

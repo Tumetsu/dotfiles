@@ -659,7 +659,7 @@ for_window [class="(?i)blueman-manager"]               floating enable , border 
 for_window [class="(?i)nm-connection-editor"]          floating enable , border normal
 for_window [class="(?i)gnome-power-statistics"]        floating enable , border normal
 for_window [class="(?i)Solaar"]                        floating enable , border normal
-# for_window [class="(?i)gimp"]                          floating enable , border normal
+for_window [class="(?i)Gpicview"]                      floating enable , border normal
 
 ##########################################################################
 #                    Move windows to a specific workspaces
