@@ -20,7 +20,7 @@ pandoc
 pandoc-citeproc
 .vagrant/
 .vscode/
-!.config/vifm/colors
-!.config/vifm/scripts
-!.config/vifm/vifmrc
 .config/vifm/*
+!.config/vifm/colors/
+!.config/vifm/scripts/
+!.config/vifm/vifmrc
