@@ -242,10 +242,19 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ gpicview %c,
         \ {View in shotwell}
         \ shotwell,
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-         \ convert -identify %f -verbose /dev/null
 
-filextype *.jpg,*.jpeg,*.png,*.gif
+" fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+"          \ imgt %px %py %pw %ph %c
+"          \ %pc
+"          \ imgc %px %py %pw %ph
+"
+" fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+"          \ convert -identify %f -verbose /dev/null
+
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+       \ feh -FZ %d --start-at %d/%c 2>/dev/null
+
+filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
        \ {View in feh}
        \ feh -FZ %d --start-at %d/%c 2>/dev/null
 
