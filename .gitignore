@@ -9,18 +9,34 @@
 !.gdbinit
 *.swap
 __pycache__
+
+## VIM
 .vim/plugged/*
 .vim/autoload/*
 .vim/.netrwhist
 .vim/spell
 .vim/view
 .config/vifm/vifminfo
+
 copyright.pandoc
 pandoc
 pandoc-citeproc
+
+## Vagrant
 .vagrant/
+
+## Visual Studio Code
 .vscode/
+.config/Code/*
+!.config/Code/User
+.config/Code/User/*
+!.config/Code/User/settings.json
+!.config/Code/User/keybindings.json
+!.config/Code/User/snippets/
+
+## VIFM
 .config/vifm/*
 !.config/vifm/colors/
 !.config/vifm/scripts/
 !.config/vifm/vifmrc
+
