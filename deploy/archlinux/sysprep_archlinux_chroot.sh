@@ -53,7 +53,7 @@ fi
 HOSTNAME=${tmp_HOSTNAME:-"archhostname"}
 USERNAME=${tmp_USERNAME:-"boogy"}
 BOOT_TYPE=${tmp_BOOT_TYPE:-"systemd-boot"}
-SWAP_SIZE=${tmp_SWAP_SIZE:-"2G"}
+SWAP_SIZE=${tmp_SWAP_SIZE:-"4G"}
 LOCALES=${tmp_LOCALES:-"fr_CH-latin1"}
 HOME_DIR="/home/${USERNAME}"
 
@@ -91,6 +91,7 @@ function is_virtual_machine
 
 function create_swapfile
 {
+    ## /etc/fstab: /swapfile none swap defaults 0 0
     ## equivalent to: dd if=/dev/zero of=/swapfile bs=1M count=1024
     if [[ ! -f /swapfile ]]; then
         msg_ok "Creating a ${SWAP_SIZE} swap file /swapfile"
