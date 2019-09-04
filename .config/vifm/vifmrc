@@ -361,6 +361,8 @@ filextype */
         \ {View in Nautilus}
         \ Nautilus %f &,
 
+fileview * defviewer %c
+
 " Syntax highlighting in preview
 "
 " Explicitly set highlight type for some extensions
@@ -500,3 +502,5 @@ nnoremap <c-h> :tabprevious<CR>
 nnoremap <c-l> :tabnext<CR>
 nnoremap <c-t> :tabnew<CR>
 
+" show icons for files and folders
+source ~/.config/vifm/scripts/SETUP

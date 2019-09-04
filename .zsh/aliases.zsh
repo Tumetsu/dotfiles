@@ -30,6 +30,7 @@ alias ff='find . -type f -name'
 alias ffd='find . -type d -name'
 alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 alias go-root="sudo -u root -s"
+alias xopen="xdg-open"
 
 ## use delete key to delete
 bindkey "^[[3~"  delete-char
