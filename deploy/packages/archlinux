@@ -5,7 +5,6 @@ i3-wm
 i3blocks
 i3lock
 i3status
-xterm
 rxvt-unicode
 rxvt-unicode-terminfo
 urxvt-perls
@@ -13,6 +12,7 @@ libinput
 xf86-input-libinput
 xf86-video-intel
 xf86-video-vesa
+# intel-ucode
 unzip
 unrar
 tree
@@ -27,6 +27,7 @@ ansible
 arandr
 bash-completion
 bbswitch-dkms
+dkms
 pavucontrol
 rofi
 compton
@@ -37,9 +38,10 @@ eog-plugins
 evince
 file-roller
 p7zip
-nautilus
-nautilus-sendto
-nautilus-share
+#nautilus
+#nautilus-sendto
+#nautilus-share
+#gnome-terminal
 filezilla
 firefox
 chromium
@@ -49,7 +51,6 @@ ghex
 gtk-engine-murrine
 gtk2
 gtk3
-gnome-terminal
 htop
 lsof
 nmap
@@ -57,6 +58,17 @@ tmux
 sipcalc
 ipcalc
 enca
+thunar
+thunar-archive-plugin
+thunar-media-tags-plugin
+thunar-volman
+xfce4-power-manager
+xfce4-taskmanager
+xfce4-appfinder
+gvfs
+virtualbox
+virtualbox-host-dkms
+virtualbox-guest-iso
 ##
 ## python 3
 python
@@ -113,6 +125,9 @@ arc-icon-theme
 arc-solid-gtk-theme
 xcursor-themes
 jre8-openjdk
+jdk8-openjdk
+jre10-openjdk
+jdk10-openjdk
 w3m
 wireshark-gtk
 xcursor-themes
@@ -153,8 +168,6 @@ ripgrep
 exa
 fzf
 notification-daemon
-hashcat
-bumblebee
 deepin-screenshot
 dhclient
 ocl-icd
@@ -164,13 +177,17 @@ stow
 fwupd
 scrot
 flameshot
-#alacritty
-thunderbird-i18n-fr
+nitrogen
+# alacritty
+# thunderbird
+# thunderbird-i18n-fr
 termite
 zsh
 zsh-syntax-highlighting
 zsh-autosuggestions
 nfs-utils
+cifs-utils
+smbclient
 impacket
 ## fonts
 otf-font-awesome
@@ -192,6 +209,9 @@ bluez-tools
 bluez-utils
 ##
 ## packages for nvidia graphics
-#opencl-nvidia
-#nvidia-lst
-nitrogen
+# opencl-nvidia
+# nvidia-lst
+# nvidia-utils
+# mesa
+# hashcat
+# bumblebee

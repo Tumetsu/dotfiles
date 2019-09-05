@@ -77,4 +77,5 @@ set classify+=' ::*.cert,,*.cer,,*.pfx,,*.crl,,*.der,,*.crt,,*.p12::'
 set classify+=' ::*.key,,*.pem::'
 set classify+=' ::*.vmdk::'
 set classify+=' ::*.vmx::'
+set classify+=' ::*.iso::'
 

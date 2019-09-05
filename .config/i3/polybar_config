@@ -147,7 +147,7 @@ interval = 240
 
 mount-0 = /
 
-label-mounted = %{A1:gnome-system-monitor -f &:}%{T5} %{T-} %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%%{A}
+label-mounted = %{A1:xfce4-taskmanager -f &:}%{T5} %{T-} %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%%{A}
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -374,7 +374,7 @@ ramp-coreload-7-foreground = #ff5555
 [module/memory]
 type = internal/memory
 interval = 10
-format = %{A1:gnome-system-monitor -r &:}<label> <bar-used>%{A}
+format = %{A1:xfce4-taskmanager &:}<label> <bar-used>%{A}
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc

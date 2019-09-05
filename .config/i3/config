@@ -360,7 +360,8 @@ bindsym $mod+Control+Up    move workspace to output up
 bindsym $mod+Control+Down  move workspace to output down
 
 # nautilus shortcut
-bindsym $sup+e $exec nautilus --new-window
+# bindsym $sup+e $exec nautilus --new-window
+bindsym $sup+e $exec thunar
 
 ## show list of windows opened
 # bindsym $sup+w $exec rofi -show window -opacity "90" -bw 1 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "#42f4aa" -hlfg "#9575cd" -font "Ubuntu 11" -theme Arc-Dark
@@ -660,6 +661,7 @@ for_window [class="(?i)nm-connection-editor"]          floating enable , border 
 for_window [class="(?i)gnome-power-statistics"]        floating enable , border normal
 for_window [class="(?i)Solaar"]                        floating enable , border normal
 for_window [class="(?i)Gpicview"]                      floating enable , border normal
+for_window [class="(?i)Xfce4-appfinder"]               floating enable , border normal
 
 ##########################################################################
 #                    Move windows to a specific workspaces
@@ -790,4 +792,7 @@ $exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_
 $exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
 $exec i3-msg "workspace $ws2; exec --no-startup-id chromium"
-$exec i3-msg "workspace $ws7; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
+$exec i3-msg "workspace $ws7; exec --no-startup-id thunar --daemon; exec --no-startup-id thunar; exec --no-startup-id thunar"
+# $exec i3-msg "workspace $ws7; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
+
+
