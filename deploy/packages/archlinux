@@ -129,7 +129,7 @@ jdk8-openjdk
 jre10-openjdk
 jdk10-openjdk
 w3m
-wireshark-gtk
+# wireshark-gtk -> AUR
 xcursor-themes
 xcursor-bluecurve
 xcursor-comix
@@ -189,22 +189,23 @@ nfs-utils
 cifs-utils
 smbclient
 impacket
+##
 ## fonts
 otf-font-awesome
 ttf-font-awesome
 ttf-fira-mono
 ttf-dejavu
 ttf-droid
-ttf-freefont
 ttf-inconsolata
 ttf-linux-libertine
 noto-fonts
 noto-fonts-emoji
+##
 ## bluetooth utilities
 blueman
 bluez
 bluez-libs
-bluez-firmware
+# bluez-firmware -> AUR
 bluez-tools
 bluez-utils
 ##
