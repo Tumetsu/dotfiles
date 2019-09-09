@@ -23,6 +23,7 @@ set   $def_broser            chromium
 set   $pwn_browser           firefox
 set   $def_terminal          termite
 set   $def_terminal_second   urxvt
+set   $def_file_manager      thunar
 # set $HDMI1 HDMI1
 # set $HDMI2 HDMI2
 
@@ -208,7 +209,7 @@ bindsym $sup+9          workspace $ws20
 bindsym $sup+0          workspace $ws21
 bindsym $sup+apostrophe workspace $ws22
 
-#bindsym $sup+Shift+plus $exec ~/.config/i3/scripts/i3_empty_workspace.sh
+#bindsym $sup+Shift+plus $exec ~/.config/i3/scripts/i3-empty-workspace.sh
 
 ## change focus on windows
 bindsym $mod+h focus left
@@ -397,8 +398,8 @@ bindsym $sup+Shift+c move position center
 bindsym $mod+Shift+m $exec ~/.config/i3/scripts/i3blocks/dmenumount
 
 ## search google
-bindsym $mod+Shift+g $exec ~/.config/i3/scripts/i3blocks/googlesearch
-bindsym $mod+Shift+d $exec ~/.config/i3/scripts/i3blocks/ducksearch
+# bindsym $mod+Shift+g $exec ~/.config/i3/scripts/i3blocks/googlesearch
+# bindsym $mod+Shift+d $exec ~/.config/i3/scripts/i3blocks/ducksearch
 
 
 ##########################################################################
@@ -633,8 +634,9 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 ##########################################################################
 #                      list of windows in floating mode
 ##########################################################################
-for_window [class=".*"] title_format " %title "
+# for_window [class=".*"] border pixel 0
 # for_window [class=".*"] move position center
+for_window [class=".*"] title_format " %title "
 
 ##
 ## Floating windows
@@ -781,7 +783,6 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 ## parse layout with
 ## tail -n +2 workspaceN.json | fgrep -v '// splitv' | sed 's|//||g' > workspace_N.json
 $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
-#$exec i3-msg "workspace $ws2; append_layout ~/.config/i3/screenlayout/workspace_2.json"
 $exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_7.json"
 
 ## open default apps and move them to the desired workspace
@@ -791,8 +792,139 @@ $exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_
 
 $exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
-$exec i3-msg "workspace $ws2; exec --no-startup-id chromium"
-$exec i3-msg "workspace $ws7; exec --no-startup-id thunar --daemon; exec --no-startup-id thunar; exec --no-startup-id thunar"
+$exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
+$exec i3-msg "workspace $ws7; exec --no-startup-id $def_file_manager &; exec --no-startup-id $def_file_manager &"
+$exec i3-msg "workspace $ws1"
 # $exec i3-msg "workspace $ws7; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
 
+#############################
+### settings for i3-gaps: ###
+#############################
+
+gaps inner 5
+gaps outer -1
+smart_gaps on
+smart_borders on
+
+set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_horiz Horizontal Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_verti Vertical Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_top Top Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_right Right Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_bottom Bottom Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_left Left Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym h      mode "$mode_gaps_horiz"
+        bindsym v      mode "$mode_gaps_verti"
+        bindsym t      mode "$mode_gaps_top"
+        bindsym r      mode "$mode_gaps_right"
+        bindsym b      mode "$mode_gaps_bottom"
+        bindsym l      mode "$mode_gaps_left"
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_horiz" {
+        bindsym plus  gaps horizontal current plus 5
+        bindsym minus gaps horizontal current minus 5
+        bindsym 0     gaps horizontal current set 0
+
+        bindsym Shift+plus  gaps horizontal all plus 5
+        bindsym Shift+minus gaps horizontal all minus 5
+        bindsym Shift+0     gaps horizontal all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_verti" {
+        bindsym plus  gaps vertical current plus 5
+        bindsym minus gaps vertical current minus 5
+        bindsym 0     gaps vertical current set 0
+
+        bindsym Shift+plus  gaps vertical all plus 5
+        bindsym Shift+minus gaps vertical all minus 5
+        bindsym Shift+0     gaps vertical all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_top" {
+        bindsym plus  gaps top current plus 5
+        bindsym minus gaps top current minus 5
+        bindsym 0     gaps top current set 0
+
+        bindsym Shift+plus  gaps top all plus 5
+        bindsym Shift+minus gaps top all minus 5
+        bindsym Shift+0     gaps top all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_right" {
+        bindsym plus  gaps right current plus 5
+        bindsym minus gaps right current minus 5
+        bindsym 0     gaps right current set 0
+
+        bindsym Shift+plus  gaps right all plus 5
+        bindsym Shift+minus gaps right all minus 5
+        bindsym Shift+0     gaps right all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_bottom" {
+        bindsym plus  gaps bottom current plus 5
+        bindsym minus gaps bottom current minus 5
+        bindsym 0     gaps bottom current set 0
+
+        bindsym Shift+plus  gaps bottom all plus 5
+        bindsym Shift+minus gaps bottom all minus 5
+        bindsym Shift+0     gaps bottom all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_left" {
+        bindsym plus  gaps left current plus 5
+        bindsym minus gaps left current minus 5
+        bindsym 0     gaps left current set 0
+
+        bindsym Shift+plus  gaps left all plus 5
+        bindsym Shift+minus gaps left all minus 5
+        bindsym Shift+0     gaps left all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
 

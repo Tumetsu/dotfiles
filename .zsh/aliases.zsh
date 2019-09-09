@@ -31,6 +31,7 @@ alias ffd='find . -type d -name'
 alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 alias go-root="sudo -u root -s"
 alias xopen="xdg-open"
+alias exiftool="/usr/bin/vendor_perl/exiftool"
 
 ## use delete key to delete
 bindkey "^[[3~"  delete-char
