@@ -1,7 +1,7 @@
 ##
 ## arch linux packages to install
 ##
-i3-wm
+i3-gaps
 i3blocks
 i3lock
 i3status
@@ -78,7 +78,6 @@ python
 python-i3-py
 python-crypto
 python-cryptography
-python-i3-py
 python-pylint
 python-paramiko
 python-pexpect
@@ -192,6 +191,7 @@ nfs-utils
 cifs-utils
 smbclient
 impacket
+qt5ct
 ##
 ## fonts
 otf-font-awesome

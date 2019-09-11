@@ -110,9 +110,13 @@ alias dpkg-extract='dpkg-deb --extract' # dpkg-deb --extract package.deb dir-to-
 ###
 [[ "$(uname)" = "Linux" && $(command -v pacman) ]] && {
 alias p-install='sudo pacman -S'
+alias pacinst=p-install
 alias p-remove='sudo pacman -R'
+alias pacremove=p-remove
 alias p-update='sudo pacman -Syu'
+alias pacupdate=p-update
 alias p-search='pacman -Ss'
+alias pacsearch=p-search
 alias p-query-installed='pacman -Qs'
 alias p-query-foreign='pacman -Qm'
 alias p-list-aur-packages='pacman -Qm'
@@ -121,12 +125,17 @@ alias p-clean-cache='sudo pacman -Sc'
 alias p-clean-orphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias p-list-orphans='pacman -Qtdq'
 alias p-mirror-ranking="(curl -s \"https://www.archlinux.org/mirrorlist/?country=FR&country=GB&protocol=https&use_mirror_status=on\"|sed -e \"s/^#Server/Server/\" -e \"/^#/d\" | rankmirrors -n 5 -) | sudo tee /etc/pacman.d/mirrorlist"
+alias pacbrowse="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 ## AUR aurman
 alias pa-search='yay '
+alias yaysearch=pa-search
 alias pa-install='yay -S'
+alias yayinstall=pa-install
 alias pa-install-silent='yay -S --noconfirm'
-alias pa-update='yay -Syu --topdown --cleanafter'
+alias pa-update='yay -Syyuu --topdown --cleanafter'
+alias yayupdate=pa-update
 alias pa-remove='yay -R'
+alias yayremove=pa-remove
 }
 
 ###

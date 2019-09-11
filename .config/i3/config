@@ -713,6 +713,7 @@ for_window [class="(?i)Gnome-terminal" title="(?i)WeeChat.*"] move container to 
 
 ## setup screen layout automatically
 $exec_always ~/.config/i3/scripts/dock.sh
+$exec ~/.config/i3/scripts/i3-alternating-layouts.py
 
 ## disable mousepad while typing
 $exec syndaemon -i 1 -k -R -t
@@ -747,8 +748,8 @@ $exec xrdb -merge ~/.Xresources
 $exec nm-applet
 
 ## get tranparent rofi background
-# $exec compton -bcCGf --no-fading-openclose --sw-opti
-#$exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
+# $exec compton -bcCGf --no-fading-openclose --unredir-if-possible
+# $exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
 
 ## Enable touchpad horizontal Scrolling
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Two-Finger Scrolling" 1 1
