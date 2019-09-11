@@ -75,7 +75,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH=${PATH}:${HOME}/bin
 export PATH=${PATH}:/home/boogy/.cargo/bin
 export PATH=${PATH}:${HOME}/.local/bin
-export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
+#export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 export LANG=en_US.UTF-8
 export EDITOR='vim'
