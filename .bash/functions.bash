@@ -214,7 +214,7 @@ function my-ip
 
 function list-ips
 {
-    ip -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {print $2" "$4}'|column -t
+    ip --color=always -o addr | awk '!/^[0-9]*: ?lo|link\/ether/ {print $2" "$4}'|column -t
 }
 
 

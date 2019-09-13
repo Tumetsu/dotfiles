@@ -685,7 +685,7 @@ assign [class="(?i)Parted"]                  $ws0
 assign [class="(?i)Gnome-disks"]             $ws0
 assign [class="(?i)Gnome-font-viewer"]       $ws0
 assign [class="(?i)software-properties-gtk"] $ws0
-assign [class="(?i)VirtualBox Manager"]      $ws9
+assign [class="(?i)VirtualBox Manager"]      $ws8
 assign [class="(?i)Thunderbird"]             $ws7
 
 # workspace default monitors
@@ -802,7 +802,7 @@ $exec i3-msg "workspace $ws1"
 ### settings for i3-gaps: ###
 #############################
 
-gaps inner 5
+gaps inner 7
 gaps outer -1
 smart_gaps on
 smart_borders on
