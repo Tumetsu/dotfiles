@@ -262,7 +262,7 @@ bindsym $mod+v split v
 
 ## toggle tiling / floating
 # bindsym $mod+Shift+space floating toggle
-bindsym $mod+space floating toggle, border normal 0
+bindsym $mod+space floating toggle, border toggle
 
 ## change focus between tiling / floating windows
 # bindsym $mod+space focus mode_toggle
