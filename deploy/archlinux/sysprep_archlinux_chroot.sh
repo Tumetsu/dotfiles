@@ -22,7 +22,7 @@ echo "$(tput setaf 2)[+] Information required for the chroot environment$(tput s
 read -p "$(tput setaf 2) [?] Enter hostname:$(tput sgr0)                                              " tmp_HOSTNAME
 read -p "$(tput setaf 2) [?] Enter username:$(tput sgr0)                                              " tmp_USERNAME
 read -p "$(tput setaf 2) [?] Boot loader to install ([grub] OR [default: systemd-boot] ):$(tput sgr0) " tmp_BOOT_TYPE
-read -p "$(tput setaf 2) [?] Swap file size (default: 2G):$(tput sgr0)                                " tmp_SWAP_SIZE
+read -p "$(tput setaf 2) [?] Swap file size (default: 32G):$(tput sgr0)                               " tmp_SWAP_SIZE
 read -p "$(tput setaf 2) [?] Locales to use for the system (default: fr_CH-latin1):$(tput sgr0)       " tmp_LOCALES
 
 ## if using nvme change the names
@@ -53,7 +53,7 @@ fi
 HOSTNAME=${tmp_HOSTNAME:-"archhostname"}
 USERNAME=${tmp_USERNAME:-"boogy"}
 BOOT_TYPE=${tmp_BOOT_TYPE:-"systemd-boot"}
-SWAP_SIZE=${tmp_SWAP_SIZE:-"4G"}
+SWAP_SIZE=${tmp_SWAP_SIZE:-"32G"}
 LOCALES=${tmp_LOCALES:-"fr_CH-latin1"}
 HOME_DIR="/home/${USERNAME}"
 
@@ -73,9 +73,8 @@ PRESS_ENTER
 
 ## avoid sudo asking for a password for the current user and the new user
 ## this will be deleted in the cleanup function at the end
-echo "${USER} ALL=(ALL:ALL) ALL, NOPASSWD: ALL"     >> /etc/sudoers.d/install.sudo
-echo "${USERNAME} ALL=(ALL:ALL) ALL, NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
-
+echo "${USER}     ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
+echo "${USERNAME} ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
 
 function is_virtual_machine
 {
@@ -159,18 +158,23 @@ function write_hostname_file
 
 function install_bootloader
 {
+    ## TODO: setup resume module for grub install
+
+    ## obtain swap file offset for resume module
+    local SWAP_FILE_OFFSET=$(filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'|tr -d '\.')
+
     if echo "${BOOT_TYPE}"|grep -qEo "systemd-boot"; then
         msg_ok "Installing systemd-boot"
         bootctl --path=/boot install
 
         msg_ok "Adding systemd loader configuration to /boot/loader/loader.conf"
-        echo "timeout 2" > /boot/loader/loader.conf
+        echo "timeout 1" > /boot/loader/loader.conf
         echo "default arch-*" >> /boot/loader/loader.conf
 
         if [[ $SHOULD_ENCRYPT_DISK =~ [Yy] ]]; then
-            SYSTEMD_BOOT_OPTIONS="options cryptdevice=UUID=${ROOT_PARTITION_UUID}:root root=${PARTITION_LUKS} quiet rw net.ifnames=0 transparent_hugepage=never"
+            SYSTEMD_BOOT_OPTIONS="options cryptdevice=UUID=${ROOT_PARTITION_UUID}:root root=${PARTITION_LUKS} quiet rw net.ifnames=0 transparent_hugepage=never resume=${PARTITION_LUKS} resume_offset=${SWAP_FILE_OFFSET}"
         else
-            SYSTEMD_BOOT_OPTIONS="options root=PARTUUID=${ROOT_PARTITION_UUID} quiet rw net.ifnames=0 transparent_hugepage=never"
+            SYSTEMD_BOOT_OPTIONS="options root=PARTUUID=${ROOT_PARTITION_UUID} quiet rw net.ifnames=0 transparent_hugepage=never resume=UUID=${ROOT_PARTITION_UUID} resume_offset=${SWAP_FILE_OFFSET}"
         fi
 
         msg_ok "Adding first entry to loader: /boot/loader/entries/arch.conf"
@@ -214,6 +218,17 @@ function enable_pacman_multilib
     ## to replace new lines in new sed verions the [:a;N;] can be replaced with [sed -z]
     sed -i ':a;N;s|#\[multilib\]\n#Include|\[multilib\]\nInclude|' /etc/pacman.conf
     sed -i 's/#Color/Color/' /etc/pacman.conf
+}
+
+
+function enable_optimized_binaries
+{
+    msg_ok "Enable binary optimization flags in /etc/makepkg.conf"
+    cp /etc/makepkg.conf{,.backup}
+    sed -i 's/^CFLAGS.*/CFLAGS="-march=native -O2 -pipe -fstack-protector-strong -fno-plt"/g' /etc/makepkg.conf
+    sed -i 's/^CXXFLAGS.*/CXXFLAGS="${CFLAGS}"/g' /etc/makepkg.conf
+    sed -i 's/^#MAKEFLAGS.*/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
+    sed -i 's@^#BUILDDIR.*@BUILDDIR=/tmp/makepkg@' /etc/makepkg.conf
 }
 
 
@@ -317,9 +332,9 @@ function configure_mkinitcpio_hooks
     msg_ok "Adding hooks to /etc/mkinitcpio.conf"
     sed -i "s/^\(HOOKS=\)/#\1/" /etc/mkinitcpio.conf
     if [[ $SHOULD_ENCRYPT_DISK =~ [yY] ]]; then
-        sed -i "/#HOOKS=(base/a HOOKS=(base udev autodetect modconf block keyboard keymap encrypt filesystems fsck)" /etc/mkinitcpio.conf
+        sed -i "/#HOOKS=(base/a HOOKS=(base udev autodetect modconf block keyboard keymap encrypt filesystems resume fsck)" /etc/mkinitcpio.conf
     else
-        sed -i "/#HOOKS=(base/a HOOKS=(base systemd udev autodetect modconf block keyboard keymap filesystems fsck)" /etc/mkinitcpio.conf
+        sed -i "/#HOOKS=(base/a HOOKS=(base systemd udev autodetect modconf block keyboard keymap filesystems resume fsck)" /etc/mkinitcpio.conf
     fi
 
     msg_ok "Generate kernel images with 'mkinitcpio -P'"
@@ -362,6 +377,8 @@ function configure_xorg_keaboard
 		        Option "XkbOptions" "lv3:ralt_switch"
 		EndSection
 	EOF
+    msg_warning "The keyboard is configured in /etc/X11/xorg.conf.d/00-keyboard.conf"
+    msg_warning "Please change keyboard configuration if you don't use Suiss French layout"
 }
 
 
@@ -422,8 +439,8 @@ function add_libinput_gestures_config
 		gesture: pinch in xdotool key Ctrl+minus
 
 		# Switch between desktops
-		gesture: swipe left 4 xdotool set_desktop --relative 1
-		gesture: swipe right 4 xdotool set_desktop --relative -- -1
+		gesture: swipe right 4 xdotool set_desktop --relative 1
+		gesture: swipe left 4 xdotool set_desktop --relative -- -1
 	EOF
 }
 
@@ -477,7 +494,7 @@ function add_sudoers_configuration
 {
     msg_ok "Add user ${USERNAME} to sudoers"
     cp /etc/sudoers{,.backup}
-    cat <<-EOF > /tmp/sudoers
+    cat <<-EOF > /etc/sudoers
 		##
 		## Defaults
 		##
@@ -524,18 +541,20 @@ function add_sysctl_params
     local old_IFS=$IFS
     local IFS=$'\n'
     local SYSCTL_PARAMS=(
-       'vm.swappiness = 10'
-       'vm.vfs_cache_pressure = 50'
+       'vm.swappiness=10'
+       'vm.vfs_cache_pressure=50'
        'net.ipv6.conf.vmnet1.disable_ipv6=1'
        'net.ipv6.conf.vmnet8.disable_ipv6=1'
+       'vm.dirty_writeback_centisecs=6000'
+       'kernel.nmi_watchdog=0'
     )
-    msg_ok "Add sysctl performance options"
+    msg_ok "Add some sysctl values"
     for OPT in ${SYSCTL_PARAMS[@]}; do
         value_name=$(echo ${OPT}|sed -e 's/[ \t=]\+.*//g')
-        if grep -q "${value_name}" /etc/sysctl.d/99-sysctl.conf ; then
+        if grep -q "${value_name}" /etc/sysctl.d/99-sysctl.conf &>/dev/null; then
             msg_warning "${value_name} is already set"
         else
-            echo ${O} >> /etc/sysctl.d/99-sysctl.conf
+            echo ${OPT} >> /etc/sysctl.d/99-sysctl.conf
         fi
     done
     IFS=$old_IFS
@@ -564,34 +583,45 @@ function install_powerline_fonts
 
 function install_aur_wrapper
 {
-    sudo -u ${USERNAME} bash -c "git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay"
-    sudo -u ${USERNAME} bash -c "cd ${HOME_DIR}/yay; makepkg -s --noconfirm --clean" \
-        && pacman -U --noconfirm ${HOME_DIR}/yay/yay-*-x86_64.pkg.tar.xz
+    # pacman -U --noconfirm ${HOME_DIR}/yay/yay-*-x86_64.pkg.tar.xz
+    sudo -u ${USERNAME} -s /bin/bash -- <<-EOF
+        (echo -n ${USERNAME}|sudo -S id) &>/dev/null
+        git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay
+        cd ${HOME_DIR}/yay
+        makepkg -si --noconfirm --clean
+    EOF
     rm -rf ${HOME_DIR}/yay
+
+    if command -v yay &>/dev/null; then
+        msg_ok "AUR wrapper successfully installed"
+    else
+        msg_error "AUR wrapper not installed"
+        msg_warning "AUR packages will not be installed"
+    fi
 }
 
 
 function install_aur_packages
 {
+    ## Install AUR packages
     if command -v yay &>/dev/null; then
-        ## Install AUR packages
-        yay -S --noconfirm systemd-boot-pacman-hook
-        yay -S --noconfirm chromium-widevine ## chromium needs this to play protected content
-        yay -S --noconfirm dropbox && systemctl --user disable dropbox.service
-        yay -S --noconfirm polybar
-        yay -S --noconfirm libinput-gestures
-        yay -S --noconfirm vmware-workstation
-        yay -S --noconfirm visual-studio-code-bin
-        yay -S --noconfirm jre8-openjdk jdk8-openjdk
-        yay -S --noconfirm jre10-openjdk jdk10-openjdk
-        yay -S --noconfirm gksu
-        yay -S --noconfirm otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts
-        yay -S --noconfirm xcursor-oxygen
-        yay -S --noconfirm xcursor-breeze-serie-obsidian
-        yay -S --noconfirm j4-dmenu-desktop
-        yay -S --noconfirm i3lock-color-git
-        #yay -S --noconfirm openfortivpn
-        #yay -S --noconfirm nessus
+        sudo -u ${USERNAME} -s /bin/bash -- <<-EOF
+            (echo -n ${USERNAME}|sudo -S id) &>/dev/null
+            yay -S --sudoloop --noconfirm \
+                systemd-boot-pacman-hook \
+                chromium-widevine \
+                dropbox \
+                polybar \
+                libinput-gestures \
+                vmware-workstation \
+                visual-studio-code-bin \
+                jre8-openjdk jdk8-openjdk jre10-openjdk jdk10-openjdk \
+                gksu otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts \
+                xcursor-oxygen xcursor-breeze-serie-obsidian \
+                j4-dmenu-desktop i3lock-color-git
+        EOF
+        ## if dropbox is installed disable this service
+        systemctl --user disable dropbox.service
     else
         msg_warning "Can't install AUR packages: there is no AUR helper installed"
         msg_warning "Check out this documentation: https://wiki.archlinux.org/index.php/AUR_helpers"
@@ -609,7 +639,6 @@ function cleanup()
 
     test -f /sysprep_archlinux_chroot.sh && rm -f /sysprep_archlinux_chroot.sh
     test -f /etc/sudoers.d/install.sudo  && rm -f /etc/sudoers.d/install.sudo
-
 }
 ## make sure you clean before you exit
 ## if you dont want CTRL+c to kill the process use SIGINT
@@ -638,6 +667,9 @@ install_bootloader
 
 ## enable pacman multilib support
 enable_pacman_multilib
+
+## enable binary optimization in /etc/makepkg.conf
+enable_optimized_binaries
 
 ## rank the fastest 5 mirrors
 rank_mirrors

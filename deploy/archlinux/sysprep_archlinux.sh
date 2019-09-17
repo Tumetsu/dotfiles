@@ -19,8 +19,8 @@ pacman -Syy &>/dev/null
 
 ## avoid sudo asking for password for current user and the new user
 ## this will be deleted in the cleanup function at the end
-echo "${USER} ALL=(ALL:ALL) ALL, NOPASSWD: ALL"     >> /etc/sudoers.d/install.sudo
-echo "${USERNAME} ALL=(ALL:ALL) ALL, NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
+echo "${USER}     ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
+echo "${USERNAME} ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/install.sudo
 
 ## show some nice messages to the user
 ## we all like colors don't we
