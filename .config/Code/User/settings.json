@@ -271,15 +271,11 @@
     // WINDOW CONFIG
     //
     "window.zoomLevel": 0,
-    "window.menuBarVisibility": "hidden",
+    "window.menuBarVisibility": "default",
     "window.titleBarStyle": "native",
     "window.openFilesInNewWindow": "off",
     "window.openFoldersInNewWindow": "off",
     "window.enableMenuBarMnemonics": true,
-    //
-    // WORKBENCH CONFIG
-    //
-    "workbench.iconTheme": "material-icon-theme",
     "workbench.activityBar.visible": false,
     "workbench.editor.enablePreview": true,
     "workbench.editor.enablePreviewFromQuickOpen": false,
@@ -337,5 +333,6 @@
     "editor.wordWrap": "on",
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "workbench.iconTheme": "vscode-icons"
 }
