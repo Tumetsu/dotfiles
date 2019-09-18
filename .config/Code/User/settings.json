@@ -271,7 +271,7 @@
     // WINDOW CONFIG
     //
     "window.zoomLevel": 0,
-    "window.menuBarVisibility": "default",
+    "window.menuBarVisibility": "toggle",
     "window.titleBarStyle": "native",
     "window.openFilesInNewWindow": "off",
     "window.openFoldersInNewWindow": "off",
