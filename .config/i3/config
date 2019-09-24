@@ -351,6 +351,7 @@ bindsym $sup+d exec rofi -show drun -show-icons -lines 10 -columns 2 -opacity "8
 bindsym Shift+F12 exec rofi -show run -show-icons -lines 10 -opacity "80" -bw 1 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Ubuntu 11" -width 40 -sidebar-mode -theme Arc-Dark
 
 ## another menu
+# bindsym $mod+d $exec dmenu_run
 bindsym $mod+d $exec j4-dmenu-desktop --display-binary --dmenu="dmenu -i" --term="i3-sensible-terminal"
 
 ## move window to left monitor
