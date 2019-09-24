@@ -584,12 +584,11 @@ function install_powerline_fonts
 function install_aur_wrapper
 {
     # pacman -U --noconfirm ${HOME_DIR}/yay/yay-*-x86_64.pkg.tar.xz
-    sudo -u ${USERNAME} -s /bin/bash -- <<-EOF
-        (echo -n ${USERNAME}|sudo -S id) &>/dev/null
-        git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay
-        cd ${HOME_DIR}/yay
-        makepkg -si --noconfirm --clean
-    EOF
+    echo "(echo -n ${USERNAME}|sudo -S id) &>/dev/null;
+    git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay;
+    cd ${HOME_DIR}/yay;
+    makepkg -si --noconfirm --clean" > install_yay.sh
+    sudo -u ${USERNAME} install_yay.sh
     rm -rf ${HOME_DIR}/yay
 
     if command -v yay &>/dev/null; then
@@ -606,20 +605,20 @@ function install_aur_packages
     ## Install AUR packages
     if command -v yay &>/dev/null; then
         sudo -u ${USERNAME} -s /bin/bash -- <<-EOF
-            (echo -n ${USERNAME}|sudo -S id) &>/dev/null
-            yay -S --sudoloop --noconfirm \
-                systemd-boot-pacman-hook \
-                chromium-widevine \
-                dropbox \
-                polybar \
-                libinput-gestures \
-                vmware-workstation \
-                visual-studio-code-bin \
-                jre8-openjdk jdk8-openjdk jre10-openjdk jdk10-openjdk \
-                gksu otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts \
-                xcursor-oxygen xcursor-breeze-serie-obsidian \
-                j4-dmenu-desktop i3lock-color-git
-        EOF
+        (echo -n ${USERNAME}|sudo -S id) &>/dev/null
+        yay -S --sudoloop --noconfirm \
+            systemd-boot-pacman-hook \
+            chromium-widevine \
+            dropbox \
+            polybar \
+            libinput-gestures \
+            vmware-workstation \
+            visual-studio-code-bin \
+            jre8-openjdk jdk8-openjdk jre10-openjdk jdk10-openjdk \
+            gksu otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts \
+            xcursor-oxygen xcursor-breeze-serie-obsidian \
+            j4-dmenu-desktop i3lock-color-git
+		EOF
         ## if dropbox is installed disable this service
         systemctl --user disable dropbox.service
     else
