@@ -12,7 +12,7 @@ Xft.autohint: false
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 ! Xcursor.theme: Chameleon-Pearl-Regular-0.5
-! Xcursor.size:  32
+Xcursor.size: 32
 ! XTerm*background: #272827
 ! XTerm*foreground: #fdf6e3
 ! XTerm*reverseVideo: on
