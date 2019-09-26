@@ -103,8 +103,8 @@ for zsh_config_file in $zsh_custom_files; do
     source "${ZSH_FULL_FILE_PATH}/${zsh_config_file}.zsh" &>/dev/null
 done
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh &>/dev/null
 
 ## bash files
 ##
@@ -123,5 +123,8 @@ BASH_FULL_FILE_PATH="${HOME}/.bash/"
 for config_file in $bash_config_files; do
     source_bash "${BASH_FULL_FILE_PATH}/${config_file}.bash" &>/dev/null
 done
-source_bash ${HOME}/.bash_local &>/dev/null
+
+if [ -f "$HOME/.bash_local" ]; then
+    source_bash $HOME/.bash_local
+fi
 

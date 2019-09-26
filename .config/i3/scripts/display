@@ -4,9 +4,6 @@ OUTPUT1="eDP1"
 OUTPUT2="DP2-1"
 OUTPUT3="DP1-2"
 
-OUTPUT2_POS=0x560 #OR 0x1080
-OUTPUT3_POS=1920x0
-
 if [ "$1" = "work" ]; then
     bash ~/.screenlayout/work.sh
 fi

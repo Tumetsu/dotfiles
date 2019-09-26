@@ -458,6 +458,12 @@ bindsym $sup+Shift+b $exec code --new-window
 ## open a new i3 workspace not in use (smaller number possible)
 bindsym $sup+n $exec ~/.config/i3/scripts/i3-new-workspace.sh
 
+## Lenovo specific keys
+
+bindsym XF86Launch2 $exec /usr/sbin/chromium
+bindsym XF86Launch1 $exec /usr/sbin/firefox
+
+
 ##########################################################################
 #                        Shutdown/Reboot/Sleep menu
 ##########################################################################
@@ -528,23 +534,24 @@ bindsym $mod+r mode "resize"
 ##########################################################################
 
 ## choose xrandr displaymode
-set $mode_display Display mode: [d] Dock mode, [l] Laptop only
-mode "$mode_display" {
-    bindsym d $exec bash ~/.config/i3/scripts/dock.sh, \
-        workspace $ws1, move workspace to output $laptop, \
-        workspace $ws2, move workspace to output $monitor, \
-        mode "default"
-
-    bindsym l $exec bash ~/.config/i3/scripts/display laptop, \
-        workspace $ws1, move workspace to output $laptop, \
-        workspace $ws2, move workspace to output $laptop, \
-        mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+i mode "$mode_display"
+# set $mode_display Display mode: [d] Dock mode, [l] Laptop only
+# mode "$mode_display" {
+#     bindsym d $exec bash ~/.config/i3/scripts/dock.sh, \
+#         workspace $ws1, move workspace to output $laptop, \
+#         workspace $ws2, move workspace to output $monitor, \
+#         mode "default"
+#
+#     bindsym l $exec bash ~/.config/i3/scripts/display laptop, \
+#         workspace $ws1, move workspace to output $laptop, \
+#         workspace $ws2, move workspace to output $laptop, \
+#         mode "default"
+#
+#     # back to normal: Enter or Escape
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
+# bindsym $mod+i mode "$mode_display"
+bindsym $mod+i $exec ~/.config/i3/scripts/select-screen-layout.sh
 
 ##########################################################################
 #                          enable other displays
@@ -736,7 +743,7 @@ $exec libinput-gestures-setup start
 $exec_always xset r rate 200 50
 
 ## start gnome-keyring daemon
-$exec /usr/bin/gnome-keyring-daemon --start --daemonize --components=secrets,ssh
+$exec /usr/bin/gnome-keyring-daemon --start --daemonize --components=gpg,pkcs11,secrets,ssh
 
 ## self explanatory
 $exec xrdb -merge ~/.Xresources
@@ -754,20 +761,24 @@ $exec nm-applet
 
 ## Enable touchpad horizontal Scrolling
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Two-Finger Scrolling" 1 1
+
 ## disable natural scolling its horible
-$exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 0
+# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 0
+
 ## enable double click show menu
-$exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Click Method Enabled" 0 1
-$exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" 'libinput Accel Speed' 0.6
-$exec xinput --set-prop "Logitech Perforance MX" "Device Accel Constant Deceleration" 0.700000
-$exec xinput --set-prop "ZLY ZELOTES GAME MOUSE" "Device Accel Constant Deceleration" 0.700000
-$exec xinput --set-prop "pointer:Logitech MX Master 2S" "libinput Accel Speed" 1.000000
+# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Click Method Enabled" 0 1
+# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" 'libinput Accel Speed' 0.6
+# $exec xinput --set-prop "Logitech Perforance MX" "Device Accel Constant Deceleration" 0.700000
+# $exec xinput --set-prop "ZLY ZELOTES GAME MOUSE" "Device Accel Constant Deceleration" 0.700000
+# $exec xinput --set-prop "pointer:Logitech MX Master 2S" "libinput Accel Speed" 1.000000
+
+$exec ~/.config/i3/scripts/xinput-config.sh
 
 ## Activate numlock
 $exec /usr/bin/numlockx on
 
 ## set a background
-$exec_always feh --bg-scale ~/Pictures/i_am_root.jpg
+$exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
 
 # make tmux pretty
 $exec vim +qall!
@@ -785,7 +796,6 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 ## parse layout with
 ## tail -n +2 workspaceN.json | fgrep -v '// splitv' | sed 's|//||g' > workspace_N.json
 $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
-# $exec i3-msg "workspace $ws7; append_layout ~/.config/i3/screenlayout/workspace_7.json"
 
 ## open default apps and move them to the desired workspace
 # $exec i3-msg "workspace $ws1; exec --no-startup-id alacritty --class=WORK --title=WORK -e tmux new -s WORK"

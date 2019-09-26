@@ -201,6 +201,7 @@ alias socks-create="ssh -f -N -D 1080"
 
 ## keyboard aliases
 ##
+alias print-windows-license="sudo cat /sys/firmware/acpi/tables/MSDM;echo"
 alias vt-console-keys-fix="sudo sh -c 'dumpkeys |grep -v cr_Console |loadkeys'"
 alias keyboard-speed="xset r rate 200 50"
 alias fr-keyboard="setxkbmap -model pc105 -layout ch -variant fr -option lv3:ralt_switch"
