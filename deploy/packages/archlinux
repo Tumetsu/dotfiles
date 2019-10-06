@@ -12,7 +12,8 @@ libinput
 xf86-input-libinput
 xf86-video-intel
 xf86-video-vesa
-# intel-ucode
+linux-headers
+intel-ucode
 unzip
 unrar
 tree
@@ -38,10 +39,6 @@ eog-plugins
 evince
 file-roller
 p7zip
-#nautilus
-#nautilus-sendto
-#nautilus-share
-#gnome-terminal
 filezilla
 firefox
 chromium
@@ -103,7 +100,6 @@ python2-pylint
 python2-jedi
 python2-isort
 python2-paramiko
-python2-pipenv
 python2-netaddr
 ##
 wpa_supplicant

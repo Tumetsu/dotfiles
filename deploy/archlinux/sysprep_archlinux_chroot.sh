@@ -354,7 +354,7 @@ function add_systemd_tty_rate_service
 		RemainAfterExit=yes
 		StandardInput=tty
 		StandardOutput=tty
-		ExecStart=/usr/sbin/kbdrate -s -d 200 -r 50
+		ExecStart=/usr/sbin/kbdrate -s -d 200 -r 60
 
 		[Install]
 		WantedBy=multi-user.target
@@ -561,6 +561,25 @@ function add_sysctl_params
 }
 
 
+function add_pacman_cache_clean
+{
+    msg_ok "Setting up pacman cache cleanup with hooks"
+    mkdir -p /etc/pacman.d/hooks/
+    cat <<-EOF > /etc/pacman.d/hooks/clean_package_cache.hook
+		[Trigger]
+		Operation = Upgrade
+		Operation = Install
+		Operation = Remove
+		Type = Package
+		Target = *
+		[Action]
+		Description = Cleaning pacman cache...
+		When = PostTransaction
+		Exec = /usr/bin/paccache -rk 2
+    EOF
+}
+
+
 function clone_dot_config
 {
     local DOT_CONFIGS=${1:-"https://github.com/${USERNAME}/dotfiles"}
@@ -584,12 +603,15 @@ function install_powerline_fonts
 function install_aur_wrapper
 {
     # pacman -U --noconfirm ${HOME_DIR}/yay/yay-*-x86_64.pkg.tar.xz
-    echo "(echo -n ${USERNAME}|sudo -S id) &>/dev/null;
-    git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay;
-    cd ${HOME_DIR}/yay;
-    makepkg -si --noconfirm --clean" > install_yay.sh
-    sudo -u ${USERNAME} install_yay.sh
+    echo -e "(echo -n ${USERNAME}|sudo -S id) &>/dev/null
+    git clone https://aur.archlinux.org/yay.git ${HOME_DIR}/yay
+    cd  ${HOME_DIR}/yay
+    makepkg -si --noconfirm --clean" > ${HOME_DIR}/install_yay.sh
+
+    chown -R ${USERNAME}: ${HOME_DIR}; cd ${HOME_DIR}
+    sudo -u ${USERNAME} bash install_yay.sh
     rm -rf ${HOME_DIR}/yay
+    cd /
 
     if command -v yay &>/dev/null; then
         msg_ok "AUR wrapper successfully installed"
@@ -605,19 +627,19 @@ function install_aur_packages
     ## Install AUR packages
     if command -v yay &>/dev/null; then
         sudo -u ${USERNAME} -s /bin/bash -- <<-EOF
-        (echo -n ${USERNAME}|sudo -S id) &>/dev/null
-        yay -S --sudoloop --noconfirm \
-            systemd-boot-pacman-hook \
-            chromium-widevine \
-            dropbox \
-            polybar \
-            libinput-gestures \
-            vmware-workstation \
-            visual-studio-code-bin \
-            jre8-openjdk jdk8-openjdk jre10-openjdk jdk10-openjdk \
-            gksu otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts \
-            xcursor-oxygen xcursor-breeze-serie-obsidian \
-            j4-dmenu-desktop i3lock-color-git
+			(echo -n ${USERNAME}|sudo -S id) &>/dev/null
+			yay -S --sudoloop --noconfirm systemd-boot-pacman-hook
+			yay -S --sudoloop --noconfirm chromium-widevine
+			yay -S --sudoloop --noconfirm dropbox
+			yay -S --sudoloop --noconfirm polybar
+			yay -S --sudoloop --noconfirm libinput-gestures
+			yay -S --sudoloop --noconfirm vmware-workstation
+			yay -S --sudoloop --noconfirm visual-studio-code-bin
+			yay -S --sudoloop --noconfirm jre8-openjdk jdk8-openjdk jre10-openjdk jdk10-openjdk
+			yay -S --sudoloop --noconfirm gksu otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts
+			yay -S --sudoloop --noconfirm xcursor-oxygen xcursor-breeze-serie-obsidian
+			yay -S --sudoloop --noconfirm j4-dmenu-desktop
+            yay -S --sudoloop --noconfirm i3lock-color-git
 		EOF
         ## if dropbox is installed disable this service
         systemctl --user disable dropbox.service
@@ -709,6 +731,9 @@ add_sudoers_configuration
 
 ## sysctl configuration options
 add_sysctl_params
+
+## clean pacman cache hook
+add_pacman_cache_clean
 
 ## clone personal dotfiles from github
 clone_dot_config

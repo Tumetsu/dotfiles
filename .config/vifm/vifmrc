@@ -252,7 +252,7 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
 "          \ convert -identify %f -verbose /dev/null
 
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-       \ feh -FZ %d --start-at %d/%c 2>/dev/null
+       \ sxiv -a -b %d 2>/dev/null
 
 filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
        \ {View in feh}

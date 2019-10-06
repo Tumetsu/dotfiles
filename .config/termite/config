@@ -41,7 +41,7 @@ size_hints = false
 scrollbar = off
 
 [hints]
-font = Cousine for Powerline 10
+font = Cousine for Powerline 12
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080
@@ -52,55 +52,69 @@ font = Cousine for Powerline 10
 #roundness = 2.0
 
 [colors]
-; highlight = #f92672
-# Base16 Monokai
-# Author: Wimer Hazenberg (http://www.monokai.nl)
+## Base16 Monokai
+## Author: Wimer Hazenberg (http://www.monokai.nl)
+# highlight = #f92672
 foreground          = #F8F8F2
 foreground_bold     = #f5f4f1
 cursor              = #f5f4f1
 cursor_foreground   = #272822
 background          = #262626
-
 # terminal transparency
-# background = rgba(30, 30, 30, 0.8)
-
-# 16 color space
-
+; background = rgba(31, 31, 31, 0.85)
+## 16 color space
 # Black, Gray, Silver, White
 color0  = #272822
 color8  = #75715e
 color7  = #f8f8f2
 color15 = #f9f8f5
-
 # Red
 color1  = #f92672
 color9  = #f92672
-
 # Green
 color2  = #a6e22e
 color10 = #a6e22e
-
 # Yellow
 color3  = #f4bf75
 color11 = #f4bf75
-
 # Blue
 color4  = #66d9ef
 color12 = #66d9ef
-
 # Purple
 color5  = #ae81ff
 color13 = #ae81ff
-
 # Teal
 color6  = #a1efe4
 color14 = #a1efe4
-
 # Extra colors
 color16 = #fd971f
 color17 = #cc6633
 color18 = #383830
 color19 = #49483e
 color20 = #a59f85
+
+# [colors]
+# cursor = #d8dee9
+# cursor_foreground = #2e3440
+# foreground = #d8dee9
+# foreground_bold = #d8dee9
+# background = #2e3440
+# highlight = #4c566a
+# color0  = #3b4252
+# color1  = #bf616a
+# color2  = #a3be8c
+# color3  = #ebcb8b
+# color4  = #81a1c1
+# color5  = #b48ead
+# color6  = #88c0d0
+# color7  = #e5e9f0
+# color8  = #4c566a
+# color9  = #bf616a
+# color10 = #a3be8c
+# color11 = #ebcb8b
+# color12 = #81a1c1
+# color13 = #b48ead
+# color14 = #8fbcbb
+# color15 = #eceff4
 
 # vim: ft=dosini cms=#%s

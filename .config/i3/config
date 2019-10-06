@@ -44,7 +44,6 @@ workspace_auto_back_and_forth yes
 workspace_layout default
 
 # vertical | horizontal
-# default_orientation horizontal
 default_orientation vertical
 
 # Delaying urgency hint reset on workspace change
@@ -63,6 +62,8 @@ default_floating_border normal 0
 
 # the mouse is the focus master
 focus_follows_mouse yes
+
+#focus_wrapping no
 
 # move the mouse also when changing the workspace
 mouse_warping output
@@ -256,6 +257,7 @@ bindsym $mod+f fullscreen
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle
 ## split in horizontal orientation
 bindsym $mod+b split h
 ## split in vertical orientation
@@ -721,7 +723,7 @@ for_window [class="(?i)Gnome-terminal" title="(?i)WeeChat.*"] move container to 
 ## for autostart application
 
 ## setup screen layout automatically
-$exec_always ~/.config/i3/scripts/dock.sh
+# $exec_always ~/.config/i3/scripts/dock.sh
 
 ## same thing can be achieved by setting these values
 ## default_orientation horizontal
@@ -768,7 +770,6 @@ $exec nm-applet
 
 ## Enable touchpad horizontal Scrolling
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Two-Finger Scrolling" 1 1
-
 ## disable natural scolling its horible
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 0
 
@@ -778,7 +779,6 @@ $exec nm-applet
 # $exec xinput --set-prop "Logitech Perforance MX" "Device Accel Constant Deceleration" 0.700000
 # $exec xinput --set-prop "ZLY ZELOTES GAME MOUSE" "Device Accel Constant Deceleration" 0.700000
 # $exec xinput --set-prop "pointer:Logitech MX Master 2S" "libinput Accel Speed" 1.000000
-
 $exec ~/.config/i3/scripts/xinput-config.sh
 
 ## Activate numlock
@@ -791,7 +791,7 @@ $exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
 $exec vim +qall!
 
 ## run polybar
-$exec_always ~/.config/i3/scripts/launch_polybar.sh
+$exec_always ~/.config/i3/scripts/launch_polybar.sh default
 
 $exec xhost +local:
 $exec sleep 1 && pulseaudio --start
@@ -802,7 +802,7 @@ $exec sleep 6 && /opt/dropbox/dropboxd
 ## load layout of workspaces
 ## parse layout with
 ## tail -n +2 workspaceN.json | fgrep -v '// splitv' | sed 's|//||g' > workspace_N.json
-$exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
+# $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
 
 ## open default apps and move them to the desired workspace
 # $exec i3-msg "workspace $ws1; exec --no-startup-id alacritty --class=WORK --title=WORK -e tmux new -s WORK"
