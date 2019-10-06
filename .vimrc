@@ -19,18 +19,17 @@ Plug 'airblade/vim-gitgutter'         , { 'on': [] }
 Plug 'scrooloose/nerdtree'            , { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-commentary'
-Plug 'tomtom/tcomment_vim'
-Plug 'Raimondi/delimitMate'
-Plug 'edkolev/promptline.vim'
+" Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
-Plug 'ervandew/supertab'
-Plug 'sjl/gundo.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'edkolev/tmuxline.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'Shougo/neocomplete.vim'
+" Plug 'easymotion/vim-easymotion'
+" Plug 'tpope/vim-repeat'
+" Plug 'Raimondi/delimitMate'
+" Plug 'edkolev/promptline.vim'
+" Plug 'ervandew/supertab'
+" Plug 'sjl/gundo.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 "----------------------------------------------------------------
@@ -52,10 +51,7 @@ Plug 'jamescarr/snipmate-nodejs'    , { 'for': 'javascript'}
 " Syntax plugins and themes
 Plug 'PProvost/vim-ps1'        , { 'for': ['ps1', 'powershell', 'psm1'] }
 Plug 'ekalinin/Dockerfile.vim' , { 'for': ['docker', 'Dockerfile'] }
-Plug 'arcticicestudio/nord-vim'
 Plug 'pearofducks/ansible-vim'
-" A bunch of vim themes
-" Plug 'gmist/vim-palette'
 "----------------------------------------------------------------
 "----------------------------------------------------------------
 " Note taking plugins
