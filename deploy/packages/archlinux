@@ -85,6 +85,7 @@ python-cryptography
 python-jedi
 python-isort
 python-pipenv
+python-pynvim
 ipython
 pygmentize
 python-netaddr

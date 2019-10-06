@@ -290,6 +290,9 @@ set viminfo=<0,'100,<50,s10,h
 "# => Plugins configurations
 "#############################
 
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
 let g:airline_theme="wombat"
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
@@ -342,25 +345,6 @@ let g:pymode_rope = 0
 " Turn off plugin's warnings
 let g:pymode_warnings = 1
 let g:syntastic_python_pylint_post_args="--max-line-length=180"
-
-
-" ##################
-" # CtrlP settings
-" ##################
-" let g:ctrlp_show_hidden = 1
-" let g:ctrlp_max_height = 30
-" let g:ctrlp_mru_files = 1
-" let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_use_caching = 1
-" let g:ctrlp_open_new_file = 't'
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"   \ 'file': '\v\.(exe|so|dll)$',
-"   \ 'link': 'some_bad_symbolic_links',
-"   \ }
-" Excluding version control directories
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
 
 
 " ##################
@@ -422,17 +406,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-
-" neocomplete enabled
-let g:neocomplete#enable_at_startup = 1
-
-" SuperTab settings
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-let g:haskellmode_completion_ghc = 1
-
-" VimWiki configuration
-" let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'path_html': '~/Documents/vimwiki_html'}]
-
 
 "
 " Markdown

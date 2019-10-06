@@ -19,26 +19,25 @@ Plug 'airblade/vim-gitgutter'         , { 'on': [] }
 Plug 'scrooloose/nerdtree'            , { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-" Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'edkolev/tmuxline.vim'
-" Plug 'easymotion/vim-easymotion'
-" Plug 'tpope/vim-repeat'
-" Plug 'Raimondi/delimitMate'
-" Plug 'edkolev/promptline.vim'
-" Plug 'ervandew/supertab'
-" Plug 'sjl/gundo.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" List files in directory in vim
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'deoplete-plugins/deoplete-jedi'
 "----------------------------------------------------------------
 " Python modules
 Plug 'klen/python-mode'             , { 'for': 'python' }
 Plug 'fisadev/vim-isort'            , { 'for': 'python' }
 Plug 'jmcantrell/vim-virtualenv'    , { 'for': 'python' }
 Plug 'vim-scripts/python_match.vim' , { 'for': 'python' }
-Plug 'davidhalter/jedi-vim'         , { 'for': 'python' }
+" Plug 'davidhalter/jedi-vim'         , { 'for': 'python' }
 "----------------------------------------------------------------
 "----------------------------------------------------------------
 " Nodejs plugins
@@ -52,12 +51,6 @@ Plug 'jamescarr/snipmate-nodejs'    , { 'for': 'javascript'}
 Plug 'PProvost/vim-ps1'        , { 'for': ['ps1', 'powershell', 'psm1'] }
 Plug 'ekalinin/Dockerfile.vim' , { 'for': ['docker', 'Dockerfile'] }
 Plug 'pearofducks/ansible-vim'
-"----------------------------------------------------------------
-"----------------------------------------------------------------
-" Note taking plugins
-" Plug 'vimwiki/vimwiki'
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
 "----------------------------------------------------------------
 "----------------------------------------------------------------
 " Programming plugins
