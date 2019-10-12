@@ -44,7 +44,7 @@ workspace_auto_back_and_forth yes
 workspace_layout default
 
 # vertical | horizontal
-default_orientation vertical
+default_orientation horizontal
 
 # Delaying urgency hint reset on workspace change
 force_display_urgency_hint 4000 ms
@@ -256,7 +256,7 @@ bindsym $mod+f fullscreen
 ## change container layout
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+e layout toggle
 # bindsym $mod+e layout toggle
 ## split in horizontal orientation
 bindsym $mod+b split h
@@ -277,7 +277,7 @@ bindsym $mod+Shift+a focus parent
 ## restart i3 inplace
 bindsym $mod+Shift+r restart
 # bindsym $sup+Shift+r $exec polybar-msg cmd restart
-bindsym $sup+Shift+r $exec ~/.config/i3/scripts/launch_polybar.sh && /home/boogy/.fehbg
+bindsym $sup+Shift+r $exec ~/.config/i3/scripts/launch_polybar.sh default && /home/boogy/.fehbg
 ## reload the configuration file
 bindsym $mod+Shift+c reload
 
@@ -647,7 +647,8 @@ client.urgent           $urgent-bg-color   $urgent-bg-color   $text-color       
 ##########################################################################
 # for_window [class=".*"] border pixel 0
 # for_window [class=".*"] move position center
-for_window [class=".*"] title_format " %title ", split toggle
+# for_window [class=".*"] title_format " %title ", split toggle
+for_window [class=".*"] title_format " %title "
 
 ##
 ## Floating windows
