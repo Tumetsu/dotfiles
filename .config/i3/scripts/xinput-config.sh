@@ -7,3 +7,4 @@ xinput --set-prop "Logitech Perforance MX" "Device Accel Constant Deceleration" 
 xinput --set-prop "ZLY ZELOTES GAME MOUSE" "Device Accel Constant Deceleration" 0.700000
 xinput --set-prop "pointer:Logitech MX Master 2S" "libinput Accel Speed" 1.000000
 xinput --set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 1
+xinput --set-prop "pointer:Logitech MX Anywhere 2" "libinput Accel Speed" 1
