@@ -188,6 +188,9 @@ set background=dark
 " hi Visual guifg=White guibg=LightBlue gui=none
 hi Visual guifg=Black guibg=LightGreen gui=none
 
+" hi CursorLine term=NONE cterm=NONE ctermbg=darkgrey ctermfg=white
+hi CursorLine term=NONE cterm=bold guibg=Grey40
+
 " set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
