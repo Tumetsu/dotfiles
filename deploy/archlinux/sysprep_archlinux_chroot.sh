@@ -639,8 +639,8 @@ function install_aur_packages
 			yay -S --sudoloop --noconfirm gksu otf-font-awesome-4 otf-font-awesome-5-free ttf-ms-fonts
 			yay -S --sudoloop --noconfirm xcursor-oxygen xcursor-breeze-serie-obsidian
 			yay -S --sudoloop --noconfirm j4-dmenu-desktop
-            yay -S --sudoloop --noconfirm i3lock-color-git
-		EOF
+			yay -S --sudoloop --noconfirm i3lock-color-git
+    EOF
         ## if dropbox is installed disable this service
         systemctl --user disable dropbox.service
     else
