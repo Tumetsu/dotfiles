@@ -1,5 +1,5 @@
 [options]
-font = Cousine for Powerline 12
+font = Cousine for Powerline 10
 
 allow_bold = true
 audible_bell = false
@@ -41,7 +41,7 @@ size_hints = false
 scrollbar = off
 
 [hints]
-font = Cousine for Powerline 12
+font = Cousine for Powerline 10
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080

@@ -211,12 +211,12 @@ if has("gui_running")
     set lines=50 columns=160
 
     if has("win32")
-        set gfn=Liberation\ Mono:h12
+        set gfn=Liberation\ Mono:h10
     endif
 
     if has("unix")
         " set gfn=Ubuntu\ Mono\ derivative\ Powerline\ 11
-        set gfn=Source\ Code\ Pro\ for\ Powerline\ Regular\ 12
+        set gfn=Source\ Code\ Pro\ for\ Powerline\ Regular\ 10
     endif
 
     " colorscheme monokai

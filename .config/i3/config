@@ -14,12 +14,13 @@ set   $sup   Mod4
 set   $exec          exec          --no-startup-id
 set   $exec_always   exec_always   --no-startup-id
 set   $laptop        eDP1
-set   $monitor_4k    DP1-2
-set   $monitor2      DP2-1
+set   $monitor1      DP1-1
+set   $monitor2      DP1-2
+set   $monitor4k     DP1-1
 
 ## Default applications
 ##
-set   $def_broser            chromium
+set   $def_broser            google-chrome-stable
 set   $pwn_browser           firefox
 set   $def_terminal          termite
 set   $def_terminal_second   urxvt
@@ -117,18 +118,18 @@ set $ws22 "22"
 
 
 ## Workspaces on specific screen
-workspace $ws0  output $monitor2   $laptop
+workspace $ws0  output $monitor2   $monitor1 $laptop
 workspace $ws1  output $monitor2   $laptop
-workspace $ws2  output $monitor_4k $monitor2 $laptop
-workspace $ws3  output $monitor2   $laptop
-workspace $ws4  output $monitor2   $laptop
-workspace $ws5  output $monitor2   $laptop
+workspace $ws2  output $monitor2   $monitor1 $laptop
+workspace $ws3  output $monitor1   $monitor2 $laptop
+workspace $ws4  output $monitor2   $monitor1 $laptop
+workspace $ws5  output $monitor2   $monitor1 $laptop
 workspace $ws6  output $monitor2   $laptop
-workspace $ws7  output $monitor2   $laptop
-workspace $ws8  output $monitor2   $laptop
-workspace $ws9  output $monitor2   $laptop
-workspace $ws10 output $monitor_4k $monitor2 $laptop
-workspace $ws11 output $monitor2   $laptop   $monitor_4k
+workspace $ws7  output $monitor1   $monitor1 $laptop
+workspace $ws8  output $monitor2   $monitor1 $laptop
+workspace $ws9  output $monitor2   $monitor1 $laptop
+workspace $ws10 output $monitor2   $monitor2 $laptop
+workspace $ws11 output $monitor1   $monitor2 $laptop
 
 ##########################################################################
 #                   Keys / shortcuts for i3WM
