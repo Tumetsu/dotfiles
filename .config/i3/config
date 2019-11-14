@@ -800,6 +800,7 @@ $exec sleep 1 && pulseaudio --start
 $exec start-pulseaudio-x11
 $exec blueman-applet
 $exec sleep 6 && /opt/dropbox/dropboxd
+$exec xfce4-power-manager
 
 ## load layout of workspaces
 ## parse layout with
