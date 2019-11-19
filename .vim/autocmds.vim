@@ -5,8 +5,8 @@ autocmd BufWritePre * %s/\s\+$//e
 au BufRead,BufNewFile *.asm set filetype=asm
 au BufRead,BufNewFile *.nasm set filetype=asm
 
-autocmd BufRead,BufNewFile,BufReadPost *.md set filetype=markdown
-autocmd BufRead,BufNewFile,BufReadPost *.wiki set filetype=vimwiki
+" au BufRead,BufNewFile,BufReadPost *.md set filetype=markdown
+au BufNewFile,BufFilePre,BufRead,BufReadPost *.md,.*markdown set filetype=markdown
 
 " Quickly change font size un GUI
 command! Bigger  :let &guifont = substitute(&guifont, '\d\+$', '\=submatch(0)+1', '')

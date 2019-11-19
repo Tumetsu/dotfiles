@@ -60,9 +60,8 @@ Plug 'racer-rust/vim-racer' , { 'for': ['rust' , 'rs']}
 "----------------------------------------------------------------
 "----------------------------------------------------------------
 "Markdown config
-" Plug 'tpope/vim-markdown'
-" Plug 'gabrielelana/vim-markdown'
-Plug 'plasticboy/vim-markdown'
+" Plug 'tpope/vim-markdown'       , { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 "----------------------------------------------------------------
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
