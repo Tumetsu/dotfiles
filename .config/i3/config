@@ -801,7 +801,6 @@ $exec start-pulseaudio-x11
 $exec blueman-applet
 $exec sleep 6 && /opt/dropbox/dropboxd
 $exec xfce4-power-manager
-$exec /usr/local/bin/Antidote10
 
 ## load layout of workspaces
 ## parse layout with
