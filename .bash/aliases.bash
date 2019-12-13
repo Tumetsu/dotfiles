@@ -37,6 +37,7 @@ reset=$(tput setaf 7)       # Norma
 
 ##### safety features
 alias cp='cp -i'
+alias cp2='rsync -aPWh'
 alias mv='mv -i'
 alias rm='rm -I'    # 'rm -i' prompts for every file
 alias ln='ln -i'    # prompt whether to remove destinations
