@@ -811,24 +811,26 @@ $exec /usr/bin/firefox
 ## tail -n +2 workspaceN.json | fgrep -v '// splitv' | sed 's|//||g' > workspace_N.json
 # $exec i3-msg "workspace $ws1; append_layout ~/.config/i3/screenlayout/workspace_1.json"
 
+##
 ## open default apps and move them to the desired workspace
-# $exec i3-msg "workspace $ws1; exec --no-startup-id alacritty --class=WORK --title=WORK -e tmux new -s WORK"
-# for_window [class="(?i)Alacritty" instance="WORK"] move container to workspace $ws1
-# $exec i3-msg "workspace $ws1; exec --no-startup-id gnome-terminal --role=WORK -- tmux new -s WORK"
-
+##
 $exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
 
 $exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
-$exec i3-msg "workspace $ws1"
 
 $exec i3-msg "workspace $ws4; exec --no-startup-id /opt/google/chrome/google-chrome \"--profile-directory=Profile 6\" --app-id=faolnafnngnfdaknnbpnkhgohbobgegn"
-for_window [class="(?i)Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4, workspace $ws1
+for_window [class="(?i)Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4
+
+$exec i3-msg "workspace $ws0; exec --no-startup-id /usr/sbin/teams"
+for_window [class="(?i)Microsoft Teams.*"] floating disable, move container to workspace $ws0, workspace $ws1
+
+$exec i3-msg "workspace $ws1"
+
 
 #############################
 ### settings for i3-gaps: ###
 #############################
-
 gaps inner 7
 gaps outer -1
 smart_gaps on
