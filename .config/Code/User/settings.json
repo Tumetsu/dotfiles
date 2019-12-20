@@ -333,5 +333,7 @@
     },
     "workbench.iconTheme": "vscode-great-icons",
     "instantmarkdown.autoOpenBrowser": false,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }

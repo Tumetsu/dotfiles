@@ -677,6 +677,8 @@ for_window [class="(?i)gnome-power-statistics"]        floating enable , border 
 for_window [class="(?i)Solaar"]                        floating enable , border normal
 for_window [class="(?i)Gpicview"]                      floating enable , border normal
 for_window [class="(?i)Xfce4-appfinder"]               floating enable , border normal
+for_window [class="(?i)Microsoft Teams - Preview"]     floating enable , border normal
+# for_window [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, border 0
 
 ##########################################################################
 #                    Move windows to a specific workspaces
@@ -700,6 +702,7 @@ assign [class="(?i)Gnome-font-viewer"]       $ws0
 assign [class="(?i)software-properties-gtk"] $ws0
 assign [class="(?i)VirtualBox Manager"]      $ws8
 assign [class="(?i)Thunderbird"]             $ws7
+# for_window [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
 
 # workspace default monitors
 # workspace $ws1 output $laptop
@@ -801,6 +804,7 @@ $exec start-pulseaudio-x11
 $exec blueman-applet
 $exec sleep 6 && /opt/dropbox/dropboxd
 $exec xfce4-power-manager
+$exec /usr/bin/firefox
 
 ## load layout of workspaces
 ## parse layout with
@@ -814,10 +818,12 @@ $exec xfce4-power-manager
 
 $exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
+
 $exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
-# $exec i3-msg "workspace $ws7; exec --no-startup-id $def_file_manager &; exec --no-startup-id $def_file_manager &"
 $exec i3-msg "workspace $ws1"
-# $exec i3-msg "workspace $ws7; exec --no-startup-id nautilus --new-window; exec --no-startup-id nautilus --new-window"
+
+$exec i3-msg "workspace $ws4; exec --no-startup-id /opt/google/chrome/google-chrome \"--profile-directory=Profile 6\" --app-id=faolnafnngnfdaknnbpnkhgohbobgegn"
+for_window [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4, workspace $ws1
 
 #############################
 ### settings for i3-gaps: ###

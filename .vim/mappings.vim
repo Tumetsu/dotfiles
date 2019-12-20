@@ -316,6 +316,7 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " FZF-vim mappings
 nnoremap ; :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 
 
 " ################################
