@@ -823,7 +823,7 @@ $exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
 $exec i3-msg "workspace $ws1"
 
 $exec i3-msg "workspace $ws4; exec --no-startup-id /opt/google/chrome/google-chrome \"--profile-directory=Profile 6\" --app-id=faolnafnngnfdaknnbpnkhgohbobgegn"
-for_window [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4, workspace $ws1
+for_window [class="(?i)Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4, workspace $ws1
 
 #############################
 ### settings for i3-gaps: ###
