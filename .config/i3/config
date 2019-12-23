@@ -823,7 +823,7 @@ $exec i3-msg "workspace $ws4; exec --no-startup-id /opt/google/chrome/google-chr
 for_window [class="(?i)Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4
 
 $exec i3-msg "workspace $ws0; exec --no-startup-id /usr/sbin/teams"
-for_window [class="(?i)Microsoft Teams.*"] floating disable, move container to workspace $ws0, workspace $ws1
+for_window [class="(?i)Microsoft Teams.*"] move container to workspace $ws0
 
 $exec i3-msg "workspace $ws1"
 
