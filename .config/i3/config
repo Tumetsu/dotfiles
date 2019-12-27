@@ -122,7 +122,7 @@ workspace $ws0  output $monitor1   $monitor2 $laptop
 workspace $ws1  output $monitor1   $monitor2 $laptop
 workspace $ws2  output $monitor2   $monitor1 $laptop
 workspace $ws3  output $monitor1   $monitor2 $laptop
-workspace $ws4  output $monitor2   $monitor1 $laptop
+workspace $ws4  output $monitor1   $monitor2 $laptop
 workspace $ws5  output $monitor1   $monitor2 $laptop
 workspace $ws6  output $monitor1   $monitor2 $laptop
 workspace $ws7  output $monitor1   $monitor1 $laptop
@@ -211,8 +211,6 @@ bindsym $sup+8          workspace $ws19
 bindsym $sup+9          workspace $ws20
 bindsym $sup+0          workspace $ws21
 bindsym $sup+apostrophe workspace $ws22
-
-#bindsym $sup+Shift+plus $exec ~/.config/i3/scripts/i3-empty-workspace.sh
 
 ## change focus on windows
 bindsym $mod+h focus left
@@ -418,31 +416,18 @@ bindsym $sup+Shift+f      $exec $pwn_browser
 bindsym $sup+Shift+g      $exec $def_broser
 bindsym $mod+Return       $exec $def_terminal
 bindsym $mod+Shift+Return $exec $def_terminal_second
-# bindsym $mod+Shift+Return $exec i3-sensible-terminal -e tmux
 
 ## run a terminal with ranger
 ##
-## using gnome-terminal
-bindsym $sup+r $exec gnome-terminal --geometry 170x50 --role=ranger -- ranger
-for_window [window_role="ranger"] floating enable, resize set 1400px 800px, move position center
-
-## using alacritty
-# bindsym $sup+r $exec alacritty -d 200 50 --class=ranger --title=ranger -e ranger
-# for_window [class="^Alacritty$" instance="^ranger$"] floating enable, move position 100 100, resize set 200 100
-
-
-## create a pad window and center it
 ## get windo size easy with [ xwininfo -id $(xdotool getactivewindow) ]
-# bindsym $sup+Shift+p $exec gnome-terminal --role=PAD -- tmux new -s PAD
-# for_window [window_role="PAD"] floating enable, move scratchpad, resize set 1920px 1066px, scratchpad show, move position center
-# bindsym $sup+p [window_role="PAD"] scratchpad show
+bindsym $sup+r $exec $def_terminal --class=ranger --name=ranger -e ranger
+for_window [class="ranger"] floating enable, resize set 1400px 800px, move position center
 
-bindsym $sup+Shift+p $exec termite --class=PAD --title=PAD -e "tmux new -s PAD"
+bindsym $sup+Shift+p $exec $def_terminal --class=PAD --title=PAD -e "tmux new -s PAD"
 for_window [class="PAD" instance="(?i)termite"] floating enable, move scratchpad, resize set 1920px 1066px, scratchpad show, move position center
 bindsym $sup+p [class="PAD" instance="(?i)termite"] scratchpad show
 
 ## start keepass2
-# bindsym $sup+k $exec keepass2
 bindsym $sup+k $exec keepassxc
 
 ## start vmware workstation
@@ -471,8 +456,6 @@ bindsym XF86Launch1 $exec /usr/sbin/firefox
 ##########################################################################
 #                        Shutdown/Reboot/Sleep menu
 ##########################################################################
-
-## Logout, reboot, shutdown, hibernate
 set $mode_system System: [l] lock, [e] logout, [s] suspend, [h] hibernate, [r] reboot, [Shift+s] shutdown
 mode "$mode_system" {
     bindsym l $exec ~/.config/i3/scripts/i3exit lock           , mode "default"
@@ -492,8 +475,6 @@ bindsym Control+$mod+Delete mode "$mode_system"
 ##########################################################################
 #                        Run most used applications
 ##########################################################################
-
-## Press $mod+o followed by either f, c, Esc or Return to launch firefox,
 set $mode_launcher Launch: \
  [C]hromium [F]irefox [K]eepass2 [V]VMWare [B]VirtualBox [A]arandr [L]xappearance [P]avucontrol
 mode "$mode_launcher" {
@@ -536,7 +517,6 @@ bindsym $mod+r mode "resize"
 ##########################################################################
 #                           change display mode
 ##########################################################################
-
 ## choose xrandr displaymode
 # set $mode_display Display mode: [d] Dock mode, [l] Laptop only
 # mode "$mode_display" {
@@ -544,12 +524,10 @@ bindsym $mod+r mode "resize"
 #         workspace $ws1, move workspace to output $laptop, \
 #         workspace $ws2, move workspace to output $monitor, \
 #         mode "default"
-#
 #     bindsym l $exec bash ~/.config/i3/scripts/display laptop, \
 #         workspace $ws1, move workspace to output $laptop, \
 #         workspace $ws2, move workspace to output $laptop, \
 #         mode "default"
-#
 #     # back to normal: Enter or Escape
 #     bindsym Return mode "default"
 #     bindsym Escape mode "default"
@@ -702,22 +680,13 @@ assign [class="(?i)Gnome-font-viewer"]       $ws0
 assign [class="(?i)software-properties-gtk"] $ws0
 assign [class="(?i)VirtualBox Manager"]      $ws8
 assign [class="(?i)Thunderbird"]             $ws7
-# for_window [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
-
-# workspace default monitors
-# workspace $ws1 output $laptop
-# workspace $ws2 output $monitor
+assign [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
 
 ##########################################################################
 #                          Windows decoration
 ##########################################################################
 for_window [class="(?i)VirtualBox Machine"] border normal
 for_window [class="(?i)Gnome-terminal" title="(?i)WeeChat.*"] move container to workspace $ws10, border none
-
-## by default terminals are in tabbed mode
-# for_window [class="(?i)Gnome-terminal"] focus child, layout tabbed, focus
-# for_window [class="(?i)Gnome-terminal"] focus child, layout stacking, focus
-
 
 ##########################################################################
 #                          STARTUP APPLICATIONS
@@ -729,13 +698,6 @@ for_window [class="(?i)Gnome-terminal" title="(?i)WeeChat.*"] move container to 
 
 ## setup screen layout automatically
 # $exec_always ~/.config/i3/scripts/dock.sh
-
-## same thing can be achieved by setting these values
-## default_orientation horizontal
-## for_window ["class=*"] split toggle
-## bindsym $mod+shift+q split toggle, kill
-## bindsym $mod+e layout toggle split
-# $exec ~/.config/i3/scripts/i3-alternating-layouts.py
 
 ## disable mousepad while typing
 $exec syndaemon -i 1 -k -R -t
@@ -779,11 +741,6 @@ $exec nm-applet
 # $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 0
 
 ## enable double click show menu
-# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Click Method Enabled" 0 1
-# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" 'libinput Accel Speed' 0.6
-# $exec xinput --set-prop "Logitech Perforance MX" "Device Accel Constant Deceleration" 0.700000
-# $exec xinput --set-prop "ZLY ZELOTES GAME MOUSE" "Device Accel Constant Deceleration" 0.700000
-# $exec xinput --set-prop "pointer:Logitech MX Master 2S" "libinput Accel Speed" 1.000000
 $exec ~/.config/i3/scripts/xinput-config.sh
 
 ## Activate numlock
@@ -814,13 +771,10 @@ $exec /usr/bin/firefox
 ##
 ## open default apps and move them to the desired workspace
 ##
-$exec i3-msg "workspace $ws1; exec --no-startup-id termite --class=WORK --title=WORK -e 'tmux new -s WORK'"
+$exec i3-msg "workspace $ws1; exec --no-startup-id $def_terminal --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
 
 $exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
-
-$exec i3-msg "workspace $ws4; exec --no-startup-id /opt/google/chrome/google-chrome \"--profile-directory=Profile 6\" --app-id=faolnafnngnfdaknnbpnkhgohbobgegn"
-for_window [class="(?i)Google-chrome" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, move container to workspace $ws4
 
 $exec i3-msg "workspace $ws0; exec --no-startup-id /usr/sbin/teams"
 for_window [class="(?i)Microsoft Teams.*"] move container to workspace $ws0
