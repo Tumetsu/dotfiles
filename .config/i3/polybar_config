@@ -396,7 +396,7 @@ bar-empty-foreground = ${colors.foreground-alt}
 [module/cpu]
 type = internal/cpu
 interval = 5
-format = %{A1:termite -e htop &:}<label>%{A}
+format = %{A1:termite -e 'htop --sort-key=PERCENT_CPU' &:}<label>%{A}
 ; format = %{A1:i3-sensible-terminal -e htop -t &:}<label> <ramp-coreload>%{A}
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
