@@ -118,7 +118,7 @@ set $ws22 "22"
 
 
 ## Workspaces on specific screen
-workspace $ws0  output $monitor1   $monitor2 $laptop
+workspace $ws0  output $monitor2   $monitor1 $laptop
 workspace $ws1  output $monitor1   $monitor2 $laptop
 workspace $ws2  output $monitor2   $monitor1 $laptop
 workspace $ws3  output $monitor1   $monitor2 $laptop
@@ -656,13 +656,13 @@ for_window [class="(?i)Solaar"]                        floating enable , border 
 for_window [class="(?i)Gpicview"]                      floating enable , border normal
 for_window [class="(?i)Xfce4-appfinder"]               floating enable , border normal
 for_window [class="(?i)Microsoft Teams - Preview"]     floating enable , border normal
-# for_window [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] floating disable, border 0
 
 ##########################################################################
 #                    Move windows to a specific workspaces
 ##########################################################################
 
-assign [class="(?i)Firefox"]                 $ws3
+# assign [class="(?i)Firefox"]                 $ws3
+assign [class="WORK" instance="termite"]     $ws1
 assign [class="(?i)Vmware"]                  $ws5
 assign [class="(?i).*libreoffice.*"]         $ws6
 assign [title="(?i).*libreoffice.*"]         $ws6
@@ -680,7 +680,6 @@ assign [class="(?i)Gnome-font-viewer"]       $ws0
 assign [class="(?i)software-properties-gtk"] $ws0
 assign [class="(?i)VirtualBox Manager"]      $ws8
 assign [class="(?i)Thunderbird"]             $ws7
-assign [class="(?i)Google-chrome" title="Mail.*Outlook" instance="crx_faolnafnngnfdaknnbpnkhgohbobgegn"] $ws4
 
 ##########################################################################
 #                          Windows decoration
@@ -774,7 +773,7 @@ $exec /usr/bin/firefox
 $exec i3-msg "workspace $ws1; exec --no-startup-id $def_terminal --class=WORK --title=WORK -e 'tmux new -s WORK'"
 for_window [class="WORK" instance="termite"] move container to workspace $ws1, workspace $ws2
 
-$exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
+# $exec i3-msg "workspace $ws2; exec --no-startup-id $def_broser"
 
 $exec i3-msg "workspace $ws0; exec --no-startup-id /usr/sbin/teams"
 for_window [class="(?i)Microsoft Teams.*"] move container to workspace $ws0

@@ -125,7 +125,10 @@ for config_file in $bash_config_files; do
     source_bash "${BASH_FULL_FILE_PATH}/${config_file}.bash" &>/dev/null
 done
 
+if [ -f "$HOME/.zsh_local" ]; then
+    source $HOME/.zsh_local
+fi
+
 if [ -f "$HOME/.bash_local" ]; then
     source_bash $HOME/.bash_local
 fi
-

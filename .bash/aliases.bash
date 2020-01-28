@@ -199,6 +199,7 @@ alias disable-hugepages="echo never | sudo tee /sys/kernel/mm/transparent_hugepa
 alias cups-start="sudo systemctl start org.cups.cupsd.service"
 alias cups-stop="sudo systemctl stop org.cups.cupsd.service"
 alias socks-create="ssh -f -N -D 1080"
+alias clusterssh="/usr/bin/vendor_perl/cssh"
 
 ## keyboard aliases
 ##
