@@ -278,9 +278,9 @@
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.colorTheme": "Flatland Monokai",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#5f0000",
-        "statusBar.noFolderBackground": "#5f0000",
-        "statusBar.debuggingBackground": "#5f0000"
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
     },
     "workbench.startupEditor": "newUntitledFile",
     //
@@ -305,7 +305,7 @@
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
@@ -338,5 +338,6 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "[xml]": {
         "editor.defaultFormatter": "fabianlauer.vs-code-xml-format"
-    }
+    },
+    "editor.largeFileOptimizations": false
 }
