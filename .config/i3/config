@@ -123,7 +123,7 @@ workspace $ws1  output $monitor1   $monitor2 $laptop
 workspace $ws2  output $monitor2   $monitor1 $laptop
 workspace $ws3  output $monitor1   $monitor2 $laptop
 workspace $ws4  output $monitor1   $monitor2 $laptop
-workspace $ws5  output $monitor1   $monitor2 $laptop
+workspace $ws5  output $monitor2   $monitor1 $laptop
 workspace $ws6  output $monitor1   $monitor2 $laptop
 workspace $ws7  output $monitor1   $monitor1 $laptop
 workspace $ws8  output $monitor1   $monitor2 $laptop
