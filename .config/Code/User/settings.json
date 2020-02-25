@@ -39,15 +39,27 @@
     "vim.insertModeKeyBindings": [
         // bind jj to <ESC> in insert mode
         {
-            "before": [ "j", "j" ],
-            "after": [ "<Esc>" ]
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         },
         {
-            "before": [ "k", "k" ],
-            "after": [ "<Esc>" ]
+            "before": [
+                "k",
+                "k"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         },
         {
-            "before": [ "C-v" ],
+            "before": [
+                "C-v"
+            ],
             "after": [],
             "commands": [
                 {
@@ -57,7 +69,9 @@
             ]
         },
         {
-            "before": [ "C-x" ],
+            "before": [
+                "C-x"
+            ],
             "after": [],
             "commands": [
                 {
@@ -67,7 +81,9 @@
             ]
         },
         {
-            "before": [ "C-c" ],
+            "before": [
+                "C-c"
+            ],
             "after": [],
             "commands": [
                 {
@@ -77,7 +93,9 @@
             ]
         },
         {
-            "before": [ "C-d" ],
+            "before": [
+                "C-d"
+            ],
             "after": [],
             "commands": [
                 {
@@ -87,7 +105,10 @@
             ]
         },
         {
-            "before": [ "C-k", "C-d" ],
+            "before": [
+                "C-k",
+                "C-d"
+            ],
             "after": [],
             "commands": [
                 {
@@ -99,47 +120,89 @@
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
-            "before": [ "<leader>", "d" ],
-            "after": [ "d", "d" ]
+            "before": [
+                "<leader>",
+                "d"
+            ],
+            "after": [
+                "d",
+                "d"
+            ]
         },
         {
             // "before": [ "<C-n>" ],
-            "before": [ "<leader>", "<Enter>" ],
-            "commands": [ ":nohl" ]
+            "before": [
+                "<leader>",
+                "<Enter>"
+            ],
+            "commands": [
+                ":nohl"
+            ]
         },
         {
-            "before": [";"],
+            "before": [
+                ";"
+            ],
             "commands": [
                 "workbench.action.showCommands",
             ]
         },
         {
-            "before": ["Z", "Z"],
-            "commands": [ ":wq" ]
+            "before": [
+                "Z",
+                "Z"
+            ],
+            "commands": [
+                ":wq"
+            ]
         },
         {
-            "before": ["<leader>", "w"],
-            "commands": [ "workbench.action.files.save", ]
+            "before": [
+                "<leader>",
+                "w"
+            ],
+            "commands": [
+                "workbench.action.files.save",
+            ]
         }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {
-            "before": [ "<Delete>",],
-            "commands": [ "editor.action.deleteLines"],
+            "before": [
+                "<Delete>",
+            ],
+            "commands": [
+                "editor.action.deleteLines"
+            ],
         },
         // Bind p in visual mode to paste without overriding the current register
         {
-            "before": [ "p", ],
-            "after": [ "p", "g", "v", "y" ]
+            "before": [
+                "p",
+            ],
+            "after": [
+                "p",
+                "g",
+                "v",
+                "y"
+            ]
         },
         // Bind > and < in visual mode to indent/outdent lines (repeatable)
         {
-            "before": [ ">" ],
-            "commands": [ "editor.action.indentLines" ]
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
         },
         {
-            "before": [ "<" ],
-            "commands": [ "editor.action.outdentLines" ]
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
         },
     ],
     // Allow VSCodeVim to change status bar color based on mode
@@ -238,7 +301,7 @@
         "**/*ansible*/**/*.yml": "ansible",
         "**/vars/**/*.yml": "ansible",
         "**/inventory/*/*": "ansible",
-        "*.yml": "yaml"
+        "**/*.yml": "ansible"
     },
     "files.autoSave": "off",
     // Configure editor settings to be overridden for [yaml] language.
@@ -273,7 +336,6 @@
     "window.openFilesInNewWindow": "off",
     "window.openFoldersInNewWindow": "off",
     "window.enableMenuBarMnemonics": true,
-    "workbench.activityBar.visible": false,
     "workbench.editor.enablePreview": true,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.colorTheme": "Flatland Monokai",

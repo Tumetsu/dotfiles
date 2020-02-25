@@ -314,9 +314,9 @@ function clean-trash
     if [[ -d "$HOME/.Trash" ]]; then
         TRASH_DIR=~/.Trash
     else
-        TRASH_DIR="$HOME/.local/share/Trash
+        TRASH_DIR="$HOME/.local/share/Trash"
     fi
-    echo $TRASH_DIR
+    echo "$TRASH_DIR"
 
     if [[ $# -ge 1 ]] && [[ $(echo "$1"|grep -Eo "^(-f|force|--force|f|F)$") ]]
     then
