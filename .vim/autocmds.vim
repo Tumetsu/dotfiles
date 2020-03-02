@@ -5,6 +5,13 @@ autocmd BufWritePre * %s/\s\+$//e
 au BufRead,BufNewFile *.asm set filetype=asm
 au BufRead,BufNewFile *.nasm set filetype=asm
 
+au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */playbooks/*.yaml set filetype=yaml.ansible
+au BufRead,BufNewFile */grc-ansible/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */grc-ansible/*.yaml set filetype=yaml.ansible
+au BufRead,BufNewFile */hosts_playbooks/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */hosts_playbooks/*.yaml set filetype=yaml.ansible
+
 " au BufRead,BufNewFile,BufReadPost *.md set filetype=markdown
 au BufNewFile,BufFilePre,BufRead,BufReadPost *.md,.*markdown set filetype=markdown
 
