@@ -293,15 +293,20 @@
     "files.trimTrailingWhitespace": true,
     "files.associations": {
         "**/defautls/**/*": "ansible",
-        "**/tasks/**/*.yml": "ansible",
-        "**/handler/*.yml": "ansible",
-        "**/*_vars/**/*.yml": "ansible",
-        "**/roles/**/*.yml": "ansible",
-        "**/playbooks/**/*.yml": "ansible",
-        "**/*ansible*/**/*.yml": "ansible",
-        "**/vars/**/*.yml": "ansible",
+        "**/*-ansible/**/*.y*ml": "ansible",
+        "**/tasks/**/(*.y*ml": "ansible",
+        "**/handler/*.y*ml": "ansible",
+        "**/*_vars/**/*.y*ml": "ansible",
+        "**/roles/**/*.y*ml": "ansible",
+        "**/playbooks/**/*.y*ml": "ansible",
+        "**/host_playbooks/*/*": "ansible",
+        "**/*ansible*/**/*.y*ml": "ansible",
+        "**/vars/**/*.y*ml.": "ansible",
         "**/inventory/*/*": "ansible",
-        "**/*.yml": "ansible"
+        "**/inventories/*/*": "ansible",
+        "**/group_vars/*/*": "ansible",
+        "**/host_vars/*/*": "ansible",
+        "**/*.y*ml": "ansible"
     },
     "files.autoSave": "off",
     // Configure editor settings to be overridden for [yaml] language.
@@ -340,9 +345,9 @@
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.colorTheme": "Flatland Monokai",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
+        "statusBar.background": "#5f0000",
+        "statusBar.noFolderBackground": "#5f0000",
+        "statusBar.debuggingBackground": "#5f0000"
     },
     "workbench.startupEditor": "newUntitledFile",
     //
