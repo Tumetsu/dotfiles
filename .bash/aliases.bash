@@ -54,6 +54,9 @@ alias b-vmi='vim ~/.bash/init'
 alias brc='source ~/.bashrc'
 
 ##### vim stuff
+if command -v -p nvim &>/dev/null; then
+    function vim(){ nvim $@; }
+fi
 alias v='vim'
 alias vi='vim -p'
 alias vim='vim -p'
