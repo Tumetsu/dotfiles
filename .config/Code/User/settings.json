@@ -17,6 +17,7 @@
     "editor.mouseWheelZoom": true,
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+    "editor.renderWhitespace": "none",
     //
     // VIM CONFIG
     //
@@ -406,5 +407,7 @@
     "[xml]": {
         "editor.defaultFormatter": "fabianlauer.vs-code-xml-format"
     },
-    "editor.largeFileOptimizations": false
+    "editor.largeFileOptimizations": false,
+    "editor.fontSize": 13,
+    "editor.columnSelection": false
 }
