@@ -313,6 +313,7 @@ bindsym button8 move right
 bindsym XF86AudioRaiseVolume $exec ~/.config/i3/scripts/volume.sh +5%
 bindsym XF86AudioLowerVolume $exec ~/.config/i3/scripts/volume.sh -5%
 bindsym XF86AudioMute        $exec ~/.config/i3/scripts/volume.sh mute
+bindsym XF86AudioMicMute     $exec amixer set Capture toggle
 
 bindsym XF86AudioPlay $exec ~/.config/i3/scripts/audio_manage.sh playpause
 bindsym XF86AudioNext $exec ~/.config/i3/scripts/audio_manage.sh next
@@ -323,6 +324,13 @@ bindsym XF86MonBrightnessUp $exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown $exec xbacklight -dec 5 # decrease screen brightness
 # bindsym XF86MonBrightnessUp $exec ~/.config/i3/scripts/backlight.sh inc 50
 # bindsym XF86MonBrightnessDown $exec ~/.config/i3/scripts/backlight.sh dec 50
+
+## lenovo media key display
+bindsym XF86Display $exec arandr
+
+## rofi show open windows
+bindsym XF86Favorites $exec rofi -show window -show-icons -opacity "90" -bw 1 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "#42f4aa" -hlfg "#9575cd" -font "Ubuntu 11" -theme Arc-Dark
+
 
 ## Touchpad controls (toggle)
 bindsym XF86TouchpadToggle $exec ~/.config/i3/scripts/toggletouchpad.sh

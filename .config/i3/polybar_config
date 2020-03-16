@@ -85,7 +85,7 @@ modules-left = i3
 ; modules-center = bitcoin litecoin ethereum
 ; modules-right = powermenu filesystem xbacklight volume bluetooth memory cpu wlan eth battery date
 ; modules-right = powermenu xbacklight volume bluetooth memory cpu wlan eth battery date
-modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan eth battery date
+modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan vpn eth battery date
 
 ; Position of the system tray window
 ; If empty or undefined, tray support will be disabled
@@ -512,6 +512,12 @@ format-disconnected =
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+
+;###############################################################
+[module/vpn]
+type = custom/script
+exec = ~/.config/i3/scripts/vpn-openvpn-status.sh
+interval = 5
 
 
 ;###############################################################
