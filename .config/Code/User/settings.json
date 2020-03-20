@@ -378,14 +378,14 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    //
-    // Python config
-    //
-    "python.sortImports.path": "/usr/sbin/isort",
-    "python.pythonPath": "/usr/bin/python2",
-    "python.jediPath": "/usr/lib/python3.7/site-packages/jedi",
+    "python.pythonPath": "/usr/bin/python3",
+    "python.jediPath": "/usr/lib/python3.8/site-packages/jedi",
     "python.jediEnabled": false,
     "python.linting.pylintEnabled": true,
+    "python.sortImports.path": "/usr/sbin/isort",
+    "python.venvFolders": [
+        ".venv"
+    ],
     "markdown-pdf.breaks": true,
     "terminal.integrated.shell.osx": "/usr/sbin/zsh",
     "terminal.integrated.copyOnSelection": true,

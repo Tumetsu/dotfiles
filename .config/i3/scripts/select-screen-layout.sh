@@ -14,5 +14,5 @@
 # ## generated with arandr or xrandr
 # bash ~/.config/i3/screenlayout/${SETUP}.sh
 
-autorandr $(echo -en "docked\nlaptop" | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select screenlayout setup")
+autorandr $(echo -en "docked\nlaptop\nhome" | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select screenlayout setup")
 ~/.config/i3/scripts/launch_polybar.sh default
