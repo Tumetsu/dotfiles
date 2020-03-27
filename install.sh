@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Copy all the dot files in the user's home directory
 # and source them
@@ -63,9 +63,21 @@ done
 ##
 ## Install Plug for plugin management
 ##
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
-cd ~/.vim/custom-snippets/custom-snippets
+ln -sf $HOME/.vim/custom-snippets $HOME/.vim/UltiSnips
+rm ~/.vim/custom-snippets/custom-snippets
+
+##
+## Install for neovim
+##
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir -p $HOME/.config/nvim
+ln -s $HOME/.vimrc ~/.config/nvim/init.vim
+ln -s $HOME/.vim/* ~/.config/nvim/
+vim +UpdateRemotePlugins +qall
 
 ##
 ## Install powerline fonts
@@ -75,11 +87,6 @@ cd ${INSTALLDIR}/powerline_fonts
 ./install.sh
 rm -rf ${INSTALLDIR}/powerline_fonts
 
-
-##
-## Load custom snippets for vim-snippets in UltiSnips format
-##
-ln -sf $HOME/.vim/custom-snippets $HOME/.vim/UltiSnips
 
 ## Make sure that .bash_aliases is loaded
 [ $(uname) = 'Linux' ] && {
