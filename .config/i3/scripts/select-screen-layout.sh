@@ -1,18 +1,9 @@
 #!/usr/bin/env bash
 
-# CONFIG_TO_USE=()
+# autorandr $(echo -en "docked\nlaptop\nhome" | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select screenlayout setup")
 
-# for FILE in ~/.config/i3/screenlayout/*.sh; do
-#     tmpfile=$(echo ${FILE##*/}|sed 's/\.sh$//g')
-#     CONFIG_TO_USE+=("$tmpfile")
-# done
+autorandr_layouts=$(autorandr|awk '{print $1}')
 
-# SETUP=$(printf '%s\n' "${CONFIG_TO_USE[@]}" \
-#     | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select screenlayout setup")
-
-# ## set the screenlayout configuration from the script
-# ## generated with arandr or xrandr
-# bash ~/.config/i3/screenlayout/${SETUP}.sh
-
-autorandr $(echo -en "docked\nlaptop\nhome" | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select screenlayout setup")
+autorandr $(for i in ${autorandr_layouts[@]};do echo $i; done \
+    | dmenu -nb '#2f343f' -nf '#f3f4f5' -sb '#9575cd' -sf '#f3f4f5' -fn '-*-*-medium-r-normal-*-*-*-*-*-*-100-*-*' -i -p "Select screenlayout ")
 ~/.config/i3/scripts/launch_polybar.sh default
