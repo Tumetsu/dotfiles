@@ -9,7 +9,7 @@ try:
     my_addr.pop(0)
 
 except IndexError:
-    print "[-] You must supply a string to the script ...!"
+    print("[-] You must supply a string to the script ...!")
     sys.exit(1)
 
 for item in my_addr:
@@ -21,4 +21,4 @@ for item in my_addr:
     for a in s[::-1]:
         sys.stdout.write("\\x" + a.lower())
         sys.stdout.flush()
-    print
+    print("")
