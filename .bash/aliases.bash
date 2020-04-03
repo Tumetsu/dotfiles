@@ -54,20 +54,23 @@ alias b-vmi='vim ~/.bash/init'
 alias brc='source ~/.bashrc'
 
 ##### vim stuff
-if command -v -p nvim &>/dev/null; then
-    function vim(){ nvim $@; }
-fi
-alias v='vim'
-alias vi='vim -p'
-alias vim='vim -p'
-alias svi='sudo -E vim'
-alias svim='sudo -E vim'
-alias v-conf='vim ~/.vimrc'
-alias va-conf='vim ~/.vim/autocmds.vim'
-alias vc-conf='vim ~/.vim/config.vim'
-alias vf-conf='vim ~/.vim/functions.vim'
-alias vm-conf='vim ~/.vim/mappings.vim'
-alias i-conf='vim ~/.config/i3/config'
+command -v -p nvim &>/dev/null && {
+    # function vim(){ nvim $@; }
+    export EDITOR=nvim
+} || {
+    export EDITOR=vim
+}
+alias v="$EDITOR"
+alias vi="$EDITOR -p"
+alias vim="$EDITOR -p"
+alias svi="sudo -E $EDITOR"
+alias svim="sudo -E $EDITOR"
+alias v-conf="$EDITOR ~/.vimrc"
+alias va-conf="$EDITOR ~/.vim/autocmds.vim"
+alias vc-conf="$EDITOR ~/.vim/config.vim"
+alias vf-conf="$EDITOR ~/.vim/functions.vim"
+alias vm-conf="$EDITOR ~/.vim/mappings.vim"
+alias i-conf="$EDITOR ~/.config/i3/config"
 
 ##### tmux config shortcuts
 alias tmux='tmux -2'

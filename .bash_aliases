@@ -135,8 +135,8 @@ PS1+="\[\033[1;33m\] >> \[\033[0m\]"
     export PATH=${PATH}:${HOME}/.local/bin
 
     export TERM=screen-256color
-    export EDITOR=$(which vim)
-    export VIEW=$(which vim)
+    export EDITOR=$(which $EDITOR)
+    export VIEW=$(which $EDITOR)
 
     ## if using rvm load it
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
