@@ -81,8 +81,8 @@ export PATH=${PATH}:${HOME}/.local/bin
 #export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 export LANG=en_US.UTF-8
-export EDITOR='vim'
-export VIEW='vim'
+# export EDITOR='vim'
+export VIEW="$EDITOR"
 export FZF_DEFAULT_OPTS='--history-size=100000 '
 export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
