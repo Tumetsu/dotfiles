@@ -752,7 +752,7 @@ menu-5-0-exec = ~/.config/i3/scripts/lock
 [module/bluetooth]
 type = custom/script
 interval = 120
-exec = ~/.config/i3/scripts/statusbar/i3bluetooth.sh
+exec = ~/.config/i3/scripts/i3bluetooth.sh
 format = %{A1:blueman-manager &:}<label>%{A}
 format-underline = #268bd2
 format-prefix-foreground = ${root.background-alt}
