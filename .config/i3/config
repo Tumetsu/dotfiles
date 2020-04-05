@@ -408,11 +408,6 @@ bindsym $sup+Shift+c move position center
 ## dmenu mount options
 bindsym $mod+Shift+m $exec ~/.config/i3/scripts/i3blocks/dmenumount
 
-## search google
-# bindsym $mod+Shift+g $exec ~/.config/i3/scripts/i3blocks/googlesearch
-# bindsym $mod+Shift+d $exec ~/.config/i3/scripts/i3blocks/ducksearch
-
-
 ##########################################################################
 #                   Run applications with shortcuts
 ##########################################################################
@@ -525,22 +520,7 @@ bindsym $mod+r mode "resize"
 ##########################################################################
 #                           change display mode
 ##########################################################################
-## choose xrandr displaymode
-# set $mode_display Display mode: [d] Dock mode, [l] Laptop only
-# mode "$mode_display" {
-#     bindsym d $exec bash ~/.config/i3/scripts/dock.sh, \
-#         workspace $ws1, move workspace to output $laptop, \
-#         workspace $ws2, move workspace to output $monitor, \
-#         mode "default"
-#     bindsym l $exec bash ~/.config/i3/scripts/display laptop, \
-#         workspace $ws1, move workspace to output $laptop, \
-#         workspace $ws2, move workspace to output $laptop, \
-#         mode "default"
-#     # back to normal: Enter or Escape
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-# }
-# bindsym $mod+i mode "$mode_display"
+## choose autorandr displaymode
 bindsym $mod+i $exec ~/.config/i3/scripts/select-screen-layout.sh
 
 ##########################################################################
@@ -550,7 +530,7 @@ bindsym $mod+i $exec ~/.config/i3/scripts/select-screen-layout.sh
 ## Manual management of external displays
 bindsym Shift+F8      $exec arandr
 bindsym $mod+Shift+F8 $exec xrandr auto
-bindsym $mod+F8       $exec ~/.config/i3/scripts/dock.sh
+# bindsym $mod+F8       $exec ~/.config/i3/scripts/dock.sh
 
 
 ##########################################################################
@@ -741,11 +721,6 @@ $exec nm-applet
 ## get tranparent rofi background
 # $exec compton -bcCGf --no-fading-openclose --unredir-if-possible
 # $exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
-
-## Enable touchpad horizontal Scrolling
-# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "Synaptics Two-Finger Scrolling" 1 1
-## disable natural scolling its horible
-# $exec xinput --set-prop "DLL06E4:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 0
 
 ## enable double click show menu
 $exec ~/.config/i3/scripts/xinput-config.sh
