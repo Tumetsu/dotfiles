@@ -36,11 +36,11 @@ function prompt_char {
 }
 
 ## put fancy stuff on the right
-if which rbenv &> /dev/null; then
-  RPS1='$(git_custom_status)%{$fg[red]%}$(rbenv_version_status)%{$reset_color%} $EPS1'
-else
-  RPS1='$(git_custom_status) $EPS1'
-fi
+# if which rbenv &> /dev/null; then
+#   RPS1='$(git_custom_status)%{$fg[red]%}$(rbenv_version_status)%{$reset_color%} $EPS1'
+# else
+#   RPS1='$(git_custom_status) $EPS1'
+# fi
 
 ## basic prompt on the left
 # PROMPT='%{$fg[cyan]%}%~% %(?.%{$fg[green]%}.%{$fg[red]%})%B$%b '

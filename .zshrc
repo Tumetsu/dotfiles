@@ -1,10 +1,10 @@
-neofetch
+#neofetch
 
 ## If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 ## Enable colors and change prompt:
-autoload -U colors && colors
+autoload -Uz colors && colors
 
 ## History in cache directory:
 HISTFILE="$HOME/.zhistory"
@@ -46,7 +46,7 @@ export TERM=xterm-256color
 export PYTHONSTARTUP=~/.pythonrc.py
 
 # Basic auto/tab complete:
-autoload -U compinit
+autoload -Uz compinit
 zstyle ':completion:*' menu select
 # Auto complete with case insenstivity
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -134,39 +134,37 @@ bindkey -s "^h" "history 1\n"
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh &>/dev/null
-source ~/.zsh/command-not-found.zs 2>/dev/null
+#source /usr/share/doc/pkgfile/command-not-found.zsh 2>/dev/null
 ## load prompt
 source ~/.zsh/prompt/prompt-simple.zsh
-#autoload -U promptinit; promptinit
 
 ## source plugins from oh-my-zsh
+## and custom will take precedence
 zsh_plugins=(
     sudo
     ssh-agent
     autojump
     fzf
     virtualenvwrapper
-)
-ZSH_FULL_PLUGIN_PATH="${HOME}/.zsh/plugins/"
-for zsh_plugin in $zsh_plugins; do
-    source "${ZSH_FULL_PLUGIN_PATH}/${zsh_plugin}.zsh" &>/dev/null
-done
 
-## custom plugins
-zsh_custom_plugins=(
+    ## custom
+    aliases
     directories
     expandalias
     virtualbox
     systemd
-    aliases
-    prompt
     python
     docker
     ssh
 )
-ZSH_FULL_FILE_PATH="${HOME}/.zsh/"
-for zsh_config_file in $zsh_custom_plugins; do
-    source "${ZSH_FULL_FILE_PATH}/${zsh_config_file}.zsh" &>/dev/null
+ZSH_FULL_PLUGIN_PATHS=(
+    "${HOME}/.zsh/plugins/"
+    "${HOME}/.zsh/"
+)
+for PLUGIN_PATH in $ZSH_FULL_PLUGIN_PATHS; do
+    for PLUGIN in ${zsh_plugins}; do
+        [ -f "${PLUGIN_PATH%/}/${PLUGIN}.zsh" ] && source "${PLUGIN_PATH%/}/${PLUGIN}.zsh" &>/dev/null
+    done
 done
 
 ## bash files
@@ -188,9 +186,9 @@ for config_file in $bash_config_files; do
 done
 
 if [ -f "$HOME/.zsh_local" ]; then
-    source $HOME/.zsh_local
+    source "$HOME/.zsh_local" &>/dev/null
 fi
 
 if [ -f "$HOME/.bash_local" ]; then
-    source_bash $HOME/.bash_local
+    source_bash "$HOME/.bash_local" &>/dev/null
 fi
