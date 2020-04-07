@@ -59,9 +59,6 @@ _comp_options+=(globdots)       # Include hidden files.
 bindkey -v
 export KEYTIMEOUT=1
 
-## Enable searching through history
-#bindkey '^R' history-incremental-pattern-search-backward
-
 ## Edit line in vim buffer ctrl-v
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^v' edit-command-line
@@ -79,6 +76,9 @@ bindkey -M menuselect 'up' vi-up-line-or-history
 bindkey -M menuselect 'right' vi-forward-char
 ## Fix backspace bug when switching modes
 bindkey "^?" backward-delete-char
+## search in history
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
 
 ## word delimiters
 # export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
