@@ -47,7 +47,7 @@ bindkey "\033[4~" end-of-line
 
 ## set zsh word boundary chars
 ## for backward delete word or backward-kill-word
-local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>/'
+# local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>/'
 # my-backward-delete-word() {
 #     # local WORDCHARS=${WORDCHARS/\/./}
 #     local WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'

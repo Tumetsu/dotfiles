@@ -1,61 +1,17 @@
-export ZSH="$HOME/.oh-my-zsh"
+neofetch
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+## If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+## Enable colors and change prompt:
+autoload -U colors && colors
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-HIST_STAMPS="mm/dd/yyyy"
-# ZSH_CUSTOM=$HOME/.zsh/
-
-plugins=(
-    vi-mode
-    sudo
-    ssh-agent
-    autojump
-    fzf
-    virtualenvwrapper
-)
-source $ZSH/oh-my-zsh.sh
-
-##
-## User config
-##
-
-# fpath=($HOME/.zsh/completions $fpath)
-# enable autocomplete function
-# autoload -U compinit && compinit
-
+## History in cache directory:
 HISTFILE="$HOME/.zhistory"
 HISTSIZE=10000
 SAVEHIST=10000
 
-# man zshoptions
+## man zshoptions
 # setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 # setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 # setopt BANG_HIST                 # Treat the '!' character specially during expansion.
@@ -71,6 +27,7 @@ setopt HIST_SAVE_NO_DUPS           # Don't write duplicate entries in the histor
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS          # Remove superfluous blanks before recording entry.
 setopt PUSHD_IGNORE_DUPS           # Don't push multiple copies of the same directory onto the directory stack
+setopt COMPLETE_ALIASES
 
 ## disable the XON/XOFF tty flow feature [ctrl-S|ctrl-Q]
 stty -ixon
@@ -78,7 +35,6 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 export PATH=${PATH}:${HOME}/bin
 export PATH=${PATH}:/home/boogy/.cargo/bin
 export PATH=${PATH}:${HOME}/.local/bin
-#export PATH="$PATH:$(ruby -e 'print Gem.user_dir')/bin"
 
 export LANG=en_US.UTF-8
 # export EDITOR='vim'
@@ -87,11 +43,117 @@ export FZF_DEFAULT_OPTS='--history-size=100000 '
 export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export TERM=xterm-256color
-
 export PYTHONSTARTUP=~/.pythonrc.py
-# export PYTHONSTARTUP="$(python -m jedi repl)"
 
-zsh_custom_files=(
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+# Auto complete with case insenstivity
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+zmodload zsh/complist
+compinit
+_comp_options+=(globdots)       # Include hidden files.
+
+## vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+## Enable searching through history
+#bindkey '^R' history-incremental-pattern-search-backward
+
+## Edit line in vim buffer ctrl-v
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^v' edit-command-line
+## Enter vim buffer from normal mode
+autoload -U edit-command-line && zle -N edit-command-line && bindkey -M vicmd "^v" edit-command-line
+
+## Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'left' vi-backward-char
+bindkey -M menuselect 'down' vi-down-line-or-history
+bindkey -M menuselect 'up' vi-up-line-or-history
+bindkey -M menuselect 'right' vi-forward-char
+## Fix backspace bug when switching modes
+bindkey "^?" backward-delete-char
+
+## word delimiters
+# export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+export WORDCHARS='*?_-/.[]~=&;!#$%^(){}<>'
+bindkey '^W' backward-kill-word
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+
+## ci", ci', ci`, di", etc
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+## ci{, ci(, ci<, di{, etc
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+precmd() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+## Control bindings for programs
+bindkey -s "^g" "vifm\n"
+bindkey -s "^h" "history 1\n"
+# bindkey -s "^l" "clear\n"
+# bindkey -s "^d" "dlfile\n"
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh &>/dev/null
+source ~/.zsh/command-not-found.zs 2>/dev/null
+## load prompt
+source ~/.zsh/prompt/prompt-simple.zsh
+#autoload -U promptinit; promptinit
+
+## source plugins from oh-my-zsh
+zsh_plugins=(
+    sudo
+    ssh-agent
+    autojump
+    fzf
+    virtualenvwrapper
+)
+ZSH_FULL_PLUGIN_PATH="${HOME}/.zsh/plugins/"
+for zsh_plugin in $zsh_plugins; do
+    source "${ZSH_FULL_PLUGIN_PATH}/${zsh_plugin}.zsh" &>/dev/null
+done
+
+## custom plugins
+zsh_custom_plugins=(
     directories
     expandalias
     virtualbox
@@ -103,12 +165,9 @@ zsh_custom_files=(
     ssh
 )
 ZSH_FULL_FILE_PATH="${HOME}/.zsh/"
-for zsh_config_file in $zsh_custom_files; do
+for zsh_config_file in $zsh_custom_plugins; do
     source "${ZSH_FULL_FILE_PATH}/${zsh_config_file}.zsh" &>/dev/null
 done
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &>/dev/null
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh &>/dev/null
 
 ## bash files
 ##
