@@ -21,6 +21,11 @@ if has('nvim')
     nnoremap <A-l> <C-w>l
 endif
 
+" VIM terminal mode mappings
+tnoremap <Esc> <C-\><C-n>
+nnoremap <leader>Tv :vsplit term://zsh<cr>i<cr>
+nnoremap <leader>Th :split term://zsh<cr>i<cr>
+
 " using command history
 " nnoremap : q:i
 nnoremap / q/i
