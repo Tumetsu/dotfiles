@@ -8,7 +8,7 @@ setopt prompt_subst
 ## prompt
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}*%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}⚡%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 ## show git branch/tag, or name-rev if on detached head
@@ -28,7 +28,7 @@ parse_git_dirty() {
 ## if in a git repo, show dirty indicator + git branch
 git_custom_status() {
   local git_where="$(parse_git_branch)"
-  [ -n "$git_where" ] && echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${git_where#(refs/heads/|tags/)}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  [ -n "$git_where" ] && echo " $ZSH_THEME_GIT_PROMPT_PREFIX${git_where#(refs/heads/|tags/)}$ZSH_THEME_GIT_PROMPT_SUFFIX$(parse_git_dirty)"
 }
 
 function prompt_char {
