@@ -23,7 +23,7 @@ endif
 
 " VIM terminal mode mappings
 tnoremap <Esc> <C-\><C-n>
-nnoremap <leader>Tv :vsplit term://zsh<cr>i<cr>
+nnoremap <leader>Tv :vsplit term://zsh<cr><C-w>r<cr>i<cr>
 nnoremap <leader>Th :split term://zsh<cr>i<cr>
 
 " using command history
