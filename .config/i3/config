@@ -717,9 +717,9 @@ $exec xrdb -merge ~/.Xresources
 # $exec volumeicon
 $exec nm-applet
 
-## get tranparent rofi background
-# $exec compton -bcCGf --no-fading-openclose --unredir-if-possible
-# $exec compton -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
+## get tranparent rofi background (compton)
+# $exec picom -bcCGf --no-fading-openclose --unredir-if-possible
+$exec picom -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
 
 ## enable double click show menu
 $exec ~/.config/i3/scripts/xinput-config.sh

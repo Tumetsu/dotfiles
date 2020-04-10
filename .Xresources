@@ -59,8 +59,8 @@ URxvt.boldFont: xft:Cousine for Powerline:style=Bold:antialias=true:size=10, \
 URxvt.depth: 32
 
 !! BACKGROUND TRANSPARENT
-! URxvt.background: [100]#262626
-!URxvt.foreground: grey
+URxvt.background: [90]#262626
+URxvt.foreground: grey
 
 URxvt.loginShell:               true
 URxvt.scrollBar:                false
