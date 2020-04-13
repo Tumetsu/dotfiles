@@ -7,5 +7,13 @@
     {
         "key": "ctrl+shift+[Equal]",
         "command": "-workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+alt+v tab",
+        "command": "type",
+        "args": {
+            "text": "\t"
+        },
+        "when": "editorTextFocus"
     }
 ]

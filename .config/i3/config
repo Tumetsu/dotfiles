@@ -520,7 +520,7 @@ bindsym $mod+r mode "resize"
 #                           change display mode
 ##########################################################################
 ## choose autorandr displaymode
-bindsym $mod+i $exec ~/.config/i3/scripts/select-screen-layout.sh
+bindsym $mod+i $exec ~/.config/i3/scripts/select-screen-layout.sh polybar
 
 ##########################################################################
 #                          enable other displays

@@ -7,10 +7,14 @@ setopt prompt_subst
 
 _EMOJIS=(🥯 🦆 🦉 🥓 🦄 🦀 🖕 🍣 🍤 🍥 🍡 🥃 🥞 🤯 🤪 🤬 🤮 🤫 🤭 🧐 🐕 🦖 👾 🐉 🐓 🐋 🐌 🐢 ➜ ➤ ➥ ❯ ✗ ⚡ ► λ ✘)
 
+# echo "\ue0b0 \u00b1 \ue0a0 \u27a6 \u2718 \u26a1 \u2699"
+#  ±  ➦ ✘ ⚡ ⚙
+_git_emojis=( ±  ➦ ✘ ⚡ ⚙)
+
 ## prompt
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}["
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$reset_color%}%{$fg[green]%}${_git_emojis[3]} ["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}⚡%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}${_git_emojis[6]}%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
 PROMPT_CHAR_ROOT="%{$fg_bold[red]%}➜%{$reset_color%}"

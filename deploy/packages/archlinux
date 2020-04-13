@@ -27,7 +27,7 @@ alsa-utils
 ansible
 arandr
 bash-completion
-bbswitch-dkms
+#bbswitch-dkms
 dkms
 pavucontrol
 rofi
@@ -128,7 +128,6 @@ jdk8-openjdk
 jre10-openjdk
 jdk10-openjdk
 w3m
-# wireshark-gtk -> AUR
 xcursor-themes
 xcursor-bluecurve
 xcursor-comix
@@ -172,7 +171,6 @@ dhclient
 ocl-icd
 dunst
 dnsutils
-stow
 fwupd
 scrot
 flameshot
@@ -180,6 +178,9 @@ nitrogen
 # alacritty
 # thunderbird
 # thunderbird-i18n-fr
+sxiv
+vifm
+neovim
 termite
 zsh
 zsh-syntax-highlighting
@@ -216,3 +217,8 @@ bluez-utils
 # mesa
 # hashcat
 # bumblebee
+##
+## BSPWM
+bspwm
+sxhkd
+xdo

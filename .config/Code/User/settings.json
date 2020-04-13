@@ -399,7 +399,7 @@
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "workbench.iconTheme": "vscode-great-icons",
+    "workbench.iconTheme": "material-icon-theme",
     "instantmarkdown.autoOpenBrowser": false,
     "editor.formatOnSave": true,
     "editor.suggestSelection": "first",
@@ -409,5 +409,6 @@
     },
     "editor.largeFileOptimizations": false,
     "editor.fontSize": 13,
-    "editor.columnSelection": false
+    "editor.columnSelection": false,
+    "material-icon-theme.showWelcomeMessage": false
 }

@@ -45,6 +45,10 @@ function previous()
     dbus-send --type=method_call --dest=${mediaPlayer} /org/mpris/MediaPlayer${mediaPlayerNumber} org.mpris.MediaPlayer${mediaPlayerNumber}.Player.Previous
 }
 
+function stop()
+{
+    dbus-send --type=method_call --dest=${mediaPlayer} /org/mpris/MediaPlayer${mediaPlayerNumber} org.mpris.MediaPlayer${mediaPlayerNumber}.Player.Stop
+}
 case $1 in
     play|play[Pp]ause)
         playPause
@@ -54,6 +58,9 @@ case $1 in
         ;;
     [pP]revious)
         previous
+        ;;
+    [sS]top)
+        stop
         ;;
     *)
         echo "unknown option"
