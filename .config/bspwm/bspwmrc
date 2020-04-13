@@ -82,24 +82,29 @@ bspc monitor HDMI2 -d 1 2 3 4 5 6 7 8 9 10
 bspc config external_rules_command "$BSPWM_CONFIG/scripts/external_rules"
 
 ## Send to desktop
-bspc rule --add Libreoffice                 desktop='6' follow=on
-bspc rule --add '*:soffice' state=tiled     desktop='6' follow=on
-bspc rule --add Hexchat                     desktop='10' --one-shot  follow=on
-bspc rule --add Xchat                       desktop='10' --one-shot  follow=on
+bspc rule --add Libreoffice               desktop='6' follow=on
+bspc rule --add '*:soffice' state=tiled   desktop='6' follow=on
+bspc rule --add Hexchat                   desktop='10' --one-shot  follow=on
+bspc rule --add Xchat                     desktop='10' --one-shot  follow=on
+bspc rule --add Vmware                    desktop='5' follow=on
+bspc rule --add Gnome-calculator          desktop='5' follow=on
 
 ## Other floating windows
-bspc rule --add Arandr                      state=floating
-bspc rule --add Display                     state=floating
-bspc rule --add Empathy                     state=floating
-bspc rule --add Eog                         state=floating
-bspc rule --add feh                         state=floating
-bspc rule --add KeePassXC                   state=floating
-bspc rule --add mpv                         state=floating
-bspc rule --add Nautilus                    state=floating
-bspc rule --add Pavucontrol                 state=floating
-bspc rule --add Remmina                     state=floating
-bspc rule --add "Syncthing GTK"             state=floating
-bspc rule --add Transmission-gtk            state=floating
+bspc rule --add Blueman-manager         state=floating
+bspc rule --add Shutter                 state=floating
+bspc rule --add Solaar                  state=floating
+bspc rule --add Arandr                  state=floating
+bspc rule --add Display                 state=floating
+bspc rule --add Empathy                 state=floating
+bspc rule --add Eog                     state=floating
+bspc rule --add feh                     state=floating
+bspc rule --add KeePassXC               state=floating
+bspc rule --add mpv                     state=floating
+bspc rule --add Nautilus                state=floating
+bspc rule --add Pavucontrol             state=floating
+bspc rule --add Remmina                 state=floating
+bspc rule --add "Syncthing GTK"         state=floating
+bspc rule --add Transmission-gt         state=floating
 
 ## Load session
 . "$BSPWM_CONFIG/restore.cfg"
