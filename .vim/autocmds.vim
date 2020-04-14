@@ -16,10 +16,12 @@ au BufRead,BufNewFile */hosts_playbooks/*.yaml set filetype=yaml.ansible
 au BufNewFile,BufFilePre,BufRead,BufReadPost *.md,.*markdown set filetype=markdown
 
 " VIM terminal mode remove line numbers
-augroup TerminalStuff
-  "au! " Clear old autocommands
-  autocmd TermOpen * setlocal nonumber norelativenumber
-augroup END
+if has('nvim')
+    augroup TerminalStuff
+      "au! " Clear old autocommands
+      autocmd TermOpen * setlocal nonumber norelativenumber
+    augroup END
+endif
 
 " Quickly change font size un GUI
 command! Bigger  :let &guifont = substitute(&guifont, '\d\+$', '\=submatch(0)+1', '')
