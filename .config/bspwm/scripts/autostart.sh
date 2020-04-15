@@ -27,22 +27,27 @@ xsetroot -cursor_name left_ptr &
 ## pad gestures
 libinput-gestures-setup start &
 
+## set speed and other options for peripherals
 ~/.config/i3/scripts/xinput-config.sh &
 ##
 ## Applications
 ##
 
-$HOME/.config/bspwm/scripts/launch_polybar.sh bar-bspwm &
-feh --bg-scale ~/Pictures/wallpaper.jpg &
+~/.config/polybar/launch_polybar.sh &
+##feh --bg-scale ~/Pictures/wallpaper.jpg &
+[ -f ~/.fehbg ] && ~/.fehbg &
+
 nm-applet &
 /opt/dropbox/dropboxd &
 pulseaudio --start &
 start-pulseaudio-x11
 blueman-applet &
 xfce4-power-manager &
+
 [[ ! $(pgrep -x firefox) ]] && /usr/bin/firefox &
-tmux list-sessions|grep WORK || termite -e 'tmux new -s WORK' &
-# termite -e vim +qall! &
+(tmux list-sessions|grep -Eo WORK) || termite -e "tmux new-session -A -s 'WORK'" &
+## make vim and tmux look pretty
+termite -e "vim +qall!" &
 
 ## run gnome keyring daemon
 gnome-keyring-daemon --start --daemonize --components=gpg,pkcs10,secrets,ssh &

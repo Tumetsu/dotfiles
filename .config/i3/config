@@ -276,7 +276,7 @@ bindsym $mod+Shift+a focus parent
 ## restart i3 inplace
 bindsym $mod+Shift+r restart
 # bindsym $sup+Shift+r $exec polybar-msg cmd restart
-bindsym $sup+Shift+r $exec ~/.config/i3/scripts/launch_polybar.sh default && /home/boogy/.fehbg
+bindsym $sup+Shift+r $exec ~/.config/polybar/launch-polybar.sh && /home/boogy/.fehbg
 ## reload the configuration file
 bindsym $mod+Shift+c reload
 
@@ -734,7 +734,7 @@ $exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
 $exec vim +qall!
 
 ## run polybar
-$exec_always ~/.config/i3/scripts/launch_polybar.sh default
+$exec_always ~/.config/polybar/launch-polybar.sh
 
 $exec xhost +local:
 $exec sleep 1 && pulseaudio --start
