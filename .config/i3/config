@@ -306,12 +306,12 @@ bindsym button9 move left
 bindsym button8 move right
 
 ## Audio/Media Player controls
-# bindsym XF86AudioRaiseVolume $exec ~/.config/i3/scripts/volume.sh +5%
-# bindsym XF86AudioLowerVolume $exec ~/.config/i3/scripts/volume.sh -5%
-# bindsym XF86AudioMute        $exec ~/.config/i3/scripts/volume.sh mute
-bindsym XF86AudioRaiseVolume $exec amixer -q sset Master 5%+
-bindsym XF86AudioLowerVolume $exec amixer -q sset Master 5%-
-bindsym XF86AudioMute        $exec amixer -q sset Master toggle
+bindsym XF86AudioRaiseVolume $exec ~/.config/i3/scripts/volume.sh +5%
+bindsym XF86AudioLowerVolume $exec ~/.config/i3/scripts/volume.sh -5%
+bindsym XF86AudioMute        $exec ~/.config/i3/scripts/volume.sh mute
+# bindsym XF86AudioRaiseVolume $exec amixer -q sset Master 5%+
+# bindsym XF86AudioLowerVolume $exec amixer -q sset Master 5%-
+# bindsym XF86AudioMute        $exec amixer -q sset Master toggle
 bindsym XF86AudioMicMute     $exec amixer set Capture toggle
 
 bindsym XF86AudioPlay $exec ~/.config/i3/scripts/audio_manage.sh playpause
