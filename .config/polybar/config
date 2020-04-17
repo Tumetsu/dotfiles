@@ -123,7 +123,7 @@ font-4 = "Font Awesome 5 Brands:style=Solid:size=9;1:pixelsize=10"
 font-5 = "Ubuntu Mono derivative Powerline:size=9;1"
 font-6 = "Ubuntu Mono derivative Powerline:size=8;1"
 
-modules-left = bspwm xwindow
+modules-left = bspwm
 modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan vpn eth battery date
 
 wm-restack = bspwm
@@ -196,8 +196,23 @@ label-empty = %index%%icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
+label-monitor = %name%
+; format = <label-state> <label-monitor><label-mode>
 format = <label-state> <label-mode>
 wrapping-scroll = false
+
+label-monocle = M
+label-tiled = T
+label-fullscreen = F
+label-floating = ~
+label-pseudotiled = P
+label-locked = L
+; label-locked-foreground = #bd2c40
+label-sticky = S
+; label-sticky-foreground = #fba922
+label-private = Pr
+; label-private-foreground = #bd2c40
+label-marked = M
 
 ws-icon-0 = 0; 
 ws-icon-1 = 1; 

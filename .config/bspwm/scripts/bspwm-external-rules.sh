@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Script modified by boogy <https://github.com/boogy/dotfiles>
-#
 # External rules for BSPWM.  This script was copied from:
 # https://gitlab.com/protesilaos/dotfiles.
 #
@@ -63,10 +61,14 @@ window_instance="$3"
 window_title="$(xwininfo -id "$window_id" | sed ' /^xwininfo/!d ; s,.*"\(.*\)".*,\1,')"
 
 case "$window_class" in
-	[Mm]pv|[Vv]lc|[Pp]avucontrol|[Ee]o[mg]|[Ff]eh|[Rr]istretto|[Ss]xiv|my_float_window)
+	[Mm]pv|[Vv]lc|[Pp]avucontrol|[Ee]o[mg]|[Ff]eh|[Ss]xiv|my_float_window)
 		echo "state=floating"
 		echo "center=on"
 		;;
+    [Ee]vince|[Pp]inentry-gtk-2)
+		echo "state=floating"
+		echo "center=on"
+        ;;
     [Gg]nome-calculator)
 		echo "state=floating"
         ;;

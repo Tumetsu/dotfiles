@@ -56,7 +56,7 @@ bspc config urgent_border_color 	      "#dd2727"
 ##
 ## BSPWM monitors
 ##
-"$BSPWM_CONFIG/scripts/setup-monitors.sh" &
+"$(which bspwm-setup-monitors.sh)" &
 
 ## Use monocle layout on desktop 1
 # bspc desktop '^1' --layout monocle
@@ -72,7 +72,7 @@ bspc config urgent_border_color 	      "#dd2727"
 # done &
 
 ## Script for external rules
-bspc config external_rules_command "$BSPWM_CONFIG/scripts/external-rules.sh"
+bspc config external_rules_command "$(which bspwm-external-rules.sh)"
 
 ## Send to desktop
 bspc rule --add Libreoffice               desktop='6'  follow=on  monitor=focused
@@ -80,16 +80,16 @@ bspc rule --add '*:soffice' state=tiled   desktop='6'  follow=on  monitor=focuse
 bspc rule --add Hexchat                   desktop='10' follow=on  monitor=focused
 bspc rule --add Xchat                     desktop='10' follow=on  monitor=focused
 bspc rule --add Vmware                    desktop='5'  follow=on  monitor=focused
+bspc rule --add firefox                   desktop='3' state=floating monitor=left
 
 ## Other floating windows
+bspc rule --add mpv                     state=floating
 bspc rule --add Blueman-manager         state=floating
 bspc rule --add Shutter                 state=floating
 bspc rule --add Solaar                  state=floating
 bspc rule --add Arandr                  state=floating
 bspc rule --add Display                 state=floating
 bspc rule --add Empathy                 state=floating
-bspc rule --add Eog                     state=floating
-bspc rule --add feh                     state=floating
 bspc rule --add KeePassXC               state=floating
 bspc rule --add mpv                     state=floating
 bspc rule --add Nautilus                state=floating
@@ -97,6 +97,8 @@ bspc rule --add Pavucontrol             state=floating
 bspc rule --add Remmina                 state=floating
 bspc rule --add "Syncthing GTK"         state=floating
 bspc rule --add Transmission-gt         state=floating
+# bspc rule --add Eog                     state=floating
+# bspc rule --add feh                     state=floating
 
 ## Load session
 . "$BSPWM_CONFIG/restore.cfg"
@@ -109,4 +111,5 @@ fi
 ##
 ## AUTOSTART
 ##
-"$BSPWM_CONFIG/scripts/autostart.sh" &
+"$(which bspwm-autostart.sh)" &
+

@@ -59,6 +59,16 @@ for DOT_FILE in $(ls .config); do
     ln -sf $THIS_DIR/.config/$DOT_FILE ~/.config/
 done
 
+## Link bspwm && i3 config scripts
+if [[ $CLEAN_EXISTING_FILES =~ [Y|y] ]]; then
+    for RM_FILE in $(ls $THIS_DIR/.config/bspwm/scripts); do
+        rm -f ~/.local/bin/$RM_FILE
+    done
+fi
+for FILE in $(ls $THIS_DIR/.config/bspwm/scripts); do
+    sudo ln -sf $THIS_DIR/.config/bspwm/scripts/$FILE /usr/local/bin/
+done
+
 
 ##
 ## Install Plug for plugin management
@@ -85,18 +95,18 @@ vim +UpdateRemotePlugins +qall
 git clone https://github.com/powerline/fonts.git --depth=1 ${INSTALLDIR}/powerline_fonts
 cd ${INSTALLDIR}/powerline_fonts
 ./install.sh
-rm -rf ${INSTALLDIR}/powerline_fonts
+rm -rf ${INSTALLDIR}/powerline_fonts &>/dev/null
 
 
 ## Make sure that .bash_aliases is loaded
 [ $(uname) = 'Linux' ] && {
   grep -qEo ".bash_aliases" ~/.bashrc || echo "source ~/.bash_aliases" >> ~/.bashrc
-  test -f ~/.bashrc && chmod 0700 $_ && source $_
+  (test -f ~/.bashrc && chmod 0700 $_ && source $_) &>/dev/null
 }
 
 [ $(uname) = 'Darwin' ] && {
   test -f ~/.profile || touch ~/.profile && chmod 0700 $_
   grep -qEo ".bash_aliases" ~/.bashrc || echo "source ~/.bash_aliases" >> ~/.profile
-  test -f ~/.profile && chmod 0700 $_ && source $_
+  (test -f ~/.profile && chmod 0700 $_ && source $_) &>/dev/null
 }
 

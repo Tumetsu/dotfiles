@@ -16,7 +16,7 @@ xset r rate 200 50
 xhost +local:
 
 ## set default volume to 30%
-amixer -q sset Master 30%
+#amixer -q sset Master 30%
 
 ## Caps Lock is Espace key
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
@@ -33,7 +33,7 @@ libinput-gestures-setup start &
 ## Applications
 ##
 
-~/.config/polybar/launch_polybar.sh &
+~/.config/polybar/launch-polybar.sh &
 ##feh --bg-scale ~/Pictures/wallpaper.jpg &
 [ -f ~/.fehbg ] && ~/.fehbg &
 
@@ -47,10 +47,10 @@ xfce4-power-manager &
 [[ ! $(pgrep -x firefox) ]] && /usr/bin/firefox &
 (tmux list-sessions|grep -Eo WORK) || termite -e "tmux new-session -A -s 'WORK'" &
 ## make vim and tmux look pretty
-termite -e "vim +qall!" &
+(termite -e "vim +qall!" ) &>/dev/null &
 
 ## run gnome keyring daemon
-gnome-keyring-daemon --start --daemonize --components=gpg,pkcs10,secrets,ssh &
+gome-keyring-daemon --start --daemonize --components=gpg,pkcs10,secrets,ssh &
 
 ## compozitor
 picom -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible &
