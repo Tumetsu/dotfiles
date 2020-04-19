@@ -128,9 +128,8 @@ precmd() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 ## Control bindings for programs
 bindkey -s "^g" "vifm $PWD\n"
-bindkey -s "^h" "history 1\n"
-# bindkey -s "^l" "clear\n"
-# bindkey -s "^d" "dlfile\n"
+bindkey -s "^o" "open_with_fzf\n"
+bindkey -s "^g" "cd_with_fzf\n"
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &>/dev/null
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh &>/dev/null

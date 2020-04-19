@@ -13,18 +13,11 @@ alt + {n,p}
 alt + shift + {n,p}
 	bspc desktop -f {next,prev}
 
-## Toogle tiling of window
-alt + space
-	bspc query --nodes -n focused.tiled && state=floating || state=tiled; \
-	bspc node --state \~$state
-
-## Toogle pseudo tiling of window
-alt + shift + space
-	bspc node --state \~pseudo_tiled
-
 ## Toggle fullscreen of window
-alt + f
-	bspc node --state \~fullscreen
+## Toogle pseudo tiling of window
+## alt + Shift | alt + space | alt + space + f
+alt + {shift + space,space,f}
+	bspc node --state \~{pseudo_tiled,floating,fullscreen}
 
 ## monocle cycle nodes
 ## super + n | super + p
@@ -43,8 +36,10 @@ alt + Tab
 	bspc desktop --focus last
 
 # Focus/swap windows by direction
+# alt + {_,shift + }{h,j,k,l}
+# 	bspc node --{focus,swap} {west,south,north,east}
 alt + {_,shift + }{h,j,k,l}
-	bspc node --{focus,swap} {west,south,north,east}
+	{bspc node --focus,bspwm-smart-move.sh} {west,south,north,east}
 
 ## Preselect the splitting area for next window on leaf/parent
 super + ctrl + {h,j,k,l}

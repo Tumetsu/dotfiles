@@ -25,7 +25,7 @@
 # Spawn window on the newest receptacle or preselection and switch focus
 # to it.  For presels priority is given to the current desktop.
 _bspc_query() {
-	bspc query -N -n "$@"
+    bspc query -N -n "$@"
 }
 
 recept="$(_bspc_query 'any.leaf.!window')"
@@ -41,10 +41,10 @@ presel="$(_bspc_query 'newest.!automatic')"
 # Also see my SXHKD bindings for advanced manual tiling actions (refer
 # to my dotfiles).
 if [ -n "$recept" ]; then
-	target="$recept"
-	attention="off"
+    target="$recept"
+    attention="off"
 elif [ -n "$presel" ]; then
-	target="$presel"
+    target="$presel"
 fi
 
 echo "node=${target:-focused}"
@@ -61,37 +61,37 @@ window_instance="$3"
 window_title="$(xwininfo -id "$window_id" | sed ' /^xwininfo/!d ; s,.*"\(.*\)".*,\1,')"
 
 case "$window_class" in
-	[Mm]pv|[Vv]lc|[Pp]avucontrol|[Ee]o[mg]|[Ff]eh|[Ss]xiv|my_float_window)
-		echo "state=floating"
-		echo "center=on"
-		;;
-    [Ee]vince|[Pp]inentry-gtk-2)
-		echo "state=floating"
-		echo "center=on"
+    [Mm]pv|[Vv]lc|[Pp]avucontrol|[Ee]o[mg]|[Ff]eh|[Ss]xiv|my_float_window)
+        echo "state=floating"
+        echo "center=on"
+        ;;
+    [Ee]vince|[Pp]inentry-gtk-2|[Aa]randr)
+        echo "state=floating"
+        echo "center=on"
         ;;
     [Gg]nome-calculator)
-		echo "state=floating"
+        echo "state=floating"
         ;;
-	* )
-		case "$(xprop -id "$window_id" _NET_WM_WINDOW_TYPE)" in
-			*_NET_WM_WINDOW_TYPE_DIALOG*)
-				echo "state=floating"
-				;;
-			*)
-				echo "state=tiled"
-				;;
-		esac
-		;;
+    * )
+        case "$(xprop -id "$window_id" _NET_WM_WINDOW_TYPE)" in
+            *_NET_WM_WINDOW_TYPE_DIALOG*)
+                echo "state=floating"
+                ;;
+            *)
+                echo "state=tiled"
+                ;;
+        esac
+        ;;
 esac
 
 # FIXME the "file operations" applies to the `caja` file manager.
 # TODO There should be a better way of handling this.
 case "$window_title" in
-	'File Operations'*)
-		echo "state=floating"
-		echo "center=on"
-		;;
-	my_float_window)
-		echo "state=floating"
-		;;
+    'File Operations'*)
+        echo "state=floating"
+        echo "center=on"
+        ;;
+    my_float_window)
+        echo "state=floating"
+        ;;
 esac
