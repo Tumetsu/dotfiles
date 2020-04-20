@@ -75,12 +75,11 @@ bspc config urgent_border_color 	      "#dd2727"
 bspc config external_rules_command "$(which bspwm-external-rules.sh)"
 
 ## Send to desktop
-bspc rule --add Libreoffice               desktop='6'  follow=on  monitor=focused
-bspc rule --add '*:soffice' state=tiled   desktop='6'  follow=on  monitor=focused
-bspc rule --add Hexchat                   desktop='10' follow=on  monitor=focused
-bspc rule --add Xchat                     desktop='10' follow=on  monitor=focused
-bspc rule --add Vmware                    desktop='5'  follow=on  monitor=focused
-bspc rule --add firefox                   desktop='3' state=floating monitor=left
+bspc rule --add Vmware                    desktop='5'  state=tiled follow=on
+bspc rule --add Libreoffice               desktop='6'  state=tiled follow=on
+bspc rule --add '*:soffice' state=tiled   desktop='6'  state=tiled follow=on
+bspc rule --add Hexchat                   desktop='10' state=tiled follow=on
+bspc rule --add Xchat                     desktop='10' state=tiled follow=on
 
 ## Other floating windows
 bspc rule --add mpv                     state=floating
@@ -93,23 +92,19 @@ bspc rule --add Empathy                 state=floating
 bspc rule --add KeePassXC               state=floating
 bspc rule --add mpv                     state=floating
 bspc rule --add Nautilus                state=floating
-bspc rule --add Pavucontrol             state=floating
-bspc rule --add Remmina                 state=floating
+bspc rule --add Pavucontrol             state=floating center=on
 bspc rule --add "Syncthing GTK"         state=floating
 bspc rule --add Transmission-gt         state=floating
-# bspc rule --add Eog                     state=floating
-# bspc rule --add feh                     state=floating
 
 ## Load session
-. "$BSPWM_CONFIG/restore.cfg"
-if [ -e "$BSPWM_STATE" ] ; then
-    bspc wm --load-state "$BSPWM_STATE"
-    bspc wm --adopt-orphans
-    rm "$BSPWM_STATE"
-fi
+# . "$BSPWM_CONFIG/restore.cfg"
+# if [ -e "$BSPWM_STATE" ] ; then
+#     bspc wm --load-state "$BSPWM_STATE"
+#     bspc wm --adopt-orphans
+#     rm "$BSPWM_STATE"
+# fi
 
 ##
 ## AUTOSTART
 ##
 "$(which bspwm-autostart.sh)" &
-

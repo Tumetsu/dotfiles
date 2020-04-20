@@ -41,6 +41,7 @@ nm-applet &
 /opt/dropbox/dropboxd &
 pulseaudio --start &
 start-pulseaudio-x11
+pulseaudio -k && pulseaudio -D
 blueman-applet &
 xfce4-power-manager &
 

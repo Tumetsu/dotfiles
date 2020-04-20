@@ -32,10 +32,10 @@ recept="$(_bspc_query 'any.leaf.!window')"
 presel="$(_bspc_query 'newest.!automatic')"
 
 # Receptacles will not switch focus to the present desktop, whereas
-# preselection will.  This way we can develop different workflows (e.g.
+# preselection will. This way we can develop different workflows (e.g.
 # create 3 recept in one desktop, launch 3 GUIs that take time to load,
 # switch to another desktop and continue working, until you decide to go
-# back to the GUIs).  This has no effect when all actions occur within
+# back to the GUIs). This has no effect when all actions occur within
 # the focused desktop.
 #
 # Also see my SXHKD bindings for advanced manual tiling actions (refer
@@ -60,26 +60,33 @@ window_class="$2"
 window_instance="$3"
 window_title="$(xwininfo -id "$window_id" | sed ' /^xwininfo/!d ; s,.*"\(.*\)".*,\1,')"
 
+
 case "$window_class" in
     [Mm]pv|[Vv]lc|[Pp]avucontrol|[Ee]o[mg]|[Ff]eh|[Ss]xiv|my_float_window)
         echo "state=floating"
         echo "center=on"
         ;;
-    [Ee]vince|[Pp]inentry-gtk-2|[Aa]randr)
+    [Ee]vince|[Pp]inentry-gtk-2|[Aa]randr|*[Rr]emmina*)
         echo "state=floating"
         echo "center=on"
         ;;
     [Gg]nome-calculator)
         echo "state=floating"
         ;;
+    [Ff]irefox|[Ff]irefox-esr|[Ii]ceweasel)
+        echo "state=tiled"
+        echo "desktop=3"
+        ;;
     * )
         case "$(xprop -id "$window_id" _NET_WM_WINDOW_TYPE)" in
-            *_NET_WM_WINDOW_TYPE_DIALOG*)
+            *_NET_WM_WINDOW_TYPE_DIALOG*|*_NET_WM_WINDOW_TYPE_SPLASH*|*_NET_WM_WINDOW_TYPE_TOOLTIP*|*_NET_WM_WINDOW_TYPE_NOTIFICATION*)
                 echo "state=floating"
                 ;;
-            *)
-                echo "state=tiled"
-                ;;
+            ## do not remove
+            ## commented out for floating windows
+            # *)
+            #     echo "state=tiled"
+            #     ;;
         esac
         ;;
 esac
