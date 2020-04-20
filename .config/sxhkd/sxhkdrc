@@ -53,6 +53,11 @@ super + ctrl + space
 control + alt + {h,j,k,l}
 	bspwm-resize.sh {west,south,north,east} 50
 
+## Equalize all nodes
+control + shift + @equal
+	bspc node @/ --equalize
+	#bspc node @/ --balance #bspc query -N -d | xargs -I % bspc node % -B
+
 ## Mode for dynamic gaps.
 # super + g : bracket{left,right}
 super + g : {comma,period}
