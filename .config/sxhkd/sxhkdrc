@@ -7,6 +7,7 @@ alt + {shift + e, Escape}
 	{bspwm-dmenu-logout.sh,bspc node --close}
 
 ## Move next,prev desktop on screen
+## alt + n | alt + p
 alt + {n,p}
 	bspc desktop -f {next,prev}.local
 ## Move next,prev desktop on all screens
@@ -19,44 +20,39 @@ alt + shift + {n,p}
 alt + {shift + space,space,f}
 	bspc node --state \~{pseudo_tiled,floating,fullscreen}
 
-## monocle cycle nodes
-## super + n | super + p
-super + {n,p}
-	bspc node --focus {next,prev}.local
-
 ## Navigate/cycle desktop layouts
-super + {_,shift + }space
-	bspc desktop --layout {next,prev}
+super + space
+	bspc desktop --layout next
 
 ## Focus next/previous window
 super + Tab
-	bspc node --focus last.local
+	bspc node --focus prev.local
 ## Focus last window/desktop
 alt + Tab
 	bspc desktop --focus last
 
-# Focus/swap windows by direction
-# alt + {_,shift + }{h,j,k,l}
-# 	bspc node --{focus,swap} {west,south,north,east}
+## Focus/swap windows by direction
+## alt + {h,j,k,l} | alt + shift + {h,j,k,l}
+## {bspc node --focus,bspwm-smart-move.sh} {west,south,north,east}
 alt + {_,shift + }{h,j,k,l}
-	{bspc node --focus,bspwm-smart-move.sh} {west,south,north,east}
+	{bspwm-focus-swap.sh focus,bspwm-focus-swap.sh swap} {west,south,north,east}
 
 ## Preselect the splitting area for next window on leaf/parent
-super + ctrl + {h,j,k,l}
+## control + alt + {h,j,k,l}
+control + alt + {h,j,k,l}
 	bspc node --presel-dir \~{west,south,north,east}
 
-## Cancel preselection
+## Kill all receptacles
 super + ctrl + space
-	bspc node --presel-dir cancel
+	bspwm-multifaceted-operation.sh --kill-all-receptacles
 
-## Expand/Contrat tiled space
-control + alt + {h,j,k,l}
+## Expand/Contrat tiled space (grow|shrink windows)
+super + shift + {h,j,k,l}
 	bspwm-resize.sh {west,south,north,east} 50
 
 ## Equalize all nodes
 control + shift + @equal
 	bspc node @/ --equalize
-	#bspc node @/ --balance #bspc query -N -d | xargs -I % bspc node % -B
 
 ## Mode for dynamic gaps.
 # super + g : bracket{left,right}
@@ -72,7 +68,7 @@ super + k + c
 	|| picom -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible
 
 ## printscreen / screenshot
-Print {_, shift + } Print
+{_,shift} + Print
 	{flameshot gui,shutter -s}
 
 ## Move window to selected desktop
@@ -137,10 +133,6 @@ alt + control + {Left,Down,Up,Right}
 
 ## focus next, prev monitor
 ## alt + comma || alt + period
-alt + {comma,period}
-	bspc monitor -f {next,prev}
-## focus next, prev monitor
-## alt + comma || alt + period
 alt + e
 	bspc monitor -f {next,prev}
 
@@ -173,45 +165,11 @@ super + alt + l
 alt + i
 	~/.config/i3/scripts/select-screen-layout.sh
 
-## i3 like scratchpad
-# super + u
-# 	id=$(bspc query -N -n "focused");\
-# 	bspwm-scratchpad.sh dropdown $id
-
-## tag window as sratchpad
-super + shift + u
-	id=$(bspc query -N -n "focused");\
-	if [ -n "$id" ];then \
-		xprop -id $id -f _SCRATCHPAD 32ii -set _SCRATCHPAD $(date +%s,%N);\
-		bspc node -t "floating";\
-		xdotool windowunmap $id;\
-	fi
-
-## toggle between scratch windows
-super + u
-	i=$(bspc query -N -n "focused.floating");\
-	if [ -n "$i" ];then \
-		xprop -id $i -f _SCRATCHPAD 32ii -set _SCRATCHPAD $(date +%s,%N);\
-		xdotool windowunmap $i;\
-	else;\
-		i=$(for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o);do \
-			t=$(xprop -id $w _SCRATCHPAD | grep ' = \(.*\)');\
-			if [ -n "$t" ];then \
-				echo $t $w;\
-			fi;\
-		done|sort -n|head -n1|cut -d" " -f 5);\
-		if [ -n "$i" ];then \
-			xprop -id $i -remove _SCRATCHPAD;\
-			bspc rule --add \* state=floating center=on --one-shot;\
-			xdotool windowmap $i;\
-			bspc node -f $i;\
-		fi;\
-	fi
-
 ## Launch terminal (tmux with shift)
 ## alt + Return | alt + shift + Return
 alt + {_,shift + } Return
 	{termite,termite -e "tmux new-session -A -s 'WORK'"}
+	# {alacritty,alacritty -e tmux new-session -A -s 'WORK'}
 
 ## open file explorer
 super + e
@@ -261,21 +219,52 @@ button2 + alt
 # XF86WakeUp
 # XF86LaunchF
 
+## focus next, prev monitor
+## alt + comma || alt + period
+# alt + {comma,period}
+# 	bspc monitor -f {next,prev}
+
+## i3 like scratchpad
+# super + u
+# 	id=$(bspc query -N -n "focused");\
+# 	bspwm-scratchpad.sh dropdown $id
+
+## tag window as sratchpad
+# super + shift + u
+# 	id=$(bspc query -N -n "focused");\
+# 	if [ -n "$id" ];then \
+# 		xprop -id $id -f _SCRATCHPAD 32ii -set _SCRATCHPAD $(date +%s,%N);\
+# 		bspc node -t "floating";\
+# 		xdotool windowunmap $id;\
+# 	fi
+# ## toggle between scratch windows
+# super + u
+# 	i=$(bspc query -N -n "focused.floating");\
+# 	if [ -n "$i" ];then \
+# 		xprop -id $i -f _SCRATCHPAD 32ii -set _SCRATCHPAD $(date +%s,%N);\
+# 		xdotool windowunmap $i;\
+# 	else;\
+# 		i=$(for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o);do \
+# 			t=$(xprop -id $w _SCRATCHPAD | grep ' = \(.*\)');\
+# 			if [ -n "$t" ];then \
+# 				echo $t $w;\
+# 			fi;\
+# 		done|sort -n|head -n1|cut -d" " -f 5);\
+# 		if [ -n "$i" ];then \
+# 			xprop -id $i -remove _SCRATCHPAD;\
+# 			bspc rule --add \* state=floating center=on --one-shot;\
+# 			xdotool windowmap $i;\
+# 			bspc node -f $i;\
+# 		fi;\
+# 	fi
+
 ## Focus next/previous desktop
 # super + {_,shift} + Tab
 # 	bspc desktop --focus {prev,next}.occupied
 
-## set the window state
-# alt + {t,shift + t,s,f}
-# 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
 ## Focus left/right occupied desktop
 # ctrl + alt + {Left,Right}
 # 	bspc desktop --focus {prev,next}.occupied
-
-## Rotate desktop
-# super + {_,shift + }r
-# 	bspc node @/ --rotate {90,-90}
 
 ## Circulate the leaves of the tree
 # super + {_,shift + }c
@@ -284,6 +273,7 @@ button2 + alt
 ## Make split ratios equal
 # super + equal
 # 	bspc node @/ --equalize
+
 ## Make split ratios balanced
 # super + minus
 # 	bspc node @/ --balance
@@ -303,12 +293,6 @@ button2 + alt
 ## Define splitting ratio for next window on leaf/parent
 # super + ctrl + {_,shift +}{1-9}
 # 	bspc node {_,@/} --presel-ratio 0.{1-9}
-
-# Navigate to older/newer window in history
-# super + {o,n}
-# 	bspc wm --record-history off; \
-# 	bspc node --focus {older,newer}; \
-# 	bspc wm --record-history on
 
 # Focus/move window to the biggest space
 # super + {_,shift + }m

@@ -15,7 +15,7 @@ bspc config automatic_scheme              longest_side
 bspc config border_width                  1
 bspc config window_gap                    4
 bspc config top_padding                   0
-bspc config bottom_padding                18
+bspc config bottom_padding                20
 bspc config left_padding                  0
 bspc config right_padding                 0
 ## monocle mode for single windows
@@ -75,11 +75,11 @@ bspc config urgent_border_color 	      "#dd2727"
 bspc config external_rules_command "$(which bspwm-external-rules.sh)"
 
 ## Send to desktop
-bspc rule --add Vmware                    desktop='5'  state=tiled follow=on
-bspc rule --add Libreoffice               desktop='6'  state=tiled follow=on
-bspc rule --add '*:soffice' state=tiled   desktop='6'  state=tiled follow=on
-bspc rule --add Hexchat                   desktop='10' state=tiled follow=on
-bspc rule --add Xchat                     desktop='10' state=tiled follow=on
+bspc rule --add Vmware                  desktop='5'  state=tiled follow=on
+bspc rule --add Libreoffice             desktop='6'  state=tiled follow=on
+bspc rule --add '*:soffice'             desktop='6'  state=tiled follow=on
+bspc rule --add Hexchat                 desktop='10' state=tiled follow=on
+bspc rule --add Xchat                   desktop='10' state=tiled follow=on
 
 ## Other floating windows
 bspc rule --add mpv                     state=floating
@@ -97,12 +97,12 @@ bspc rule --add "Syncthing GTK"         state=floating
 bspc rule --add Transmission-gt         state=floating
 
 ## Load session
-# . "$BSPWM_CONFIG/restore.cfg"
-# if [ -e "$BSPWM_STATE" ] ; then
-#     bspc wm --load-state "$BSPWM_STATE"
-#     bspc wm --adopt-orphans
-#     rm "$BSPWM_STATE"
-# fi
+. "$BSPWM_CONFIG/restore.cfg"
+if [ -e "$BSPWM_STATE" ] ; then
+    bspc wm --load-state "$BSPWM_STATE"
+    bspc wm --adopt-orphans
+    rm "$BSPWM_STATE"
+fi
 
 ##
 ## AUTOSTART

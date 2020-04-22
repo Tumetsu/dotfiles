@@ -73,20 +73,16 @@ case "$window_class" in
     [Gg]nome-calculator)
         echo "state=floating"
         ;;
-    [Ff]irefox|[Ff]irefox-esr|[Ii]ceweasel)
-        echo "state=tiled"
-        echo "desktop=3"
-        ;;
     * )
         case "$(xprop -id "$window_id" _NET_WM_WINDOW_TYPE)" in
             *_NET_WM_WINDOW_TYPE_DIALOG*|*_NET_WM_WINDOW_TYPE_SPLASH*|*_NET_WM_WINDOW_TYPE_TOOLTIP*|*_NET_WM_WINDOW_TYPE_NOTIFICATION*)
                 echo "state=floating"
                 ;;
-            ## do not remove
             ## commented out for floating windows
-            # *)
-            #     echo "state=tiled"
-            #     ;;
+            ## or they will be tiled when focused
+            *)
+                echo "state=tiled"
+                ;;
         esac
         ;;
 esac

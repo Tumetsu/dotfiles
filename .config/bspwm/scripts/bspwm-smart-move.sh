@@ -58,4 +58,3 @@ elif [ -n "$receptacle" ]; then
 else
     bspc node @/ -p "$dir" -i && bspc node -n "$receptacle" --follow
 fi
-
