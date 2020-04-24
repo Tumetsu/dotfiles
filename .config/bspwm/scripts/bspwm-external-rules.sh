@@ -53,6 +53,9 @@ echo "follow=${attention:-on}"
 # Window rules
 # ============
 
+## debug rules live
+# echo "$@" >> "$HOME"/.rules_cmd.log
+
 # Operate on windows based on their properties.  The positional
 # arguments are defined in the `external_rules_command` of `man bspc`.
 window_id="$1"
@@ -70,7 +73,7 @@ case "$window_class" in
         echo "state=floating"
         echo "center=on"
         ;;
-    [Gg]nome-calculator)
+    [Gg]nome-calculator|[Gg]picview|[Ll]xappearance)
         echo "state=floating"
         ;;
     * )

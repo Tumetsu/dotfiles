@@ -39,9 +39,9 @@ libinput-gestures-setup start &
 
 nm-applet &
 /opt/dropbox/dropboxd &
-pulseaudio --start &
+[[ ! $(pgrep -x firefox) ]] && pulseaudio --start &
+(ps -ef|grep -o "[p]ulseaudio -D") || pulseaudio -D
 start-pulseaudio-x11
-pulseaudio -k && pulseaudio -D
 blueman-applet &
 xfce4-power-manager &
 

@@ -61,7 +61,7 @@ cursor              = #f5f4f1
 cursor_foreground   = #272822
 # background          = #262626
 # terminal transparency
-background = rgba(31, 31, 31, 0.96)
+background = rgba(31, 31, 31, 0.97)
 ## 16 color space
 # Black, Gray, Silver, White
 color0  = #272822

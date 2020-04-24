@@ -141,8 +141,8 @@ super + {_, shift + }s
 	bspc desktop --swap next.active {_,--follow}
 
 ## shortcut for running applications
-alt + o ; {v,f,p,g}
-	{gvim,firefox,pavucontrol,chromium}
+alt + o ; {v,f,p,g,l}
+	{gvim,firefox,pavucontrol,chromium,lxappearance}
 
 ## Launch rofi menu
 super + d
