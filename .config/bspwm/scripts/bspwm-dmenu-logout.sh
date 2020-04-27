@@ -53,7 +53,8 @@ hibernate
 suspend
 reboot
 poweroff
-save"
+save
+lock"
 
 # Open menu
 selection=$(printf '%s' "$items" | $DMENU)
@@ -66,21 +67,26 @@ case $selection in
         logout
         ;;
     hibernate)
-        systemctl hibernate
+        ~/.config/i3/scripts/betterlockscreen.sh --lock \
+        && sudo systemctl hibernate
         ;;
     suspend)
-        systemctl suspend
+        ~/.config/i3/scripts/betterlockscreen.sh --lock \
+        && sudo systemctl suspend
         ;;
     reboot)
         logout
-        systemctl reboot
+        sudo systemctl reboot
         ;;
     halt|poweroff|shutdown)
         logout
-        systemctl poweroff
+        sudo systemctl poweroff
         ;;
     save|dump|save_state)
         dump_bspwm_state
+        ;;
+    lock)
+        ~/.config/i3/scripts/betterlockscreen.sh --lock
         ;;
 esac
 
