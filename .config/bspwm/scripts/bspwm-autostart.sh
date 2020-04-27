@@ -1,18 +1,24 @@
 #!/usr/bin/env bash
 
+_run() {
+    if ! pgrep -x "$1" &>/dev/null ; then
+        "$@" &
+    fi
+}
+
 ## detect layout automatically
 autorandr -c
 
 ## Launch keybinding daemon
-[[ ! $(pgrep -x sxhkd) ]] && sxhkd > /tmp/sxhkd.log &
+_run sxhkd > /tmp/sxhkd.log
 
 ## settings
-syndaemon -i 1 -k -R -t
+# _run syndaemon -i 1 -k -R -t
 setxkbmap -model pc105 -layout ch -variant fr -option lv3:ralt_switch
 localectl set-keymap fr_CH-latin1
 xrdb -merge ~/.Xresources
 /usr/bin/numlockx on
-xset r rate 200 50
+xset r rate 200 70
 xhost +local:
 
 ## set default volume to 30%
@@ -33,25 +39,32 @@ libinput-gestures-setup start &
 ## Applications
 ##
 
-~/.config/polybar/launch-polybar.sh &
 ##feh --bg-scale ~/Pictures/wallpaper.jpg &
 [ -f ~/.fehbg ] && ~/.fehbg &
 
-nm-applet &
-/opt/dropbox/dropboxd &
-[[ ! $(pgrep -x firefox) ]] && pulseaudio --start &
-(ps -ef|grep -o "[p]ulseaudio -D") || pulseaudio -D
+## start pulseaudio
+pulseaudio --start
+(ps -ef|grep -o "[p]ulseaudio -D") || pulseaudio -k; pulseaudio -D
 start-pulseaudio-x11
-blueman-applet &
-xfce4-power-manager &
 
-[[ ! $(pgrep -x firefox) ]] && /usr/bin/firefox &
+## launch polybar after pulseaudio
+~/.config/polybar/launch-polybar.sh &
+
+## run applets
+_run nm-applet
+_run /opt/dropbox/dropboxd
+_run blueman-applet
+_run xfce4-power-manager
+
+## always have a web browser
+_run firefox
+
+## start tmux session or join if present
 (tmux list-sessions|grep -Eo WORK) || termite -e "tmux new-session -A -s 'WORK'" &
-## make vim and tmux look pretty
 (termite -e "vim +qall!" ) &>/dev/null &
 
 ## run gnome keyring daemon
 gome-keyring-daemon --start --daemonize --components=gpg,pkcs10,secrets,ssh &
 
 ## compozitor
-picom -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible &
+_run picom -bcCGf -D 1 -I 0.05 -O 0.02 --no-fading-openclose --unredir-if-possible

@@ -15,3 +15,21 @@ case "$direction" in
     north) bspc node @south -r -"$size" || bspc node @north -r -"$size" ;;
     east)  bspc node @west  -r +"$size" || bspc node @east  -r +"$size" ;;
 esac
+
+# if [ "$motion" = 'expand' ]; then
+# 	# These expand the window's given side
+# 	case "$direction" in
+# 		north) bspc node -z top 0 -"$size" ;;
+# 		east) bspc node -z right "$size" 0 ;;
+# 		south) bspc node -z bottom 0 "$size" ;;
+# 		west) bspc node -z left -"$size" 0 ;;
+# 	esac
+# else
+# 	# These contract the window's given side
+# 	case "$direction" in
+# 		north) bspc node -z top 0 "$size" ;;
+# 		east) bspc node -z right -"$size" 0 ;;
+# 		south) bspc node -z bottom 0 -"$size" ;;
+# 		west) bspc node -z left "$size" 0 ;;
+# 	esac
+# fi

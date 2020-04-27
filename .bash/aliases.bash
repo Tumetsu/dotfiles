@@ -133,6 +133,7 @@ alias .5="cd ../../../../../"
     alias pacinst=p-install
     alias p-remove="sudo pacman -R"
     alias pacremove=p-remove
+    alias p-purge="sudo pacman -Rns"
     alias p-update="sudo pacman -Syu"
     alias pacupdate=p-update
     alias p-search="pacman -Ss"

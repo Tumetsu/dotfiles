@@ -91,19 +91,18 @@ _add_rule Hexchat                 monitor=1 desktop=10 state=tiled follow=on
 _add_rule Xchat                   monitor=1 desktop=10 state=tiled follow=on
 
 ## Other floating windows
-_add_rule mpv                     state=floating
-_add_rule Blueman-manager         state=floating
-_add_rule Shutter                 state=floating
-_add_rule Solaar                  state=floating
-_add_rule Arandr                  state=floating
-_add_rule Display                 state=floating
-_add_rule Empathy                 state=floating
-_add_rule KeePassXC               state=floating
-_add_rule mpv                     state=floating
-_add_rule Nautilus                state=floating
+_add_rule mpv                     state=floating center=on
+_add_rule Blueman-manager         state=floating center=on
+_add_rule Shutter                 state=floating center=on
+_add_rule Solaar                  state=floating center=on
+_add_rule Arandr                  state=floating center=on
+_add_rule Display                 state=floating center=on
+_add_rule Empathy                 state=floating center=on
+_add_rule KeePassXC               state=floating center=on
+_add_rule mpv                     state=floating center=on
+_add_rule Nautilus                state=floating center=on
 _add_rule Pavucontrol             state=floating center=on
-_add_rule "Syncthing GTK"         state=floating
-_add_rule Transmission-gt         state=floating
+_add_rule Transmission-gt         state=floating center=on
 
 ## Load session
 . "$BSPWM_CONFIG/restore.cfg"

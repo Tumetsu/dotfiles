@@ -58,6 +58,7 @@ control + shift + @equal
 # super + g : bracket{left,right}
 super + g : {comma,period}
 	bspc config -d focused window_gap "$(($(bspc config -d focused window_gap) {-,+} 5 ))"
+
 ## reset gaps to 4
 super + g ; minus
 	bspc config -d focused window_gap 4
@@ -106,10 +107,10 @@ super + w ; super + {_, shift + }r
 super + w ; m
 	bspwm-multifaceted-operation.sh --summon-all-marked
 
-## Set the node flags.  Locked is a node that cannot be closed with `bspc
-## node --close`.  Marked is a specific selector that allows operating on
+## Set the node flags. Locked is a node that cannot be closed with `bspc
+## node --close`. Marked is a specific selector that allows operating on
 ## the given item (such as sending the marked item to the newest
-## preselection).  Sticky stays in the focused desktop.  Private tries to
+## preselection). Sticky stays in the focused desktop. Private tries to
 ## keep its dimensions and tiling position.
 super + a ; {l,m,s,p}
 	bspc node -g {locked,marked,sticky,private}
@@ -132,7 +133,6 @@ alt + control + {Left,Down,Up,Right}
 	# bspc node --to-monitor next.\!focused
 
 ## focus next, prev monitor
-## alt + comma || alt + period
 alt + e
 	bspc monitor -f {next,prev}
 
@@ -153,6 +153,10 @@ super + d
 alt + w
 	rofi -show window -show-icons -opacity "90" -bw 1 -bc "#2f343f" -bg "#2f343f" -fg "#f3f4f5" -hlbg "#42f4aa" -hlfg "#9575cd" -font "Ubuntu 11" -theme Arc-Dark
 
+## run rofi with 1password script ~/.local/bin/rofi-1pass
+control + alt + p
+	rofi -opacity "90" -bw 1 -bc "#2f343f" -bg "#2f343f" -fg "#f3f4f5" -hlbg "#42f4aa" -hlfg "#9575cd" -font "Ubuntu 11" -theme Arc-Dark -modi 1pass:~/.local/bin/rofi-1pass -show 1pass
+
 ## Launch dmenu
 alt + d
 	j4-dmenu-desktop --display-binary --dmenu="dmenu -i" --term=termite
@@ -169,7 +173,6 @@ alt + i
 ## alt + Return | alt + shift + Return
 alt + {_,shift + } Return
 	{termite,termite -e "tmux new-session -A -s 'WORK'"}
-	# {alacritty,alacritty -e tmux new-session -A -s 'WORK'}
 
 ## open file explorer
 super + e

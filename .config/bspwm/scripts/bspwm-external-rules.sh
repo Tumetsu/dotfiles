@@ -69,7 +69,7 @@ case "$window_class" in
         echo "state=floating"
         echo "center=on"
         ;;
-    [Ee]vince|[Pp]inentry-gtk-2|[Aa]randr|*[Rr]emmina*)
+    [Ee]vince|[Pp]inentry-gtk-2|[Aa]randr|*[Rr]emmina*|[Ff]ile-roller|[Pp]iper)
         echo "state=floating"
         echo "center=on"
         ;;

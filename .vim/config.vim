@@ -184,6 +184,9 @@ endif
 colorscheme material-monokai
 set background=dark
 
+" set background transparent
+" hi Normal guibg=NONE ctermbg=NONE
+
 " change highlight color
 " hi Visual guifg=White guibg=LightBlue gui=none
 hi Visual guifg=Black guibg=LightGreen gui=none
@@ -450,5 +453,4 @@ let g:ansible_extra_keywords_highlight = 1
 let g:ansible_normal_keywords_highlight = 'Constant'
 let g:ansible_with_keywords_highlight = 'Constant'
 let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
-
 
