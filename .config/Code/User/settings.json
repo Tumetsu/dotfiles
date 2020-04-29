@@ -18,6 +18,11 @@
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
     "editor.renderWhitespace": "none",
+    "editor.largeFileOptimizations": false,
+    "editor.fontSize": 13,
+    "editor.columnSelection": false,
+    "editor.formatOnSave": true,
+    "editor.suggestSelection": "first",
     //
     // VIM CONFIG
     //
@@ -328,6 +333,8 @@
     "terminal.external.linuxExec": "termite",
     "terminal.integrated.shell.linux": "/usr/sbin/zsh",
     "terminal.integrated.scrollback": 100000,
+    "terminal.integrated.shell.osx": "/usr/sbin/zsh",
+    "terminal.integrated.copyOnSelection": true,
     //
     // TELEMETRY
     //
@@ -346,17 +353,19 @@
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.colorTheme": "Flatland Monokai",
     "workbench.colorCustomizations": {
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
+        "statusBar.background": "#5f0000",
+        "statusBar.noFolderBackground": "#5f0000",
+        "statusBar.debuggingBackground": "#5f0000"
     },
     "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "material-icon-theme",
     //
     //EXPLORER CONFIG
     //
     "explorer.autoReveal": false,
     //
     "material-icon-theme.showUpdateMessage": false,
+    "material-icon-theme.showWelcomeMessage": false,
     "extensions.ignoreRecommendations": false,
     //
     // RUST config
@@ -369,6 +378,7 @@
     "explorer.confirmDelete": false,
     "markdown-pdf.executablePath": "/usr/sbin/chromium",
     "markdown-pdf.highlightStyle": "monokai.css",
+    "markdown-pdf.breaks": true,
     "[markdown]": {
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
@@ -378,37 +388,15 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "python.pythonPath": "/usr/bin/python3",
-    "python.jediPath": "/usr/lib/python3.8/site-packages/jedi",
+    // "python.pythonPath": "/usr/bin/python3",
+    // "python.jediPath": "/usr/lib/python3.8/site-packages/jedi",
+    // "python.jediEnabled": false,
+    // "python.linting.pylintEnabled": true,
+    // "python.sortImports.path": "/usr/sbin/isort",
     "python.jediEnabled": false,
-    "python.linting.pylintEnabled": true,
-    "python.sortImports.path": "/usr/sbin/isort",
     "python.venvFolders": [
         ".venv"
     ],
-    "markdown-pdf.breaks": true,
-    "terminal.integrated.shell.osx": "/usr/sbin/zsh",
-    "terminal.integrated.copyOnSelection": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
-    },
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "editor.wordWrap": "on",
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "workbench.iconTheme": "material-icon-theme",
     "instantmarkdown.autoOpenBrowser": false,
-    "editor.formatOnSave": true,
-    "editor.suggestSelection": "first",
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    "[xml]": {
-        "editor.defaultFormatter": "fabianlauer.vs-code-xml-format"
-    },
-    "editor.largeFileOptimizations": false,
-    "editor.fontSize": 13,
-    "editor.columnSelection": false,
-    "material-icon-theme.showWelcomeMessage": false
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }

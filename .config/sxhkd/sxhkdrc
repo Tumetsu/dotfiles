@@ -3,7 +3,9 @@
 ##
 
 ## Exit bspwm OR close window
-alt + {shift + e, Escape}
+# alt + {shift + e, Escape}
+# 	{bspwm-dmenu-logout.sh,bspc node --close}
+alt + {shift + e, shift + q}
 	{bspwm-dmenu-logout.sh,bspc node --close}
 
 ## Move next,prev desktop on screen
@@ -183,8 +185,10 @@ super + shift + p
 	~/.config/polybar/launch-polybar.sh &
 
 ## reload bspwm
-alt + shift + {c,q}
-	bspc {wm -r && dunstify "bspwm" "Reloaded", quit}
+# alt + shift + {c,q}
+# 	bspc {wm -r && dunstify "bspwm" "Reloaded", quit}
+alt + shift + {c}
+	bspc {wm -r && dunstify "bspwm" "Reloaded"}
 
 ## make sxhkd reload its configuration files:
 alt + shift + r
@@ -197,19 +201,25 @@ XF86MonBrightness{Up,Down}
 
 ## Volume
 XF86Audio{Lower,Raise}Volume
-	~/.config/i3/scripts/volume.sh {-5%,+5%}
+	pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%
 
 ## Mute audio
 XF86AudioMute
-	~/.config/i3/scripts/volume.sh mute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ## Mute microphone
 XF86AudioMicMute
+	amixer set Capture toggle
+## Mute micro without XF86AudioMute key
+F12
 	amixer set Capture toggle
 
 ## Audio
 XF86Audio{Play,Prev,Next,Stop}
 	~/.config/i3/scripts/audio_manage.sh {play,previous,next,stop}
+
+XF86Calculator
+	gnome-calculator
 
 ## Mouse button2 + alt - set window to floating when
 button2 + alt
