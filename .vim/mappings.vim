@@ -272,8 +272,10 @@ nmap ga <Plug>(EasyAlign)
 "# Plugin mappings
 "########################################
 
-map <leader>T :NERDTreeToggle<CR>
-map <F4> :NERDTreeToggle<CR>
+" map <leader>T :NERDTreeToggle<CR>
+map <leader>T :Lexplore<CR>
+" map <F4> :NERDTreeToggle<CR>
+map <F4> :Lexplore<CR>
 
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <leader>U :GundoToggle<CR>

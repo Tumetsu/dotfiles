@@ -226,6 +226,10 @@ button2 + alt
 	bspc query --nodes -n focused.tiled && state=floating || state=tiled; \
 	bspc node --state \~$state
 
+## duyk macro to open Browser
+XF86HomePage
+	firefox
+
 # XF86TouchpadToggle
 # XF86RFKill
 # XF86Sleep
