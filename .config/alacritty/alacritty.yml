@@ -16,8 +16,8 @@ window:
     y: 0
 
   padding:
-    x: 0
-    y: 0
+    x: 2
+    y: 1
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -28,20 +28,19 @@ window:
   decorations: none
 
   # Window title
-  #title: Alacritty
+  title: Alacritty
 
   # Window class (Linux/BSD only):
-  #class:
+  class:
     # Application instance name
-    #instance: Alacritty
+    instance: Alacritty
     # General application class
-    #general: Alacritty
+    general: Alacritty
 
   # GTK theme variant (Linux/BSD only)
-  #
   # Override the variant of the GTK theme. Commonly supported values are `dark` and `light`.
   # Set this to `None` to use the default theme variant.
-  #gtk_theme_variant: None
+  gtk_theme_variant: None
 
 scrolling:
   history: 10000
@@ -84,8 +83,10 @@ colors:
     text: '0x000000'
     cursor: '0xffffff'
   primary:
-    background: '0x262626'
-    foreground: '0xF8F8F2'
+    background: '#191919'
+    foreground: '#d8dee9'
+    # background: '0x262626'
+    # foreground: '0xF8F8F2'
 
   # Normal colors
   normal:
@@ -147,18 +148,11 @@ shell:
 #working_directory: None
 
 mouse:
-  #double_click: { threshold: 300 }
-  #triple_click: { threshold: 300 }
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
   hide_when_typing: false
 
   url:
-    # URL launcher
-    #
-    # This program is executed when clicking on a text which is recognized as a URL.
-    # The URL is always added to the command as the last parameter.
-    #
-    # When set to `None`, URL launching will be disabled completely.
-    #
     launcher:
       program: xdg-open
       args: []

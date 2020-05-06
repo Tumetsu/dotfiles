@@ -134,7 +134,7 @@ PS1+="\[\033[1;33m\] >> \[\033[0m\]"
     export PATH=${PATH}:/home/boogy/.cargo/bin
     export PATH=${PATH}:${HOME}/.local/bin
 
-    export TERM=screen-256color
+    # export TERM=screen-256color
     export EDITOR=$(which $EDITOR)
     export VIEW=$(which $EDITOR)
 

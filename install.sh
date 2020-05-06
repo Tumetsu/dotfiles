@@ -82,12 +82,15 @@ rm ~/.vim/custom-snippets/custom-snippets
 ##
 ## Install for neovim
 ##
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 mkdir -p $HOME/.config/nvim
-ln -s $HOME/.vimrc ~/.config/nvim/init.vim
-ln -s $HOME/.vim/* ~/.config/nvim/
-vim +UpdateRemotePlugins +qall
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# ln -s $HOME/.vimrc ~/.config/nvim/init.vim
+# ln -s $HOME/.vim/* ~/.config/nvim/
+nvim +PlugInstall +qall
+nvim +UpdateRemotePlugins +qall
+nvim -c 'CocInstall -sync coc-json coc-python coc-jedi coc-snippets coc-vimlsp coc-yaml coc-json coc-go coc-explorer|q'
+pip3 install --user jedi-language-server jedi
 
 ##
 ## Install powerline fonts

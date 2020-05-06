@@ -42,7 +42,8 @@ export VIEW="$EDITOR"
 export FZF_DEFAULT_OPTS='--history-size=100000 '
 export FZF_CTRL_R_OPTS="--reverse --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-export TERM=xterm-256color
+# export TERM=xterm-256color
+# export TERM=screen-256color
 export PYTHONSTARTUP=~/.pythonrc.py
 
 # Basic auto/tab complete:

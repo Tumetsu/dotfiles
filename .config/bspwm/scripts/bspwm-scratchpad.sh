@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
-if [ -z $1 ] || [ -z $2 ]; then
-	echo "Usage: $0 <name of hidden scratchpad window> <window id>"
+if [ -z $1 ]; then
+	echo "Usage: $0 <name of hidden scratchpad window>"
 	exit 1
 fi
 
-CLASSNAME=$1
-ID=$2
-
-pids=$(xdotool search --class ${CLASSNAME})
+pids=$(xdotool search --class ${1})
 for pid in $pids; do
 	echo "Toggle $pid"
 	bspc node $pid --flag hidden -f
+    # xdotool windowunmap $pid
 done

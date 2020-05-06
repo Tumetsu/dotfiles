@@ -17,16 +17,17 @@ tray_output=${POLYBAR_PRIMARY_MONITOR}
 
 case $DESKTOP_SESSION in
     bspwm)
-    for m in $outputs; do
-        export MONITOR=$m
-        export TRAY_POSITION=none
-        if [[ ${m} == ${tray_output} ]]; then
-            TRAY_POSITION=right
-        fi
-        MONITOR=$m polybar --reload bar-bspwm -c ~/.config/polybar/config &
-    done
-    ;;
+        for m in $outputs; do
+            export MONITOR=$m
+            export TRAY_POSITION=none
+            if [[ ${m} == ${tray_output} ]]; then
+                TRAY_POSITION=right
+                # MONITOR=$m polybar --reload bar-bspwm -c ~/.config/polybar/config &
+            fi
+            MONITOR=$m polybar --reload bar-bspwm -c ~/.config/polybar/config &
+        done
+        ;;
     i3)
         polybar --reload bar-i3 -c ~/.config/polybar/config &
-    ;;
+        ;;
 esac

@@ -22,9 +22,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 _query_nodes() {
-	for i in $(bspc query -N -n "$1"); do
-		bspc node "$i" "${@:2}"
-	done
+  for i in $(bspc query -N -n "$1"); do
+    bspc node "$i" "${@:2}"
+  done
 }
 
 ## Mnemonics for shorter options:
@@ -32,30 +32,30 @@ _query_nodes() {
 ## n* == nodes
 ## d* == desktops
 case "$1" in
-	--rk|--kill-all-receptacles)
-		_query_nodes '.leaf.!window' -k
-		;;
-	--nca|--close-all-local-non-focused)
-		_query_nodes '.!focused.!marked.local.window' -c
-		;;
-	--nka|--kill-all-local-non-focused)
-		_query_nodes '.!focused.!marked.local.window' -k
-		;;
-	--nla|--lock-all-local)
-		_query_nodes '.local.window' -g locked=on
-		;;
-	--nula|--unlock-all-local)
-		_query_nodes '.local.window' -g locked=off
-		;;
-	--nms|--summon-all-marked)
-		_query_nodes '.marked' -d focused --follow
-		;;
-	--db|--bring-desktop-here)
-		for i in $(bspc query -N -d "$2" -n '.window'); do
-			bspc node "$i" -d 'focused.focused'
-		done
-		;;
-	--ds|--send-desktop-there)
+  --rk|--kill-all-receptacles)
+    _query_nodes '.leaf.!window' -k
+    ;;
+  --nca|--close-all-local-non-focused)
+    _query_nodes '.!focused.!marked.local.window' -c
+    ;;
+  --nka|--kill-all-local-non-focused)
+    _query_nodes '.!focused.!marked.local.window' -k
+    ;;
+  --nla|--lock-all-local)
+    _query_nodes '.local.window' -g locked=on
+    ;;
+  --nula|--unlock-all-local)
+    _query_nodes '.local.window' -g locked=off
+    ;;
+  --nms|--summon-all-marked)
+    _query_nodes '.marked' -d focused --follow
+    ;;
+  --db|--bring-desktop-here)
+    for i in $(bspc query -N -d "$2" -n '.window'); do
+      bspc node "$i" -d 'focused.focused'
+    done
+    ;;
+  --ds|--send-desktop-there)
         bspc node -f @/ ; bspc node -d "$2"
-		;;
+    ;;
 esac

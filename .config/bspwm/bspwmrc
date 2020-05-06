@@ -55,12 +55,12 @@ _bc pointer_action3 resize_corner
 ##
 ## BSPWM Colors
 ##
-# _bc focused_border_color	      "#5e81ac"
-_bc normal_border_color		      "#4c566a"
-_bc active_border_color	          "#1e1e1e"
-_bc focused_border_color	      "#00ff00"
-_bc presel_feedback_color	      "#5e81ac"
-_bc urgent_border_color 	      "#dd2727"
+# _bc focused_border_color	"#5e81ac"
+_bc normal_border_color		"#4c566a"
+_bc active_border_color	    "#1e1e1e"
+_bc focused_border_color	"#00ff00"
+_bc presel_feedback_color	"#5e81ac"
+_bc urgent_border_color 	"#dd2727"
 
 ##
 ## BSPWM monitors
@@ -69,16 +69,6 @@ _bc urgent_border_color 	      "#dd2727"
 
 ## Use monocle layout on desktop 1
 # _bc '^1' --layout monocle
-
-# Make windows float on specific desktops
-# https://github.com/baskerville/bspwm/issues/325
-# bspc subscribe node_manage | while read event monitor desktop nodeid ipid; do
-#     case "$desktop" in
-#         www|play|6|virt|7|9)
-#             bspc node "$nodeid" --state floating
-#             ;;
-#     esac
-# done &
 
 ## Script for external rules
 _bc external_rules_command "$(which bspwm-external-rules.sh)"
@@ -116,3 +106,4 @@ fi
 ## AUTOSTART
 ##
 "$(which bspwm-autostart.sh)" &
+

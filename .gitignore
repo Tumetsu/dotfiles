@@ -10,13 +10,17 @@
 *.swap
 __pycache__
 
-## VIM
+## VIM / NVIM
 .vim/plugged/*
 .vim/autoload/*
 .vim/.netrwhist
 .vim/spell
 .vim/view
 .config/vifm/vifminfo
+.config/nvim/autoload/*
+!.config/nvim/autoload/plug.vim
+.config/nvim/plugged/*
+.config/nvim/.netrwhist
 
 copyright.pandoc
 pandoc

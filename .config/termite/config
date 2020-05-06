@@ -60,9 +60,10 @@ foreground_bold     = #f5f4f1
 cursor              = #f5f4f1
 cursor_foreground   = #272822
 # background          = #262626
+# background          = #282C34
 # terminal transparency
-background = rgba(32, 32, 32, 0.97)
-# background = rgba(26, 26, 26, 0.97)
+# background = rgba(32, 32, 32, 0.97)
+background = rgba(26, 26, 26, 0.96)
 
 ## 16 color space
 # Black, Gray, Silver, White

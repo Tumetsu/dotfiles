@@ -81,10 +81,10 @@ case "$window_class" in
             *_NET_WM_WINDOW_TYPE_DIALOG*|*_NET_WM_WINDOW_TYPE_SPLASH*|*_NET_WM_WINDOW_TYPE_TOOLTIP*|*_NET_WM_WINDOW_TYPE_NOTIFICATION*)
                 echo "state=floating"
                 ;;
-            ## commented out for floating windows
-            ## or they will be tiled when focused
             *)
-                echo "state=tiled"
+                ## commented out for floating windows
+                ## or they will be tiled when focused
+                # echo "state=tiled"
                 ;;
         esac
         ;;

@@ -79,7 +79,6 @@ locale = fr_CH.UTF-8
 ;###############################################################
 [bar/bar-bspwm]
 monitor = ${env:MONITOR:DP1-2}
-; monitor = ${env:POLYBAR_PRIMARY_MONITOR:DP1-2}
 monitor-strict = false
 bottom = true
 
@@ -129,6 +128,9 @@ modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan vpn et
 wm-restack = bspwm
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
+; scroll-up = bspc desktop -f prev.local
+; scroll-down = bspc desktop -f next.local
+
 locale = fr_CH.UTF-8
 
 ;###############################################################
@@ -176,6 +178,19 @@ type = internal/bspwm
 pin-workspaces = true
 strip-wsnumbers = false
 
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+
+; Output mode flags after focused state label
+; Default: false
+inline-mode = false
+
+; Use fuzzy (partial) matching on labels when assigning
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces
+; containing 'code' in the label
+; Default: false
 fuzzy-match = false
 index-sort = true
 
@@ -213,6 +228,11 @@ label-sticky = S
 label-private = Pr
 ; label-private-foreground = #bd2c40
 label-marked = M
+
+; Separator in between workspaces
+; label-separator = 
+label-separator-padding = 2
+label-separator-foreground = #ffb52a
 
 ws-icon-0 = 0; 
 ws-icon-1 = 1; 
