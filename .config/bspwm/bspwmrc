@@ -56,11 +56,11 @@ _bc pointer_action3 resize_corner
 ## BSPWM Colors
 ##
 # _bc focused_border_color	"#5e81ac"
-_bc normal_border_color		"#4c566a"
-_bc active_border_color	    "#1e1e1e"
-_bc focused_border_color	"#00ff00"
-_bc presel_feedback_color	"#5e81ac"
-_bc urgent_border_color 	"#dd2727"
+_bc normal_border_color		 "#4c566a"
+_bc active_border_color	   "#1e1e1e"
+_bc focused_border_color	 "#00ff00"
+_bc presel_feedback_color	 "#5e81ac"
+_bc urgent_border_color 	 "#dd2727"
 
 ##
 ## BSPWM monitors
