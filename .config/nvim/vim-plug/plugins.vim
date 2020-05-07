@@ -8,12 +8,13 @@ endif
 
 call plug#begin('~/.config/nvim/autoload/plugged')
 
-    " surround text with shortcuts
+    " Most have plugins
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-git'          , { 'on': [] }
-    Plug 'airblade/vim-gitgutter' , { 'on': [] }
-    " Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-git'
+    Plug 'tpope/vim-commentary'
+    Plug 'airblade/vim-gitgutter'
+
     " Better Syntax Support
     Plug 'sheerun/vim-polyglot'
 
@@ -24,12 +25,16 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jiangmiao/auto-pairs'
     " code snippets
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-    " make tmux look nice
-    Plug 'tpope/vim-commentary'
-    Plug 'edkolev/tmuxline.vim'
-    " add some colors to the neovim window
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+
+    " Make tmux look nice like arline or lightline
+    " Plug 'edkolev/tmuxline.vim'
+
+    " Airline with themes
+    " Plug 'vim-airline/vim-airline'
+    " Plug 'vim-airline/vim-airline-themes'
+
+    " Replace vim-airline with a lighter equivalent
+    Plug 'itchyny/lightline.vim'
 
     " List files in directory in vim
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -52,14 +57,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Plug 'jmcantrell/vim-virtualenv'    , { 'for': 'python' }
     " Plug 'vim-scripts/python_match.vim' , { 'for': 'python' }
 
-    " Nodejs plugins
-    " Plug 'moll/vim-node'                , { 'for': 'javascript'}
-    " Plug 'jelera/vim-javascript-syntax' , { 'for': 'javascript'}
-    " Plug 'myhere/vim-nodejs-complete'   , { 'for': 'javascript'}
-    " Plug 'jamescarr/snipmate-nodejs'    , { 'for': 'javascript'}
-
     " Programming plugins
-    Plug 'fatih/vim-go'            , { 'for': 'go'                                          }
+    Plug 'fatih/vim-go'            , { 'for': 'go', 'do': ':GoUpdateBinaries'               }
     Plug 'rust-lang/rust.vim'      , { 'for': ['rust'      , 'rs']                          }
     Plug 'racer-rust/vim-racer'    , { 'for': ['rust'      , 'rs']                          }
     " Markdown
@@ -81,13 +80,13 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 call plug#end()
 
 " Load plugins on insert
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load(
-              \'vim-git', 'vim-gitgutter'
-              \)
-                     \| autocmd! load_us_ycm
-augroup END
+" augroup load_us_ycm
+"   autocmd!
+"   autocmd InsertEnter * call plug#load(
+"               \'vim-git', 'vim-gitgutter'
+"               \)
+"                      \| autocmd! load_us_ycm
+" augroup END
 
 " Automatically install missing plugins on startup
 " autocmd VimEnter *

@@ -29,6 +29,15 @@ setopt HIST_REDUCE_BLANKS          # Remove superfluous blanks before recording 
 setopt PUSHD_IGNORE_DUPS           # Don't push multiple copies of the same directory onto the directory stack
 setopt COMPLETE_ALIASES
 
+## Use colors in man pages
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
 ## disable the XON/XOFF tty flow feature [ctrl-S|ctrl-Q]
 stty -ixon
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

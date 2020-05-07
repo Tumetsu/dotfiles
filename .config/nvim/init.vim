@@ -21,7 +21,6 @@ source $HOME/.config/nvim/plug-config/goyo.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
 
 " Themes
-" source $HOME/.config/nvim/themes/onedark.vim
 source $HOME/.config/nvim/themes/material-monokai.vim
-source $HOME/.config/nvim/themes/airline.vim
+source $HOME/.config/nvim/themes/lightline.vim
 
