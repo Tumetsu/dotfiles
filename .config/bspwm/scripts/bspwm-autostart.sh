@@ -62,7 +62,7 @@ _run firefox
 
 ## start tmux session or join if present
 (tmux list-sessions|grep -Eo WORK) || termite -e "tmux new-session -A -s 'WORK'" &
-(termite -e "vim +qall!" ) &>/dev/null &
+# (termite -e "vim +qall!" ) &>/dev/null &
 
 ## run gnome keyring daemon
 gome-keyring-daemon --start --daemonize --components=gpg,pkcs10,secrets,ssh &

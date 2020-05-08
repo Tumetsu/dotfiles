@@ -26,13 +26,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " code snippets
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-    " Make tmux look nice like arline or lightline
-    " Plug 'edkolev/tmuxline.vim'
-
-    " Airline with themes
-    " Plug 'vim-airline/vim-airline'
-    " Plug 'vim-airline/vim-airline-themes'
-
     " Replace vim-airline with a lighter equivalent
     Plug 'itchyny/lightline.vim'
 
