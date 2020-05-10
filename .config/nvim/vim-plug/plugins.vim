@@ -17,6 +17,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " Better Syntax Support
     Plug 'sheerun/vim-polyglot'
+    Plug 'terryma/vim-multiple-cursors'
 
     " File Explorer
     Plug 'scrooloose/nerdtree' , { 'on': 'NERDTreeToggle' }
@@ -60,6 +61,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'PProvost/vim-ps1'        , { 'for': ['ps1'       , 'powershell'         , 'psm1'] }
     Plug 'ekalinin/Dockerfile.vim' , { 'for': ['docker'    , 'Dockerfile']                  }
     Plug 'pearofducks/ansible-vim' , { 'for': ['yaml', 'yml']                               }
+
     " FZF magic
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
@@ -69,6 +71,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " Ranger in vim
     Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+    Plug 'jpalardy/vim-slime'
 
 call plug#end()
 

@@ -19,6 +19,8 @@ source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/vim-hexokinase.vim
 source $HOME/.config/nvim/plug-config/goyo.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
+source $HOME/.config/nvim/plug-config/vim-slime.vim
+source $HOME/.config/nvim/plug-config/vim-multiline-cursors.vim
 
 " Themes
 source $HOME/.config/nvim/themes/material-monokai.vim

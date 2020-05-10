@@ -9,6 +9,9 @@
 !.gdbinit
 *.swap
 __pycache__
+Pipefile.lock
+Pipefile
+.venv
 
 ## VIM / NVIM
 .vim/plugged/*

@@ -13,7 +13,6 @@ augroup END
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
-
 " Add the proper PEP8 indentation
 au BufRead,BufNewFile *.py
     \ set tabstop=4 |

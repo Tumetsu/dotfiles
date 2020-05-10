@@ -22,7 +22,6 @@ case $DESKTOP_SESSION in
             export TRAY_POSITION=none
             if [[ ${m} == ${tray_output} ]]; then
                 TRAY_POSITION=right
-                # MONITOR=$m polybar --reload bar-bspwm -c ~/.config/polybar/config &
             fi
             MONITOR=$m polybar --reload bar-bspwm -c ~/.config/polybar/config &
         done

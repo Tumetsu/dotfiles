@@ -50,7 +50,7 @@ font-2 = siji:pixelsize=9;1
 font-3 = "Font Awesome 5 Free:style=Solid:size=9;1:pixelsize=10"
 font-4 = "Font Awesome 5 Brands:style=Solid:size=9;1:pixelsize=10"
 font-5 = "Ubuntu Mono derivative Powerline:size=9;1"
-font-6 = "Ubuntu Mono derivative Powerline:size=8;1"
+font-6 = "NotoEmoji Nerd Font:style=Book:size=10"
 
 modules-left = i3
 ; modules-center = bitcoin litecoin ethereum
@@ -120,7 +120,7 @@ font-2 = siji:pixelsize=9;1
 font-3 = "Font Awesome 5 Free:style=Solid:size=9;1:pixelsize=10"
 font-4 = "Font Awesome 5 Brands:style=Solid:size=9;1:pixelsize=10"
 font-5 = "Ubuntu Mono derivative Powerline:size=9;1"
-font-6 = "Ubuntu Mono derivative Powerline:size=8;1"
+font-6 = "NotoEmoji Nerd Font:style=Book:size=10"
 
 modules-left = bspwm
 modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan vpn eth battery date
@@ -194,20 +194,20 @@ inline-mode = false
 fuzzy-match = false
 index-sort = true
 
-label-focused = %{T4}%index%%icon%%{T-}
+label-focused = %{T4}%name%%icon%%{T-}
 label-focused-background = ${colors.background-alt}
 ## color for mode menus
 label-focused-underline= ${colors.primary2}
 label-focused-padding = 2
 
-label-occupied = %{T4}%index%%icon%%{T-}
+label-occupied = %{T4}%name%%icon%%{T-}
 label-occupied-padding = 2
 
-label-urgent = %{T4}%index%%icon%%{T-}!
+label-urgent = %{T4}%name%%icon%%{T-}!
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %index%%icon%
+label-empty = %name%%icon%
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 

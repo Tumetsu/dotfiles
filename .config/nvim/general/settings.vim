@@ -17,8 +17,9 @@ set splitbelow                          " Horizontal splits will automatically b
 set splitright                          " Vertical splits will automatically be to the right
 set t_Co=256                            " Support 256 colors
 set conceallevel=0                      " So that I can see `` in markdown files
-set tabstop=2                           " Insert 2 spaces for a tab
-set shiftwidth=2                        " Change the number of space characters inserted for indentation
+set tabstop=4                           " Insert 2 spaces for a tab
+set softtabstop=4                       " Nb of spaces that Tab counts for while performing edit operations
+set shiftwidth=4                        " Change the number of space characters inserted for indentation
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set expandtab                           " Converts tabs to spaces
 set smartindent                         " Makes indenting smart
@@ -42,6 +43,8 @@ set ignorecase                          " Ignore case when searching
 set smartcase                           " When searching try to be smart about cases
 set incsearch                           " Makes search act like search in modern browsers
 set showmatch                           " Show matching brackets when text indicator is over them
+set backspace=eol,start,indent          " Configure backspace so it acts as it should
+set lazyredraw                          " Don't redraw while executing macros (better performance config)
 
 " timeout or commentary is not working properly
 set ttimeout

@@ -8,8 +8,8 @@ let g:ansible_template_syntaxes = { '*.rb.j2': 'ruby' }
 
 au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */playbooks/*.yaml set filetype=yaml.ansible
-au BufRead,BufNewFile */grc-ansible/*.yml set filetype=yaml.ansible
-au BufRead,BufNewFile */grc-ansible/*.yaml set filetype=yaml.ansible
+au BufRead,BufNewFile */*-ansible/*.yml set filetype=yaml.ansible
+au BufRead,BufNewFile */*-ansible/*.yaml set filetype=yaml.ansible
 au BufRead,BufNewFile */hosts_playbooks/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */hosts_playbooks/*.yaml set filetype=yaml.ansible
 
