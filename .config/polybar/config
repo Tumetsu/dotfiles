@@ -51,6 +51,7 @@ font-3 = "Font Awesome 5 Free:style=Solid:size=9;1:pixelsize=10"
 font-4 = "Font Awesome 5 Brands:style=Solid:size=9;1:pixelsize=10"
 font-5 = "Ubuntu Mono derivative Powerline:size=9;1"
 font-6 = "NotoEmoji Nerd Font:style=Book:size=10"
+font-7 = "Noto Color Emoji:style=Regular:size=10"
 
 modules-left = i3
 ; modules-center = bitcoin litecoin ethereum
@@ -117,10 +118,11 @@ module-margin-right = 1
 font-0 = fixed:pixelsize=9;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=9;1
-font-3 = "Font Awesome 5 Free:style=Solid:size=9;1:pixelsize=10"
-font-4 = "Font Awesome 5 Brands:style=Solid:size=9;1:pixelsize=10"
-font-5 = "Ubuntu Mono derivative Powerline:size=9;1"
-font-6 = "NotoEmoji Nerd Font:style=Book:size=10"
+font-3 = Font Awesome 5 Free:style=Solid:size=9;1:pixelsize=10
+font-4 = Font Awesome 5 Brands:style=Solid:size=9;1:pixelsize=10
+font-5 = Ubuntu Mono derivative Powerline:size=9;1
+font-6 = NotoEmoji Nerd Font:style=Book:size=10
+font-7 = Noto Color Emoji:style=Regular:size=10
 
 modules-left = bspwm
 modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan vpn eth battery date
@@ -610,7 +612,7 @@ type = internal/pulseaudio
 use-ui-max = true
 interval = 5
 format-volume = %{A3:pavucontrol &:}<label-volume> <ramp-volume> <bar-volume>%{A}
-label-muted = %{T5}%{T-} 0%
+label-muted = %{T5}%{T-} 0%
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
 bar-volume-foreground-1 = #55aa55
@@ -628,9 +630,9 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
-ramp-volume-0 = 🔈
-ramp-volume-1 = 🔉
-ramp-volume-2 = 🔊
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
 
 
 ;###############################################################
