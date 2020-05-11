@@ -89,7 +89,7 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 # ln -s $HOME/.vim/* ~/.config/nvim/
 nvim +PlugInstall +qall
 nvim +UpdateRemotePlugins +qall
-nvim -c 'CocInstall -sync coc-json coc-python coc-jedi coc-snippets coc-vimlsp coc-yaml coc-json coc-go coc-explorer|q'
+nvim -c 'CocInstall -sync coc-json coc-python coc-rls coc-snippets coc-vimlsp coc-yaml coc-json coc-go coc-explorer|q'
 pip3 install --user jedi-language-server jedi
 
 ##

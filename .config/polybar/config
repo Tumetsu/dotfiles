@@ -205,7 +205,7 @@ label-focused-padding = 2
 label-occupied = %{T4}%name%%icon%%{T-}
 label-occupied-padding = 2
 
-label-urgent = %{T4}%name%%icon%%{T-}!
+label-urgent = %{T4}%name%%icon%%{T-} 
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 

@@ -12,10 +12,11 @@ let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'lightline_hunks','readonly', 'absolutepath', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype', 'coc_status' ] ]
       \ },
       \ 'component_function': {
       \   'lightline_hunks': 'LightLineHunksComposer',
+      \   'coc_status': 'coc#status'
       \ },
       \ }
 
@@ -34,6 +35,9 @@ let g:lightline.subseparator = {
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
+
+" COC status force lightline update
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 
 " Show git hunk symbols in lightline
