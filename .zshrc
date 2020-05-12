@@ -55,6 +55,9 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 # export TERM=screen-256color
 export PYTHONSTARTUP=~/.pythonrc.py
 
+## bspwm java applications problem
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # Basic auto/tab complete:
 autoload -Uz compinit
 zstyle ':completion:*' menu select
