@@ -6,41 +6,47 @@ _run() {
     fi
 }
 
-## detect layout automatically
+## detect screen layout automatically
 autorandr -c
 
-## Launch keybinding daemon
-_run sxhkd > /tmp/sxhkd.log
-
+##
 ## settings
-# _run syndaemon -i 1 -k -R -t
-setxkbmap -model pc105 -layout ch -variant fr -option lv3:ralt_switch
+##
+
+## set keyboard layout (also in: /etc/X11/xorg.conf.d/00-keyboard.conf)
+## generate X11 config file with
+## localectl [--no-convert] set-x11-keymap layout [model [variant [options]]]
+## localectl --no-convert set-x11-keymap fr pc105 ,ch grp:alt_shift_toggle
+# setxkbmap -model pc105 -layout ch -variant fr -option lv3:ralt_switch
+# setxkbmap -model pc105 -layout ch -variant fr -option grp:alt_shift_toggle
 localectl set-keymap fr_CH-latin1
+
 xrdb -merge ~/.Xresources
 /usr/bin/numlockx on
 xset r rate 200 70
 xhost +local:
 
-## set default volume to 30%
-#amixer -q sset Master 30%
+## Launch keybinding daemon after setting the keyboard layout
+_run sxhkd > /tmp/sxhkd.log
 
 ## Caps Lock is Espace key
 # xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 # xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
-## set proper cursor
+## set proper cursor (bspwm)
 xsetroot -cursor_name left_ptr &
 
-## pad gestures
+## add mousepad gestures
 libinput-gestures-setup start &
 
 ## set speed and other options for peripherals
 ~/.config/i3/scripts/xinput-config.sh &
+
 ##
 ## Applications
 ##
 
-##feh --bg-scale ~/Pictures/wallpaper.jpg &
+## set wallpaper from last feh image
 [ -f ~/.fehbg ] && ~/.fehbg &
 
 ## start pulseaudio
