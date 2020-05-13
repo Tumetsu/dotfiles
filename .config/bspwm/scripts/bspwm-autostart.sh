@@ -15,11 +15,11 @@ autorandr -c
 
 ## set keyboard layout (also in: /etc/X11/xorg.conf.d/00-keyboard.conf)
 ## generate X11 config file with
-## localectl [--no-convert] set-x11-keymap layout [model [variant [options]]]
-## localectl --no-convert set-x11-keymap fr pc105 ,ch grp:alt_shift_toggle
+## localectl --no-convert set-x11-keymap layout [model [variant [options]]]
+## localectl --no-convert set-x11-keymap ch     pc105   fr      lv3:ralt_switch
+
 # setxkbmap -model pc105 -layout ch -variant fr -option lv3:ralt_switch
-# setxkbmap -model pc105 -layout ch -variant fr -option grp:alt_shift_toggle
-localectl set-keymap fr_CH-latin1
+# localectl set-keymap fr_CH-latin1
 
 xrdb -merge ~/.Xresources
 /usr/bin/numlockx on
@@ -27,7 +27,7 @@ xset r rate 200 70
 xhost +local:
 
 ## Launch keybinding daemon after setting the keyboard layout
-_run sxhkd > /tmp/sxhkd.log
+_run sxhkd -m -1 > /tmp/sxhkd.log
 
 ## Caps Lock is Espace key
 # xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
