@@ -60,6 +60,10 @@ alias vm-conf="$EDITOR ~/.vim/mappings.vim"
 alias i3-conf="$EDITOR ~/.config/i3/config"
 alias polybar-conf="$EDITOR ~/.config/i3/polybar_config"
 
+command -v -p rg &>/dev/null && {
+    alias rg='rg --hidden'
+}
+
 ##
 ## safety features
 ##

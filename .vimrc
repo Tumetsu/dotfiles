@@ -22,7 +22,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
