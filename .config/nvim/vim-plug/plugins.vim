@@ -73,6 +73,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
     Plug 'jpalardy/vim-slime'
 
+    Plug 'voldikss/vim-floaterm'
+    Plug 'liuchengxu/vim-which-key'
+
 call plug#end()
 
 " Load plugins on insert

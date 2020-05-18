@@ -56,8 +56,8 @@ vnoremap <leader>L y:execute @@<cr>
 nnoremap <leader>L ^vg_y:execute @@<cr>
 
 " open terminal
-nnoremap <leader>Tv :vsplit term://zsh<cr><C-w>r<cr>i<cr>
-nnoremap <leader>Th :split term://zsh<cr>i<cr>
+" nnoremap <leader>Tv :vsplit term://zsh<cr><C-w>r<cr>i<cr>
+" nnoremap <leader>Th :split term://zsh<cr>i<cr>
 
 " Fast saving / quiting / cpying / pasting
 nnoremap <leader>e :bd!<cr>

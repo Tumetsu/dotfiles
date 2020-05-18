@@ -21,6 +21,9 @@ source $HOME/.config/nvim/plug-config/goyo.vim
 source $HOME/.config/nvim/plug-config/rnvimr.vim
 source $HOME/.config/nvim/plug-config/vim-slime.vim
 source $HOME/.config/nvim/plug-config/vim-multiline-cursors.vim
+source $HOME/.config/nvim/plug-config/coc-snippets.vim
+source $HOME/.config/nvim/plug-config/floaterm.vim
+source $HOME/.config/nvim/plug-config/which-key.vim
 
 " Themes
 source $HOME/.config/nvim/themes/material-monokai.vim
