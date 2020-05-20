@@ -8,6 +8,16 @@ _add_rule() {
     bspc rule -a "$@"
 }
 
+_subscribe_to_actions(){
+    local _script_running=$(ps -ef|grep "\./[b]spwm-subscribe-actions.sh")
+
+    [[ ! -z $_script_running ]] && {
+        kill -9 $_script_running
+    } || {
+        $(which bspwm-subscribe-actions.sh)
+    }
+}
+
 ## Remove all the rules before loading
 bspc rule -r "*"
 
@@ -101,6 +111,11 @@ if [ -e "$BSPWM_STATE" ] ; then
     bspc wm --adopt-orphans
     rm "$BSPWM_STATE"
 fi
+
+##
+## SUBSCRIPTIONS
+##
+"_subscribe_to_actions"
 
 ##
 ## AUTOSTART

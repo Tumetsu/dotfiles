@@ -124,7 +124,8 @@ font-5 = Ubuntu Mono derivative Powerline:size=9;1
 font-6 = NotoEmoji Nerd Font:style=Book:size=10
 font-7 = Noto Color Emoji:style=Regular:size=10
 
-modules-left = bspwm
+modules-left = bspwm bspwm-monocle-nb-windows
+; modules-center = bspwm-monocle-nb-windows
 modules-right = powermenu xbacklight pulseaudio bluetooth memory cpu wlan vpn eth battery date
 
 wm-restack = bspwm
@@ -826,6 +827,26 @@ format-underline = #268bd2
 ; format-underline = #f90000
 format-prefix-foreground = ${colors.foreground}
 exec = ~/.config/i3/scripts/crypto_prices.py ltcusd
+
+; [module/bspwm-monocle-nb-windows]
+; type = custom/script
+; interval = 2
+; format = <label>
+; format-prefix = " "
+; tail = true
+; format-underline = #268bd2
+; ; format-underline = #f90000
+; format-prefix-foreground = ${colors.foreground}
+; exec-if = [[ $(bspc query -T -d|jq -r .layout) == "monocle" ]]
+; ; exec-if = [[ $(bspc query -T -d | jq ".|select(.id == $(printf '%d' $(bspc query -D -d))).layout"|tr -d '"') == "monocle" ]]
+; exec = ~/.config/bspwm/scripts/bspwm-show-nb-of-windows.sh
+
+[module/bspwm-monocle-nb-windows]
+type = custom/ipc
+hook-0 = ~/.config/bspwm/scripts/bspwm-show-nb-of-windows.sh
+hook-1 = echo ""
+format-prefix = " "
+initial = 1
 
 
 ;###############################################################
